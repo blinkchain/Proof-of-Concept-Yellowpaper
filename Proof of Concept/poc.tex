@@ -1,0 +1,158 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper , top=25mm, right=27mm,left=27mm, bottom=30mm]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{subfiles} % subtex files package
+\usepackage{graphicx} %figures and images
+\graphicspath{{assets/images/}} % file path for images
+\usepackage{blindtext} % for blind text
+\usepackage{float}% float package
+\usepackage{enumitem} % for enumerate & itemize
+\usepackage{amsmath} % for math and equations
+\usepackage{tabularx} % tables
+\usepackage{adjustbox} %to adjust boxed content
+\usepackage{tikz} % for tikz picture, graphs, etc
+\usepackage{pgfplots} % normal/logarithmic plots in two and three dimensions
+\usepackage{pgf-pie}  % pie-charts
+\usepgfplotslibrary{external} % pgfplots libraries
+\usepackage[edges]{forest}  % for classification trees
+\usetikzlibrary{shapes.geometric} % shapes tikz 
+\usetikzlibrary{arrows.meta,arrows} % arrows for trees 
+\usepackage{ragged2e} %justify
+\usepackage{multicol} %multicolumn
+\usepackage{blindtext} %random text
+\usepackage{xurl}
+%\usepackage{draftwatermark}
+%\SetWatermarkText{Auguth Tech Pvt Ltd ``CONFIDENTIAL"}
+%\SetWatermarkScale{1.6}
+\hypersetup{
+	colorlinks = true,
+	linkcolor = blue,
+	urlcolor = purple,
+	citecolor = red,
+    pdftitle={Blinkchain - Proof of Concept},
+    pdfsubject={blockchain},
+    pdfkeywords={blockchain, bitcoin, cryptocurrency,blinkchain,proofofspeed,projectblink,blink},
+    bookmarksnumbered=true,
+    bookmarksopen=true,
+    bookmarksopenlevel=1,
+    pdfstartview=Fit,
+    pdfpagemode=UseOutlines,
+    pdfpagelayout=TwoPageRight
+}
+
+\definecolor{category1}{RGB}{141,211,199}
+\definecolor{category2}{RGB}{255,255,179}
+\definecolor{category3}{RGB}{190,186,218}
+\definecolor{category4}{RGB}{251,128,114}
+\definecolor{category5}{RGB}{128,177,211}
+\definecolor{category6}{RGB}{253,180,98}
+\definecolor{category7}{RGB}{179,222,105}
+\definecolor{category8}{RGB}{252,205,229}
+\definecolor{category9}{RGB}{204,235,197}
+\definecolor{category10}{RGB}{179,205,227}
+
+
+
+\title{
+
+\centering
+\includegraphics[width=6.5cm]{logo}\\
+\vspace{5mm}
+Blinkchain - Proof of Concept\\
+\vspace{2mm}
+\footnotesize{\url{https://blinkchain.org}}\\
+\vspace{3mm}
+\small{[WORKING-DRAFT]}}
+\date{\vspace{-5ex}}
+\begin{document}
+
+\maketitle
+
+\section{Objectives}
+
+\begin{enumerate}
+\item Whitepaper Section \& Level
+\begin{itemize}
+\item Chain - Ledger,Consensus and Core Implementations
+\item Script - UTXO scripts/proofs construction and attesting
+\item OffChain - Client Side construction/propagation
+\item Node - Validation, Ledger Outlook \& Parameter construction
+\end{itemize}
+\item Process, Algorithm and Mathmatical Data
+\item Existing Implementations and Documentation References
+\item Viability and Feasibility of Development Notes
+\item Technical Challenges and Issues
+\item Non-Technical Challenges and Issues
+\item Alternatives Offered and Outcome
+\end{enumerate}
+
+\section{Time Architecture (Chain [2.1])}
+
+\begin{itemize}
+\item The Time Architecture in Blinkchain is segregated into Epoch = 10,000 blocks; Slot = 400 blocks ; Packet = 1 block.
+\item These time frames are not correlated to the ledger, as it only knows block heights. It is only taken in the following area
+\begin{itemize}
+\item Election conducted every epoch (10,000 blocks)
+\item Announcing Leaders for every Epochs, Slots and Packets
+\item Taking Variable Data to form constraints in the consensus e.g., Total Volume in an Epoch, Each individual block time in an epoch/slot, etc
+\end{itemize}
+\item Cardano, a UTXO based blockchain uses these timeframes, thus it is implemented and running \url{https://developers.cardano.org/docs/stake-pool-course/introduction-to-cardano/#slots-and-epochs}
+\item Its feasibility is proved with previous implementations and it does not affects or changes consensus protocols. As block heights are only taken for constraints, these time frames - Epoch, Slots and Packets are quasi and can be much more human readable. There are no alternatives, and the outcome can be achieved seamlessly.
+\end{itemize}
+
+\section{Epoch Election}
+
+\subsection{Bandwidth Proofs}
+
+\subsubsection{Creating Proof (Node)}
+
+\subsubsection{Attesting Proof (Script)}
+
+\subsubsection{Selection of Proof (Node)}
+
+\subsection{Vote of Confidence (Removal of Nodes)}
+
+\subsubsection{Selection of Un-fit Nodes (Node)}
+
+\subsubsection{Participation by Voting (Script)}
+
+\subsubsection{Elimination \& Result (Chain)}
+
+\subsection{Producer Arrival}
+
+\subsubsection{Repeated (Bandwidth Proof)}
+
+\subsubsection{Selection of Proofs (Node)}
+
+\subsubsection{Contestant Results (Chain)}
+
+\subsection{Allocation of Leaders}
+
+
+\subsection{Collateralization}
+
+\subsection{Block Size \& Time}
+
+\subsubsection{Proof Selection (Node)}
+\subsubsection{Block Size per sec Fixing (Chain)}
+\subsubsection{Block Time Fixing (Chain)}
+\subsubsection{Per Block Size Fixing (Node)}
+
+\section{Legates}
+
+
+\section{Blink Clocks}
+
+
+\section{Hash-Reward Table}
+
+
+
+
+
+
+
+
+
+\end{document}
