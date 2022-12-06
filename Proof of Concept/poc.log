@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.11.13)  6 DEC 2022 20:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2022.11.13)  7 DEC 2022 00:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1175,7 +1175,7 @@ ick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into
 your preamble.
  on input line 68.
 
-<assets/images//logo.png, id=107, 1027.84pt x 244.915pt>
+<assets/images//logo.png, id=155, 1027.84pt x 244.915pt>
 File: assets/images//logo.png Graphic file (type png)
 <use assets/images//logo.png>
 Package pdftex.def Info: assets/images//logo.png  used on input line 71.
@@ -1186,15 +1186,27 @@ LaTeX Warning: No \author given.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./assets/images//logo.png>
-] [2] (./poc.aux)
+] (./poc.toc)
+\tf@toc=\write6
+\openout6 = `poc.toc'.
+
+ [2] (./poc.toc)
+\tf@toc=\write7
+\openout7 = `poc.toc'.
+
+ [3] [4]
+Overfull \vbox (150.29013pt too high) has occurred while \output is active []
+
+
+[5] (./poc.aux)
 Package rerunfilecheck Info: File `poc.out' has not changed.
-(rerunfilecheck)             Checksum: 873C13105987AAE6DCB30593EA986857;5211.
+(rerunfilecheck)             Checksum: 3E6749CB5F8B8EF13A961AFC2D532587;6944.
  ) 
 Here is how much of TeX's memory you used:
- 43216 strings out of 480204
- 1078892 string characters out of 5895009
- 1461240 words of memory out of 5000000
- 60486 multiletter control sequences out of 15000+600000
+ 43253 strings out of 480204
+ 1079326 string characters out of 5895009
+ 1460245 words of memory out of 5000000
+ 60501 multiletter control sequences out of 15000+600000
  477368 words of font info for 57 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  84i,6n,80p,1626b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1205,10 +1217,10 @@ are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on poc.pdf (2 pages, 122841 bytes).
+Output written on poc.pdf (5 pages, 132184 bytes).
 PDF statistics:
- 175 PDF objects out of 1000 (max. 8388607)
- 154 compressed objects within 2 object streams
- 35 named destinations out of 1000 (max. 500000)
- 218 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 280 PDF objects out of 1000 (max. 8388607)
+ 255 compressed objects within 3 object streams
+ 52 named destinations out of 1000 (max. 500000)
+ 314 words of extra memory for PDF output out of 10000 (max. 10000000)
 
