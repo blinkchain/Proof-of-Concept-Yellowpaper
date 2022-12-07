@@ -64,34 +64,34 @@ Blinkchain - Proof of Concept\\
 \footnotesize{\url{https://blinkchain.org}}\\
 \vspace{3mm}
 \small{[WORKING-DRAFT]}}
+\author{Joby Reuben, Auguth Tech Pvt Ltd}
 \date{\vspace{-5ex}}
 \begin{document}
 
 \maketitle
 
-\newpage
 \tableofcontents
 
-\newpage
+
 \section{Objectives}
 
 \begin{enumerate}
-\item Whitepaper Section \& Level
+\item Whitepaper Section, Passive or Active Program \& Level
 \begin{itemize}
 \item Chain - Ledger,Consensus and Core Implementations
 \item Script - UTXO scripts/proofs construction and attesting
 \item OffChain - Client Side construction/propagation
 \item Node - Validation, Ledger Outlook \& Parameter construction
 \end{itemize}
+\item 
 \item Process, Algorithm and Mathmatical Data
 \item Existing Implementations and Documentation References
-\item Viability and Feasibility of Development Notes
-\item Technical Challenges and Issues
-\item Non-Technical Challenges and Issues
+\item Feasibility of Development \& Notes
+\item Technical \& Non-Technical Challenges
 \item Alternatives Offered and Outcome
 \end{enumerate}
 
-\section{Time Architecture (Chain [2.1])}
+\section{Time Architecture [2.1]}
 
 \begin{itemize}
 \item The Time Architecture in Blinkchain is segregated into Epoch = 10,000 blocks; Slot = 400 blocks ; Packet = 1 block.
@@ -102,16 +102,20 @@ Blinkchain - Proof of Concept\\
 \item Taking Variable Data to form constraints in the consensus e.g., Total Volume in an Epoch, Each individual block time in an epoch/slot, etc
 \end{itemize}
 \item Cardano, a UTXO based blockchain uses these timeframes, thus it is implemented and running \url{https://developers.cardano.org/docs/stake-pool-course/introduction-to-cardano/#slots-and-epochs}
-\item Its feasibility is proved with previous implementations and it does not affects or changes consensus protocols. As block heights are only taken for constraints, these time frames - Epoch, Slots and Packets are quasi and can be much more human readable. There are no alternatives, and the outcome can be achieved seamlessly.
+\item Its feasibility is proved with previous implementations and it does not affects or changes consensus protocols. As block heights are only taken for constraints, these time frames - Epoch, Slots and Packets are quasi and can be much more human readable. The alternatives would be reciting all constraints in block heights which cannot be developer friendly. The outcome can be achieved seamlessly.
 \end{itemize}
 
 \section{Epoch Election}
 
-\subsection{Bandwidth Proofs}
+
+
+\subsection{Bandwidth \& IHR Proofs}
 
 \subsubsection{Creating Proof (Node)}
 
 \subsubsection{Attesting Proof (Script)}
+
+Legates
 
 \subsubsection{Selection of Proof (Node)}
 
@@ -135,6 +139,8 @@ Blinkchain - Proof of Concept\\
 
 \subsection{Stake UTXO Creation}
 
+
+
 \subsection{Block Size \& Time}
 
 \subsubsection{Proof Selection (Node)}
@@ -142,38 +148,76 @@ Blinkchain - Proof of Concept\\
 \subsubsection{Block Time Fixing (Chain)}
 \subsubsection{Per Block Size Fixing (Node)}
 
-\section{Legates}
-
-\section{Blink Clocks}
-
-\section{Hash-Reward Table}
-
 \section{Parent-Child Script}
 
-\section{Price Oracles}
+\subsection{Price Oracles}
 
-\section{Transaction Fees}
-
-\section{Un-Confirmed Tx Propagation}
+\subsection{Stake UTXO}
 
 \section{Block Minting}
 
-\subsection{Validation}
+\subsection{Packet Clock}
+
+\subsection{Collateral Snip}
+
+\subsection{Transaction Snip}
+
+\subsubsection{Local Mempool}
+
+\subsubsection{Tx Validation}
 
 \subsubsection{Vanity Addresses}
 
+\subsubsection{Transaction Fees}
+
 \subsubsection{Taxes}
 
-\subsection{Snips}
+\subsection{Coinbase Snip}
 
-\subsection{Propagation}
+\subsection{IHR Verification}
 
-\section{Validation}
+\subsubsection{Hash-reward}
+
+\subsection{Snip Messaging}
+
+\section{Snip upon Receiving}
+
+\subsection{Genesis Clock Spaces}
+
+\subsection{Collateral Validation}
+
+\subsection{Fee Validation}
+
+\subsection{Tax Validation}
+
+\subsection{Hash-reward Validation}
+
+\subsection{CT Deal Validation}
+
+\subsection{Position Update Validation}
+
+\subsection{Kamikaze Proof}
+
+\subsubsection{Pattern Identification}
+
+\subsubsection{Construction}
+
+\subsubsection{Attesting}
+
+\subsubsection{Validation}
+
+\section{UnConfirmed Tx}
+
+\subsection{Propagation to Leader}
+
+\subsection{Leader Segregation}
+
+\subsection{Leader Transmission}
 
 \section{Pruning UTXOs}
 
-
-\tableofcontents
+\subsection{Expiration \& Fingerprint Replacement}
+\subsection{Centralized Storage Boilerplate}
 
 
 
