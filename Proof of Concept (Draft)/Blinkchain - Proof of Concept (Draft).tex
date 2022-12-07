@@ -63,14 +63,19 @@ Blinkchain - Proof of Concept\\
 \vspace{2mm}
 \footnotesize{\url{https://blinkchain.org}}\\
 \vspace{3mm}
-\small{[WORKING-DRAFT]}}
-\author{Joby Reuben, Auguth Tech Pvt Ltd}
+\small{[WORKING-DRAFT]}\\
+\vspace{5mm}
+\small{Joby Reuben, Auguth Tech Pvt Ltd}\\
+\vspace{10mm}
+\small{\textbf{Disclaimer}}\\
+\justifying
+\small{\blindtext}
+}
 \date{\vspace{-5ex}}
 \begin{document}
 
-\maketitle
 
-\tableofcontents
+\maketitle
 
 
 \section{Objectives}
@@ -83,13 +88,18 @@ Blinkchain - Proof of Concept\\
 \item OffChain - Client Side construction/propagation
 \item Node - Validation, Ledger Outlook \& Parameter construction
 \end{itemize}
-\item 
 \item Process, Algorithm and Mathmatical Data
 \item Existing Implementations and Documentation References
 \item Feasibility of Development \& Notes
 \item Technical \& Non-Technical Challenges
-\item Alternatives Offered and Outcome
+\item Alternatives Offered \& Outcomes
 \end{enumerate}
+
+
+\newpage
+\tableofcontents
+
+\newpage
 
 \section{Time Architecture [2.1]}
 
@@ -106,116 +116,108 @@ Blinkchain - Proof of Concept\\
 \end{itemize}
 
 \section{Epoch Election}
-
-
-
-\subsection{Bandwidth \& IHR Proofs}
-
-\subsubsection{Creating Proof (Node)}
-
+\subsection{Bandwidth Proof}
 \subsubsection{Attesting Proof (Script)}
-
 Legates
-
 \subsubsection{Selection of Proof (Node)}
-
 \subsection{Vote of Confidence (Removal of Nodes)}
-
 \subsubsection{Selection of Un-fit Nodes (Node)}
-
 \subsubsection{Participation by Voting (Script)}
-
 \subsubsection{Elimination \& Result (Chain)}
-
 \subsection{Producer Arrival}
-
 \subsubsection{Repeated (Bandwidth Proof)}
-
 \subsubsection{Selection of Proofs (Node)}
-
 \subsubsection{Contestant Results (Chain)}
-
 \subsection{Allocation of Leaders}
-
 \subsection{Stake UTXO Creation}
-
-
-
 \subsection{Block Size \& Time}
-
 \subsubsection{Proof Selection (Node)}
 \subsubsection{Block Size per sec Fixing (Chain)}
 \subsubsection{Block Time Fixing (Chain)}
 \subsubsection{Per Block Size Fixing (Node)}
 
-\section{Parent-Child Script}
-
-\subsection{Price Oracles}
-
+\section{Scripts \& Proofs}
 \subsection{Stake UTXO}
+\subsection{Oracle Data UTXO}
+\subsection{Oracle Fund UTXO}
+\subsection{Oracle Reputation UTXO}
+\subsection{Bandwidth Proofs}
+\subsection{IHR Proofs}
 
-\section{Block Minting}
+\section{Oracles}
 
-\subsection{Packet Clock}
 
+\section{Gossip Protocol}
+\subsection{Un-confirmed}
+\subsubsection{Direct Connection Messaging}
+\subsection{Confirmed}
+\subsubsection{Priority List}
+\subsubsection{Direct Messaging}
+\subsubsection{Random Rumoring}
+
+
+\section{Mempool Active Validation}
+\subsection{Un-Confirmed Tx}
+\subsubsection{Propagation to Leader's Global Mempool}
+\subsection{Global Mempool Tx Validation}
+\subsubsection{Client-Witness Validation}
+\subsubsection{Segregation of Un-confirmed Tokens}
+\subsubsection{Allocation per Packet Leader}
+\subsection{Local Mempool Tx Validation}
+\subsubsection{Vanity Validation}
+\subsubsection{Tax Validation}
+\subsubsection{Fee Validation}
+\subsubsection{Client-Witness Validation}
+\subsubsection{Finite Script Validation}
+\subsubsection{Stable-Tax Tx Validation}
+\subsubsection{Dust-Purging Tx Validation}
+
+
+\section{Snips Validation}
+\subsection{Common Validation}
+\subsubsection{Genesis Clock Spaces}
+\subsubsection{Fee, Oracle Rate Assignment \& Update}
+\subsubsection{Snip Pool Graphing}
 \subsection{Collateral Snip}
-
+\subsubsection{Position Update}
+\subsubsection{Authorized Token Assignment}
 \subsection{Transaction Snip}
-
-\subsubsection{Local Mempool}
-
+\subsubsection{Authorized Token Validation}
 \subsubsection{Tx Validation}
-
-\subsubsection{Vanity Addresses}
-
-\subsubsection{Transaction Fees}
-
-\subsubsection{Taxes}
-
 \subsection{Coinbase Snip}
-
-\subsection{IHR Verification}
-
-\subsubsection{Hash-reward}
-
-\subsection{Snip Messaging}
-
-\section{Snip upon Receiving}
-
-\subsection{Genesis Clock Spaces}
-
-\subsection{Collateral Validation}
-
-\subsection{Fee Validation}
-
-\subsection{Tax Validation}
-
-\subsection{Hash-reward Validation}
-
-\subsection{CT Deal Validation}
-
-\subsection{Position Update Validation}
-
-\subsection{Kamikaze Proof}
-
-\subsubsection{Pattern Identification}
-
-\subsubsection{Construction}
-
+\subsubsection{Fee Validation}
+\subsubsection{Hash-reward Validation}
+\subsubsection{CT Deal Validation}
+\subsubsection{Position Update}
+\subsubsection{Commission Validation}
+\subsection{Kamikaze Snip}
+\subsubsection{Validation}
 \subsubsection{Attesting}
 
-\subsubsection{Validation}
 
-\section{UnConfirmed Tx}
+\section{Snips Rejection}
+\subsection{Pattern Identification}
+\subsection{Kamikaze Proof Construction}
 
-\subsection{Propagation to Leader}
 
-\subsection{Leader Segregation}
+\section{Snips Construction}
+\subsection{Common-Active Functions}
+\subsubsection{Clock Hash-Concate}
+\subsubsection{Fee, Oracle Rate Assignment \& Update}
+\subsection{Collateral Snip}
+\subsubsection{Segregation of Stake UTXOs}
+\subsubsection{Construction of Collateral Tx}
+\subsubsection{Noting Authorized Tokens}
+\subsection{Transaction Snip}
+\subsubsection{Validated-authorized Tx from Local Mempool}
+\subsubsection{Tax Assignment}
+\subsubsection{Tax Tx Construction}
+\subsection{Coinbase Snip}
+\subsubsection{Accepted Token Tx Construction}
+\subsubsection{Non-Accepted Token Tx Construction}
 
-\subsection{Leader Transmission}
 
 \section{Pruning UTXOs}
-
 \subsection{Expiration \& Fingerprint Replacement}
 \subsection{Centralized Storage Boilerplate}
 
