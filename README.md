@@ -1,7 +1,7 @@
 
 # Blinkchain - Proof of Concept for Development
 
-Authors: [@jobyreuben](https://www.github.com/jobyreuben), 
+Contributors: [@jobyreuben](https://www.github.com/jobyreuben), 
 
 ## Development Map
 
@@ -14,11 +14,10 @@ Download PDF version [here](https://blinkchain.org/map.pdf)
   - [Development Map](#development-map)
 - [Objectives](#objectives)
 - [Time Architecture](#time-architecture)
-- [Epoch Election](#epoch-election)
-  - [Bandwidth Proof](#bandwidth-proof)
-    - [Attesting Proof (Script)](#attesting-proof-script)
-    - [Selection of Proof (Node)](#selection-of-proof-node)
-  - [Vote of Confidence (Removal of Nodes)](#vote-of-confidence-removal-of-nodes)
+- [1.Epoch Election](#1epoch-election)
+  - [1.1 Bandwidth Proof](#11-bandwidth-proof)
+    - [1.1.1 Selection of Bandwidth Proof (Node)](#111-selection-of-bandwidth-proof-node)
+  - [1.2 Vote of Confidence (Removal of Nodes)](#12-vote-of-confidence-removal-of-nodes)
     - [Selection of Un-fit Nodes (Node)](#selection-of-un-fit-nodes-node)
     - [Participation by Voting (Script)](#participation-by-voting-script)
     - [Elimination \& Result (Chain)](#elimination--result-chain)
@@ -102,14 +101,16 @@ Download PDF version [here](https://blinkchain.org/map.pdf)
   - [Oracle Fund UTXO](#oracle-fund-utxo)
   - [Oracle Reputation UTXO](#oracle-reputation-utxo)
   - [Bandwidth Proofs](#bandwidth-proofs)
+    - [Attesting Bandwidth Proof (Script)](#attesting-bandwidth-proof-script)
   - [IHR Proofs](#ihr-proofs)
   - [Kamikaze Proof](#kamikaze-proof)
     - [Pattern Identification](#pattern-identification)
 - [Oracles](#oracles)
 
-
 # Objectives
 1. Whitepaper Section, Passive or Active Program \& Level
+   - Active: Constantly running, looking for triggers
+   - Passive: Active per time-frame or triggered
    - Chain - Ledger,Consensus and Core Implementations
    - Script - UTXO scripts/proofs construction and attesting
    - OffChain - Client Side construction/propagation
@@ -121,8 +122,8 @@ Download PDF version [here](https://blinkchain.org/map.pdf)
 6.  Alternatives Offered \& Outcomes
 
 # Time Architecture
-
-- Whitepaper Section [2.1]. Node Level
+*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+- Whitepaper Section [2.1], Level : Node
 - The Time Architecture in Blinkchain is segregated into Epoch = 10,000 blocks; Slot = 400 blocks ; Packet = 1 block.
 - These time frames are not correlated to the ledger, as it only knows block heights. It is only taken in the following area
 - Election conducted every epoch (10,000 blocks)
@@ -131,27 +132,26 @@ Download PDF version [here](https://blinkchain.org/map.pdf)
 - Cardano, a UTXO based blockchain uses these timeframes, thus it is implemented and running https://developers.cardano.org/docs/stake-pool-course/introduction-to-cardano/#slots-and-epochs
 - Its feasibility is proved with previous implementations and it does not affects or changes consensus protocols. As block heights are only taken for constraints, these time frames - Epoch, Slots and Packets are quasi and can be much more human readable. The alternatives would be reciting all constraints in block heights which cannot be developer friendly. The outcome can be achieved seamlessly.
 
-# Epoch Election
-Short Intro
-## Bandwidth Proof
-Short Intro
-### Attesting Proof (Script)
-1. Whitepaper Section + Passive/Active + Level
+<!---*[@username-here](https://www.github.com/[username-here]) "Role-here" Comment* 
+--->
+
+# 1.Epoch Election
+Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leaders who are eligible to produce their blocks. Block producers are announced before the epoch starts. The following steps starts from attesting proofs to participate in the election to getting selected to mint a block to commencing the epoch.
+## 1.1 Bandwidth Proof
+Bandwidth Proofs - to be proposed in a new paper "Blink Proofs" will provide a zero knowledge proof to the verfiers (nodes) to calculate its authenticity and ability to contest in the new election to directly influencing to change the block size of the epoch.
+
+### 1.1.1 Selection of Bandwidth Proof (Node)
+
+*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+
+1. Whitepaper Section - Nil, Passive Program, Level : Node
 2. Short Info
 3. How it can be achieved
 4. Existing Implementation reference
 5. Feasibility
 6. Technical/Nontechnical Challenges
 7. Alternatives
-### Selection of Proof (Node)
-1. Whitepaper Section + Passive/Active + Level
-2. Short Info
-3. How it can be achieved
-4. Existing Implementation reference
-5. Feasibility
-6. Technical/Nontechnical Challenges
-7. Alternatives
-## Vote of Confidence (Removal of Nodes)
+## 1.2 Vote of Confidence (Removal of Nodes)
 Short Intro
 ### Selection of Un-fit Nodes (Node)
 1. Whitepaper Section + Passive/Active + Level
@@ -329,6 +329,15 @@ Short Intro
 ## Oracle Fund UTXO
 ## Oracle Reputation UTXO
 ## Bandwidth Proofs
+### Attesting Bandwidth Proof (Script)
+*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+- Whitepaper Section - Nil, Passive Program, Level : Script
+- After creation of bandwidth proof, it should be attested as a transaction in the ledger, where validators can verify and take it for epoch election
+- Similar to wallet clients constructing a transaction, the node itself constrcuts the proof, attest it to a transaction and propagates it
+- Since it is a common process found in various applications, it can be developed efficiently. The bandwidth proof creation shall be instructed in the new papers.
+
+<!---*[@username-here](https://www.github.com/[username-here]) "Role-here" Comment* 
+--->
 ## IHR Proofs
 ## Kamikaze Proof
 ### Pattern Identification
