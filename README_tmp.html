@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="blinkchain---proof-of-concept-for-development">Blinkchain - Proof of Concept for Development</h1>
+<p>Contributors: <a href="https://www.github.com/jobyreuben">@jobyreuben</a>,  <a href="https://github.com/I-Corinthian">@I-Corinthian</a></p>
+<h2 id="development-map">Development Map</h2>
+<p>Download PDF version <a href="https://blinkchain.org/map.pdf">here</a></p>
+<p><img src="https://github.com/blinkchain/Proof-of-Concept-for-Development/blob/main/map.png?raw=true" alt="Development Map"></p>
+<h1 id="objectives">Objectives</h1>
+<ol>
+<li>Whitepaper Section, Passive or Active Program &amp; Level
+<ul>
+<li>Active: Constantly running, looking for triggers</li>
+<li>Passive: Active per time-frame or triggered</li>
+<li>Chain - Ledger,Consensus and Core Implementations</li>
+<li>Script - UTXO scripts/proofs construction and attesting</li>
+<li>OffChain - Client Side construction/propagation</li>
+<li>Node - Validation, Ledger Outlook &amp; Parameter construction</li>
+</ul>
+</li>
+<li>Process, Algorithm and Mathmatical Data</li>
+<li>Existing Implementations and Documentation References</li>
+<li>Feasibility of Development &amp; Notes</li>
+<li>Technical &amp; Non-Technical Challenges</li>
+<li>Alternatives Offered &amp; Outcomes</li>
+</ol>
+<h1 id="time-architecture">Time Architecture</h1>
+<p><em><a href="https://www.github.com/jobyreuben">@jobyreuben</a> Author Comment</em></p>
+<ul>
+<li>Whitepaper Section [2.1], Level : Node</li>
+<li>The Time Architecture in Blinkchain is segregated into Epoch = 10,000 blocks; Slot = 400 blocks ; Packet = 1 block.</li>
+<li>These time frames are not correlated to the ledger, as it only knows block heights. It is only taken in the following area</li>
+<li>Election conducted every epoch (10,000 blocks)</li>
+<li>Announcing Leaders for every Epochs, Slots and Packets</li>
+<li>Taking Variable Data to form constraints in the consensus e.g., Total Volume in an Epoch, Each individual block time in an epoch/slot, etc</li>
+<li>Cardano, a UTXO based blockchain uses these timeframes, thus it is implemented and running https://developers.cardano.org/docs/stake-pool-course/introduction-to-cardano/#slots-and-epochs</li>
+<li>Its feasibility is proved with previous implementations and it does not affects or changes consensus protocols. As block heights are only taken for constraints, these time frames - Epoch, Slots and Packets are quasi and can be much more human readable. The alternatives would be reciting all constraints in block heights which cannot be developer friendly. The outcome can be achieved seamlessly.</li>
+</ul>
+<!---*[@username-here](https://www.github.com/[username-here]) "Role-here" Comment* 
+--->
+<h1 id="epoch-election">Epoch Election</h1>
+<p>Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leaders who are eligible to produce their blocks. Block producers are announced before the epoch starts. The following steps starts from attesting proofs to participate in the election to getting selected to mint a block to commencing the epoch.</p>
+<h2 id="producer-arrival">Producer Arrival</h2>
+<ul>
+<li>Producer arrival represents new nodes arrival to contest in the Epoch election to produce new blocks. For Arrival a specific slot is allocated range of x to y block heights in every epoch for the next epoch production.</li>
+<li>Existing and new producers carry out same process, but new nodes tend to have a criteria to be fulfilled, whereas the existing nodes does infact proved passing the criteria for the previous epoch.</li>
+</ul>
+<h3 id="selection-of-bandwidth-proof-node">Selection of Bandwidth Proof (Node)</h3>
+<p><em>Bandwidth Proofs</em> - to be proposed in a new paper &quot;Blink Proofs&quot; will provide a zero knowledge proof to the verfiers (nodes) to calculate its authenticity and ability to contest in the new election to directly influencing to change the block size of the epoch.</p>
+<p><em><a href="https://www.github.com/jobyreuben">@jobyreuben</a> Author Comment</em></p>
+<ul>
+<li>Whitepaper Section - Nil, Passive Program, Level : Node</li>
+<li>Bandwidth Proofs in the ledger in a range of block height X to Y (Denoting Slot opening and ending for Arrival of New nodes) are selected and validated to carry on further steps. Since proofs are available directly in the ledger, it is easier to select the proofs. Only recent proofs are taken and the requirement should be fulfilled.</li>
+<li>The requirement will be published on after every epoch's Vote of Confidence motion.</li>
+<li>The implementation can be done effectively with optimized language suitable.</li>
+</ul>
+<p><em><a href="https://www.github.com/jobyreuben">@corinthian</a> Contributed Algorithm</em></p>
+<pre class="hljs"><code><div>algorithm here;
+</div></code></pre>
+<h3 id="allocation-of-leaders-chain">Allocation of Leaders (Chain)</h3>
+<ol>
+<li>Whitepaper Section + Passive/Active + Level</li>
+<li>Short Info</li>
+<li>How it can be achieved</li>
+<li>Existing Implementation reference</li>
+<li>Feasibility</li>
+<li>Technical/Nontechnical Challenges</li>
+<li>Alternatives</li>
+<li></li>
+</ol>
+<h2 id="commencing-staking-period">Commencing Staking Period</h2>
+<ol>
+<li>Whitepaper Section + Passive/Active + Level</li>
+<li>Short Info</li>
+<li>How it can be achieved</li>
+<li>Existing Implementation reference</li>
+<li>Feasibility</li>
+<li>Technical/Nontechnical Challenges</li>
+<li>Alternatives</li>
+</ol>
+<h2 id="block-size--time">Block Size &amp; Time</h2>
+<p>Short Intro</p>
+<h3 id="block-size-per-sec-fixing-chain">Block Size per sec Fixing (Chain)</h3>
+<ol>
+<li>Whitepaper Section + Passive/Active + Level</li>
+<li>Short Info</li>
+<li>How it can be achieved</li>
+<li>Existing Implementation reference</li>
+<li>Feasibility</li>
+<li>Technical/Nontechnical Challenges</li>
+<li>Alternatives</li>
+</ol>
+<h3 id="block-time-fixing-chain">Block Time Fixing (Chain)</h3>
+<ol>
+<li>Whitepaper Section + Passive/Active + Level</li>
+<li>Short Info</li>
+<li>How it can be achieved</li>
+<li>Existing Implementation reference</li>
+<li>Feasibility</li>
+<li>Technical/Nontechnical Challenges</li>
+<li>Alternatives</li>
+</ol>
+<h3 id="per-block-size-fixing-node">Per Block Size Fixing (Node)</h3>
+<ol>
+<li>Whitepaper Section + Passive/Active + Level</li>
+<li>Short Info</li>
+<li>How it can be achieved</li>
+<li>Existing Implementation reference</li>
+<li>Feasibility</li>
+<li>Technical/Nontechnical Challenges</li>
+<li>Alternatives</li>
+</ol>
+<h2 id="vote-of-confidence">Vote of Confidence</h2>
+<ul>
+<li>Whitepaper Section 3.1</li>
+<li>To scale the blink-network and avoid latencies due to incompetance to propagate transactions faster, the network decides on a vote to kick un-fit nodes as per its requirement. Vote of Confidence involves selection, voting, and elimination by ignoring it's bandwidth proofs for becoming a contestant in the election.</li>
+</ul>
+<h3 id="selection-of-un-fit-nodes-node">Selection of Un-fit Nodes (Node)</h3>
+<ul>
+<li>Whitepaper Section 3.1.2, Passive, Level : Node</li>
+<li>Previous Epoch election's bandwidth proofs are taken to find their mean (average) value, from which the minimum requirement is passed/determined by the current producers. Voting can begin once, the minimum bandwidth value is calculated.</li>
+</ul>
+<ol>
+<li>How it can be achieved</li>
+<li>Existing Implementation reference</li>
+<li>Feasibility</li>
+<li>Technical/Nontechnical Challenges</li>
+<li>Alternatives</li>
+</ol>
+<h3 id="participation-by-voting-script">Participation by Voting (Script)</h3>
+<ol>
+<li>Whitepaper Section + Passive/Active + Level</li>
+<li>Short Info</li>
+<li>How it can be achieved</li>
+<li>Existing Implementation reference</li>
+<li>Feasibility</li>
+<li>Technical/Nontechnical Challenges</li>
+<li>Alternatives</li>
+</ol>
+<h3 id="elimination--result-chain">Elimination &amp; Result (Chain)</h3>
+<ol>
+<li>Whitepaper Section + Passive/Active + Level</li>
+<li>Short Info</li>
+<li>How it can be achieved</li>
+<li>Existing Implementation reference</li>
+<li>Feasibility</li>
+<li>Technical/Nontechnical Challenges</li>
+<li>Alternatives</li>
+</ol>
+<h1 id="mempool-active-validation">Mempool Active Validation</h1>
+<h2 id="un-confirmed-tx-propagation">Un-Confirmed Tx Propagation</h2>
+<h3 id="propagation-to-leaders-global-mempool">Propagation to Leader's Global Mempool</h3>
+<h2 id="global-mempool-tx-validation">Global Mempool Tx Validation</h2>
+<h3 id="client-witness-validation">Client-Witness Validation</h3>
+<h3 id="vanity-validation">Vanity Validation</h3>
+<h3 id="segregation-of-un-confirmed-tokens">Segregation of Un-confirmed Tokens</h3>
+<h3 id="allocation-per-packet-leader">Allocation per Packet Leader</h3>
+<h3 id="direct-messaging">Direct Messaging</h3>
+<h2 id="local-mempool-tx-validation">Local Mempool Tx Validation</h2>
+<h3 id="transaction-nature-identification">Transaction Nature Identification</h3>
+<h4 id="stable-tax-transaction">Stable Tax Transaction</h4>
+<h4 id="normal-transaction">Normal Transaction</h4>
+<h4 id="stable-token-transaction">Stable Token Transaction</h4>
+<h4 id="dust-purging-transaction">Dust Purging Transaction</h4>
+<h4 id="layered-tax-transaction">Layered Tax Transaction</h4>
+<h3 id="vanity--client-witness-validation">Vanity &amp; Client-Witness Validation</h3>
+<h3 id="fee-validation">Fee Validation</h3>
+<h3 id="tax-validation">Tax Validation</h3>
+<h3 id="finite-script-validation">Finite Script Validation</h3>
+<h1 id="snips-construction">Snips Construction</h1>
+<h2 id="common-active-functions">Common-Active Functions</h2>
+<h3 id="clock-hash-concate">Clock Hash-Concate</h3>
+<h3 id="fee-oracle-rate-assignment--update">Fee, Oracle Rate Assignment &amp; Update</h3>
+<h2 id="collateral-snip">Collateral Snip</h2>
+<h3 id="segregation-of-stake-utxos">Segregation of Stake UTXOs</h3>
+<h3 id="construction-of-collateral-tx">Construction of Collateral Tx</h3>
+<h3 id="noting-authorized-tokens">Noting Authorized Tokens</h3>
+<h2 id="transaction-snip">Transaction Snip</h2>
+<h3 id="validated-authorized-tx-from-local-mempool">Validated-authorized Tx from Local Mempool</h3>
+<h3 id="tax-assignment">Tax Assignment</h3>
+<h3 id="tax-tx-construction">Tax Tx Construction</h3>
+<h2 id="coinbase-snip">Coinbase Snip</h2>
+<h3 id="accepted-token-tx-construction">Accepted Token Tx Construction</h3>
+<h3 id="non-accepted-token-tx-construction">Non-Accepted Token Tx Construction</h3>
+<h2 id="propagation">Propagation</h2>
+<h3 id="direct-messaging">Direct-Messaging</h3>
+<h1 id="snips-validation">Snips Validation</h1>
+<h2 id="common-validation">Common Validation</h2>
+<h3 id="genesis-clock-spaces">Genesis Clock Spaces</h3>
+<h3 id="fee-oracle-rate-assignment--update">Fee, Oracle Rate Assignment &amp; Update</h3>
+<h3 id="snip-pool-graphing">Snip Pool Graphing</h3>
+<h2 id="collateral-snip">Collateral Snip</h2>
+<h3 id="position-update">Position Update</h3>
+<h3 id="authorized-token-assignment">Authorized Token Assignment</h3>
+<h2 id="transaction-snip">Transaction Snip</h2>
+<h3 id="authorized-token-validation">Authorized Token Validation</h3>
+<h3 id="tx-validation">Tx Validation</h3>
+<h2 id="coinbase-snip">Coinbase Snip</h2>
+<h3 id="fee-validation">Fee Validation</h3>
+<h3 id="hash-reward-validation">Hash-reward Validation</h3>
+<h3 id="ct-deal-validation">CT Deal Validation</h3>
+<h3 id="position-update">Position Update</h3>
+<h3 id="commission-validation">Commission Validation</h3>
+<h2 id="kamikaze-snip">Kamikaze Snip</h2>
+<h3 id="validation">Validation</h3>
+<h3 id="attesting">Attesting</h3>
+<h2 id="propagation">Propagation</h2>
+<h3 id="direct-messaging">Direct-Messaging</h3>
+<h3 id="random-rumoring">Random Rumoring</h3>
+<h1 id="pruning-utxos">Pruning UTXOs</h1>
+<h2 id="expiration--fingerprint-replacement">Expiration &amp; Fingerprint Replacement</h2>
+<h2 id="centralized-storage-boilerplate">Centralized Storage Boilerplate</h2>
+<h1 id="scripts--proofs">Scripts &amp; Proofs</h1>
+<h2 id="stake-utxo">Stake UTXO</h2>
+<h3 id="conditions--postion-updates">Conditions &amp; Postion Updates</h3>
+<h3 id="creation">Creation</h3>
+<h4 id="accepted-tokens">Accepted Tokens</h4>
+<h4 id="non-accepted-tokens">Non-Accepted Tokens</h4>
+<h3 id="slot-period-attesting">Slot Period Attesting</h3>
+<h2 id="oracle-data-utxo">Oracle Data UTXO</h2>
+<h2 id="oracle-fund-utxo">Oracle Fund UTXO</h2>
+<h2 id="oracle-reputation-utxo">Oracle Reputation UTXO</h2>
+<h2 id="bandwidth-proofs">Bandwidth Proofs</h2>
+<h3 id="arrival-nodes-bandwidth-proof">Arrival Nodes Bandwidth Proof</h3>
+<h3 id="attesting-bandwidth-proof-script">Attesting Bandwidth Proof (Script)</h3>
+<p><em><a href="https://www.github.com/jobyreuben">@jobyreuben</a> Author Comment</em></p>
+<ul>
+<li>Whitepaper Section - Nil, Passive Program, Level : Script</li>
+<li>After creation of bandwidth proof, it should be attested as a transaction in the ledger, where validators can verify and take it for epoch election</li>
+<li>Similar to wallet clients constructing a transaction, the node itself constrcuts the proof, attest it to a transaction and propagates it</li>
+<li>Since it is a common process found in various applications, it can be developed efficiently. The bandwidth proof creation shall be instructed in the new papers.</li>
+</ul>
+<!---*[@username-here](https://www.github.com/[username-here]) "Role-here" Comment* 
+--->
+<h2 id="ihr-proofs">IHR Proofs</h2>
+<h2 id="kamikaze-proof">Kamikaze Proof</h2>
+<h3 id="pattern-identification">Pattern Identification</h3>
+<h1 id="oracles">Oracles</h1>
+<ul>
+<li><a href="#blinkchain---proof-of-concept-for-development">Blinkchain - Proof of Concept for Development</a>
+<ul>
+<li><a href="#development-map">Development Map</a></li>
+</ul>
+</li>
+<li><a href="#objectives">Objectives</a></li>
+<li><a href="#time-architecture">Time Architecture</a></li>
+<li><a href="#epoch-election">Epoch Election</a>
+<ul>
+<li><a href="#producer-arrival">Producer Arrival</a>
+<ul>
+<li><a href="#arrival-slot-opening">Arrival Slot Opening</a></li>
+<li><a href="#selection-of-bandwidth-proof-node">Selection of Bandwidth Proof (Node)</a></li>
+<li><a href="#contestant-results-chain">Contestant Results (Chain)</a></li>
+</ul>
+</li>
+<li><a href="#allocation-of-leaders">Allocation of Leaders</a></li>
+<li><a href="#stake-utxo-creation">Stake UTXO Creation</a></li>
+<li><a href="#block-size--time">Block Size &amp; Time</a>
+<ul>
+<li><a href="#proof-selection-node">Proof Selection (Node)</a></li>
+<li><a href="#block-size-per-sec-fixing-chain">Block Size per sec Fixing (Chain)</a></li>
+<li><a href="#block-time-fixing-chain">Block Time Fixing (Chain)</a></li>
+<li><a href="#per-block-size-fixing-node">Per Block Size Fixing (Node)</a></li>
+</ul>
+</li>
+<li><a href="#vote-of-confidence">Vote of Confidence</a>
+<ul>
+<li><a href="#selection-of-un-fit-nodes-node">Selection of Un-fit Nodes (Node)</a></li>
+<li><a href="#participation-by-voting-script">Participation by Voting (Script)</a></li>
+<li><a href="#elimination--result-chain">Elimination &amp; Result (Chain)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#mempool-active-validation">Mempool Active Validation</a>
+<ul>
+<li><a href="#un-confirmed-tx-propagation">Un-Confirmed Tx Propagation</a>
+<ul>
+<li><a href="#propagation-to-leaders-global-mempool">Propagation to Leader's Global Mempool</a></li>
+</ul>
+</li>
+<li><a href="#global-mempool-tx-validation">Global Mempool Tx Validation</a>
+<ul>
+<li><a href="#client-witness-validation">Client-Witness Validation</a></li>
+<li><a href="#vanity-validation">Vanity Validation</a></li>
+<li><a href="#segregation-of-un-confirmed-tokens">Segregation of Un-confirmed Tokens</a></li>
+<li><a href="#allocation-per-packet-leader">Allocation per Packet Leader</a></li>
+<li><a href="#direct-messaging">Direct Messaging</a></li>
+</ul>
+</li>
+<li><a href="#local-mempool-tx-validation">Local Mempool Tx Validation</a>
+<ul>
+<li><a href="#transaction-nature-identification">Transaction Nature Identification</a>
+<ul>
+<li><a href="#stable-tax-transaction">Stable Tax Transaction</a></li>
+<li><a href="#normal-transaction">Normal Transaction</a></li>
+<li><a href="#stable-token-transaction">Stable Token Transaction</a></li>
+<li><a href="#dust-purging-transaction">Dust Purging Transaction</a></li>
+<li><a href="#layered-tax-transaction">Layered Tax Transaction</a></li>
+</ul>
+</li>
+<li><a href="#vanity--client-witness-validation">Vanity &amp; Client-Witness Validation</a></li>
+<li><a href="#fee-validation">Fee Validation</a></li>
+<li><a href="#tax-validation">Tax Validation</a></li>
+<li><a href="#finite-script-validation">Finite Script Validation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#snips-construction">Snips Construction</a>
+<ul>
+<li><a href="#common-active-functions">Common-Active Functions</a>
+<ul>
+<li><a href="#clock-hash-concate">Clock Hash-Concate</a></li>
+<li><a href="#fee-oracle-rate-assignment--update">Fee, Oracle Rate Assignment &amp; Update</a></li>
+</ul>
+</li>
+<li><a href="#collateral-snip">Collateral Snip</a>
+<ul>
+<li><a href="#segregation-of-stake-utxos">Segregation of Stake UTXOs</a></li>
+<li><a href="#construction-of-collateral-tx">Construction of Collateral Tx</a></li>
+<li><a href="#noting-authorized-tokens">Noting Authorized Tokens</a></li>
+</ul>
+</li>
+<li><a href="#transaction-snip">Transaction Snip</a>
+<ul>
+<li><a href="#validated-authorized-tx-from-local-mempool">Validated-authorized Tx from Local Mempool</a></li>
+<li><a href="#tax-assignment">Tax Assignment</a></li>
+<li><a href="#tax-tx-construction">Tax Tx Construction</a></li>
+</ul>
+</li>
+<li><a href="#coinbase-snip">Coinbase Snip</a>
+<ul>
+<li><a href="#accepted-token-tx-construction">Accepted Token Tx Construction</a></li>
+<li><a href="#non-accepted-token-tx-construction">Non-Accepted Token Tx Construction</a></li>
+</ul>
+</li>
+<li><a href="#propagation">Propagation</a>
+<ul>
+<li><a href="#direct-messaging-1">Direct-Messaging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#snips-validation">Snips Validation</a>
+<ul>
+<li><a href="#common-validation">Common Validation</a>
+<ul>
+<li><a href="#genesis-clock-spaces">Genesis Clock Spaces</a></li>
+<li><a href="#fee-oracle-rate-assignment--update-1">Fee, Oracle Rate Assignment &amp; Update</a></li>
+<li><a href="#snip-pool-graphing">Snip Pool Graphing</a></li>
+</ul>
+</li>
+<li><a href="#collateral-snip-1">Collateral Snip</a>
+<ul>
+<li><a href="#position-update">Position Update</a></li>
+<li><a href="#authorized-token-assignment">Authorized Token Assignment</a></li>
+</ul>
+</li>
+<li><a href="#transaction-snip-1">Transaction Snip</a>
+<ul>
+<li><a href="#authorized-token-validation">Authorized Token Validation</a></li>
+<li><a href="#tx-validation">Tx Validation</a></li>
+</ul>
+</li>
+<li><a href="#coinbase-snip-1">Coinbase Snip</a>
+<ul>
+<li><a href="#fee-validation-1">Fee Validation</a></li>
+<li><a href="#hash-reward-validation">Hash-reward Validation</a></li>
+<li><a href="#ct-deal-validation">CT Deal Validation</a></li>
+<li><a href="#position-update-1">Position Update</a></li>
+<li><a href="#commission-validation">Commission Validation</a></li>
+</ul>
+</li>
+<li><a href="#kamikaze-snip">Kamikaze Snip</a>
+<ul>
+<li><a href="#validation">Validation</a></li>
+<li><a href="#attesting">Attesting</a></li>
+</ul>
+</li>
+<li><a href="#propagation-1">Propagation</a>
+<ul>
+<li><a href="#direct-messaging-2">Direct-Messaging</a></li>
+<li><a href="#random-rumoring">Random Rumoring</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#pruning-utxos">Pruning UTXOs</a>
+<ul>
+<li><a href="#expiration--fingerprint-replacement">Expiration &amp; Fingerprint Replacement</a></li>
+<li><a href="#centralized-storage-boilerplate">Centralized Storage Boilerplate</a></li>
+</ul>
+</li>
+<li><a href="#scripts--proofs">Scripts &amp; Proofs</a>
+<ul>
+<li><a href="#stake-utxo">Stake UTXO</a></li>
+<li><a href="#oracle-data-utxo">Oracle Data UTXO</a></li>
+<li><a href="#oracle-fund-utxo">Oracle Fund UTXO</a></li>
+<li><a href="#oracle-reputation-utxo">Oracle Reputation UTXO</a></li>
+<li><a href="#bandwidth-proofs">Bandwidth Proofs</a>
+<ul>
+<li><a href="#attesting-bandwidth-proof-script">Attesting Bandwidth Proof (Script)</a></li>
+</ul>
+</li>
+<li><a href="#ihr-proofs">IHR Proofs</a></li>
+<li><a href="#kamikaze-proof">Kamikaze Proof</a>
+<ul>
+<li><a href="#pattern-identification">Pattern Identification</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#oracles">Oracles</a></li>
+</ul>
+
+</body>
+</html>
