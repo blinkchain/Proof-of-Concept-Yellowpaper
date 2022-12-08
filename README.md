@@ -7,7 +7,7 @@ Authors: [@jobyreuben](https://www.github.com/jobyreuben),
 
 Download PDF version [here](https://blinkchain.org/map.pdf)
 
-![Development Map]([map.png](https://github.com/blinkchain/Proof-of-Concept-for-Development/blob/main/map.png?raw=true))
+![Development Map](https://github.com/blinkchain/Proof-of-Concept-for-Development/blob/main/map.png?raw=true)
 
 
 - [Blinkchain - Proof of Concept for Development](#blinkchain---proof-of-concept-for-development)
