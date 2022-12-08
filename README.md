@@ -1,5 +1,5 @@
 
-# Blinkchain - Proof of Concept
+# Blinkchain - Proof of Concept for Development
 
 Authors: [@jobyreuben](https://www.github.com/jobyreuben), 
 
@@ -10,10 +10,10 @@ Download PDF [here](https://www.github.com/)
 ![image info](./assets/images/map.png)
 
 
-- [Blinkchain - Proof of Concept](#blinkchain---proof-of-concept)
+- [Blinkchain - Proof of Concept for Development](#blinkchain---proof-of-concept-for-development)
   - [Development Map](#development-map)
 - [Objectives](#objectives)
-- [Time Architecture \[2.1\]](#time-architecture-21)
+- [Time Architecture](#time-architecture)
 - [Epoch Election](#epoch-election)
   - [Bandwidth Proof](#bandwidth-proof)
     - [Attesting Proof (Script)](#attesting-proof-script)
@@ -110,18 +110,19 @@ Download PDF [here](https://www.github.com/)
 
 # Objectives
 1. Whitepaper Section, Passive or Active Program \& Level
-2. Chain - Ledger,Consensus and Core Implementations
-3. Script - UTXO scripts/proofs construction and attesting
-4. OffChain - Client Side construction/propagation
-5. Node - Validation, Ledger Outlook \& Parameter construction
-6. Process, Algorithm and Mathmatical Data
-7. Existing Implementations and Documentation References
-8. Feasibility of Development \& Notes
-9. Technical \& Non-Technical Challenges
-10. Alternatives Offered \& Outcomes
+   - Chain - Ledger,Consensus and Core Implementations
+   - Script - UTXO scripts/proofs construction and attesting
+   - OffChain - Client Side construction/propagation
+   - Node - Validation, Ledger Outlook \& Parameter construction
+2. Process, Algorithm and Mathmatical Data
+3. Existing Implementations and Documentation References
+4. Feasibility of Development \& Notes
+5. Technical \& Non-Technical Challenges
+6.  Alternatives Offered \& Outcomes
 
-# Time Architecture [2.1]
+# Time Architecture
 
+- Whitepaper Section [2.1]. Node Level
 - The Time Architecture in Blinkchain is segregated into Epoch = 10,000 blocks; Slot = 400 blocks ; Packet = 1 block.
 - These time frames are not correlated to the ledger, as it only knows block heights. It is only taken in the following area
 - Election conducted every epoch (10,000 blocks)
@@ -130,26 +131,128 @@ Download PDF [here](https://www.github.com/)
 - Cardano, a UTXO based blockchain uses these timeframes, thus it is implemented and running https://developers.cardano.org/docs/stake-pool-course/introduction-to-cardano/#slots-and-epochs
 - Its feasibility is proved with previous implementations and it does not affects or changes consensus protocols. As block heights are only taken for constraints, these time frames - Epoch, Slots and Packets are quasi and can be much more human readable. The alternatives would be reciting all constraints in block heights which cannot be developer friendly. The outcome can be achieved seamlessly.
 
-
 # Epoch Election
+Short Intro
 ## Bandwidth Proof
+Short Intro
 ### Attesting Proof (Script)
+1. Whitepaper Section + Passive/Active + Level
+2. Short Info
+3. How it can be achieved
+4. Existing Implementation reference
+5. Feasibility
+6. Technical/Nontechnical Challenges
+7. Alternatives
 ### Selection of Proof (Node)
+1. Whitepaper Section + Passive/Active + Level
+2. Short Info
+3. How it can be achieved
+4. Existing Implementation reference
+5. Feasibility
+6. Technical/Nontechnical Challenges
+7. Alternatives
 ## Vote of Confidence (Removal of Nodes)
+Short Intro
 ### Selection of Un-fit Nodes (Node)
+1. Whitepaper Section + Passive/Active + Level
+2. Short Info
+3. How it can be achieved
+4. Existing Implementation reference
+5. Feasibility
+6. Technical/Nontechnical Challenges
+7. Alternatives
 ### Participation by Voting (Script)
+1. Whitepaper Section + Passive/Active + Level
+2. Short Info
+3. How it can be achieved
+4. Existing Implementation reference
+5. Feasibility
+6. Technical/Nontechnical Challenges
+7. Alternatives
 ### Elimination \& Result (Chain)
+1. Whitepaper Section + Passive/Active + Level
+2. Short Info
+3. How it can be achieved
+4. Existing Implementation reference
+5. Feasibility
+6. Technical/Nontechnical Challenges
+7. Alternatives
 ## Producer Arrival
+Short Intro
 ### Repeated (Bandwidth Proof)
+1. Whitepaper Section + Passive/Active + Level
+2. Short Info
+3. How it can be achieved
+4. Existing Implementation reference
+5. Feasibility
+6. Technical/Nontechnical Challenges
+7. Alternatives
 ### Selection of Proofs (Node)
+1. Whitepaper Section + Passive/Active + Level
+2. Short Info
+3. How it can be achieved
+4. Existing Implementation reference
+5. Feasibility
+6. Technical/Nontechnical Challenges
+7. Alternatives
 ### Contestant Results (Chain)
+1. Whitepaper Section + Passive/Active + Level
+2. Short Info
+3. How it can be achieved
+4. Existing Implementation reference
+5. Feasibility
+6. Technical/Nontechnical Challenges
+7. Alternatives
 ## Allocation of Leaders
+1. Whitepaper Section + Passive/Active + Level
+2. Short Info
+3. How it can be achieved
+4. Existing Implementation reference
+5. Feasibility
+6. Technical/Nontechnical Challenges
+7. Alternatives
 ## Stake UTXO Creation
+1. Whitepaper Section + Passive/Active + Level
+2. Short Info
+3. How it can be achieved
+4. Existing Implementation reference
+5. Feasibility
+6. Technical/Nontechnical Challenges
+7. Alternatives
 ## Block Size \& Time
+Short Intro
 ### Proof Selection (Node)
+1. Whitepaper Section + Passive/Active + Level
+2. Short Info
+3. How it can be achieved
+4. Existing Implementation reference
+5. Feasibility
+6. Technical/Nontechnical Challenges
+7. Alternatives
 ### Block Size per sec Fixing (Chain)
+1. Whitepaper Section + Passive/Active + Level
+2. Short Info
+3. How it can be achieved
+4. Existing Implementation reference
+5. Feasibility
+6. Technical/Nontechnical Challenges
+7. Alternatives
 ### Block Time Fixing (Chain)
+1. Whitepaper Section + Passive/Active + Level
+2. Short Info
+3. How it can be achieved
+4. Existing Implementation reference
+5. Feasibility
+6. Technical/Nontechnical Challenges
+7. Alternatives
 ### Per Block Size Fixing (Node)
+1. Whitepaper Section + Passive/Active + Level
+2. Short Info
+3. How it can be achieved
+4. Existing Implementation reference
+5. Feasibility
+6. Technical/Nontechnical Challenges
+7. Alternatives
 
 # Mempool Active Validation
 ## Un-Confirmed Tx Propagation
