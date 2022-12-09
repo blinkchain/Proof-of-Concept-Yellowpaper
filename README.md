@@ -74,31 +74,18 @@ Generate a Json file with  wallet_ID with verified bandwidth proofs
 ```
 
 Function Bandwidth_proof_selection (range_begin,range_end,Input_Json) 
-
 {
-
   In_Data<----Input_Json // only data within the given range
-
   Out_Data<---- Output_Json 
-
   For i = range_end, i>=range_begin , i --
-
   {
-
   If In_Data[i] position has bandwidth proof 
-
       If Out_Data not have wallet_id && Validate_proof(wallet_id)
-
         Write Out_Data with [UTXO index,Transaction ID,Block height,wallet ID]<----In_Data[i]
-
       End if
-
   End if
-
   }
-
 Return Output_Json
-
 }
 ```
 
