@@ -7,6 +7,14 @@ Contributors: [@jobyreuben](https://www.github.com/jobyreuben),  [@I-Corinthian]
 
 Download PDF version [here](https://blinkchain.org/map.pdf)
 
+## Contents
+
+1. **Node Level Concepts**
+     - [**✢ Vote of Confidence Result**](#-vote-of-confidence-result)
+     - [**✢ Selection of Bandwidth Proof**](#-selection-of-bandwidth-proof)
+     - [**✢ Node Weight \& Total Packets Calculation**](#-node-weight--total-packets-calculation)
+     - [**✢ Allocation of Leaders**](#-allocation-of-leaders)
+
 
 # Objectives
 1. Whitepaper Section, Passive or Active Program \& Level
@@ -294,6 +302,7 @@ Short Intro
 
 - [Blinkchain - Proof of Concept for Development](#blinkchain---proof-of-concept-for-development)
   - [Development Map](#development-map)
+  - [Contents](#contents)
 - [Objectives](#objectives)
 - [Time Architecture](#time-architecture)
 - [Epoch Election](#epoch-election)
