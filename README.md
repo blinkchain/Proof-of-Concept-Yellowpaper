@@ -12,15 +12,17 @@ Download PDF version [here](https://blinkchain.org/map.pdf)
 1. Whitepaper Section, Passive or Active Program \& Level
    - Active: Constantly running, looking for triggers
    - Passive: Active per time-frame or triggered
-   - Chain - Ledger,Consensus and Core Implementations
-   - Script - UTXO scripts/proofs construction and attesting
-   - OffChain - Client Side construction/propagation
-   - Node - Validation, Ledger Outlook \& Parameter construction
+   - ❇ Chain - Ledger,Consensus and Core Implementations
+   - ★ Script - UTXO scripts/proofs construction and attesting
+   - ❁ OffChain - Client Side construction/propagation
+   - ✢ Node - Validation, Ledger Outlook \& Parameter construction
 2. Process, Algorithm and Mathmatical Data
 3. Existing Implementations and Documentation References
 4. Feasibility of Development \& Notes
 5. Technical \& Non-Technical Challenges
 6.  Alternatives Offered \& Outcomes
+
+ - Script 
 
 # Time Architecture
 *[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
@@ -46,10 +48,10 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 - Producer arrival represents new nodes arrival to contest in the Epoch election to produce new blocks. For Arrival a specific slot is allocated range of x to y block heights in every epoch for the next epoch production. 
 - Existing and new producers carry out same process, but new nodes tend to have a criteria to be fulfilled, whereas the existing nodes does infact proved passing the criteria for the previous epoch.
 
-### **Vote of Confidence Result**
+### **✢ Vote of Confidence Result**
 
 
-### **Selection of Bandwidth Proof**
+### **✢ Selection of Bandwidth Proof**
 
 *Bandwidth Proofs* - to be proposed in a new paper "Blink Proofs" will provide a zero knowledge proof to the verfiers (nodes) to calculate its authenticity and ability to contest in the new election to directly influencing to change the block size of the epoch.
 
@@ -100,7 +102,7 @@ Return Output_Json
 }
 ```
 
-### **Node Weight & Total Packets Calculation** 
+### **✢ Node Weight & Total Packets Calculation** 
 
 - Whitepaper Section 3.2 - 3.2.1, Active, Level: Node
 - Node Weights represent, each node's current honesty weight. For every epoch along with the Bandwidth Proof, nodes are required to attach their updated weight which can be validated if true.
@@ -117,11 +119,23 @@ Return Output_Json
 algorithm here;
 ```
 
-### Allocation of Leaders
+### **✢ Allocation of Leaders**
 
 - Whitepaper Section 3.2.2 - 3.2.3, Passive, Level: Node
-- 
+- Since each node's total packets production rate is achieve for the next epoch, each packet's height has to be determined for which node to produce in a determinable randomized structure. Thus, packet leaders are announced, or determined by each node on the network from only the randomized parameters
+- First Packet shall be produced by the highest number of packet allocated node i.e., the strongest & most honest node
+- Likewise, for every 400 blocks, the strongest of it shall be announced as slot leader, who does not have first packet slot privilleges, but assigned to propagate transactions properly.
+- Allocation works like Bitcoin's Difficulty rate and nonce. For each packet a $K$ Output is given in MD160 (Same as PKH address) produced from an assigned n Block's Merkle Root $(H)$ of all transactions which will be random.
+- $K=MD160(SHA256((SHA256(H))+Packet_n+Slot_n+Epoch_n))$
+- Any node's PublicKeyHash $(N_x)$ lesser than $K$, shall be selected as the Packet's Producer. $Leader = K_p > N_x$
+- $K$ is rehashed during same leader continuous producer assignment or if no lesser $N_x$ value than $K$ is found.
+- Challenges will be node's having a different $H$ value due to forks, but can be achieved if a confirmed block's merkle root is taken. If any one node fails to achive common consensus on packet leaders, its propagation/minting will not be accepted and it will get dishonesty weightage.
 
+*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
+
+```
+algorithm here;
+```
    
 ## Block Size \& Time 
 
@@ -297,10 +311,10 @@ Short Intro
 - [Time Architecture](#time-architecture)
 - [Epoch Election](#epoch-election)
   - [Producer Arrival](#producer-arrival)
-    - [**Vote of Confidence Result**](#vote-of-confidence-result)
-    - [**Selection of Bandwidth Proof**](#selection-of-bandwidth-proof)
-    - [**Node Weight \& Total Packets Calculation**](#node-weight--total-packets-calculation)
-    - [Allocation of Leaders](#allocation-of-leaders)
+    - [**✢ Vote of Confidence Result**](#-vote-of-confidence-result)
+    - [**✢ Selection of Bandwidth Proof**](#-selection-of-bandwidth-proof)
+    - [**✢ Node Weight \& Total Packets Calculation**](#-node-weight--total-packets-calculation)
+    - [**✢ Allocation of Leaders**](#-allocation-of-leaders)
   - [Block Size \& Time](#block-size--time)
     - [Block Size per sec Fixing (Chain)](#block-size-per-sec-fixing-chain)
     - [Block Time Fixing (Chain)](#block-time-fixing-chain)
