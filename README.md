@@ -51,10 +51,10 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 > 
 > **Producer Arrival** represents new nodes arrival to contest in the Epoch election to produce new blocks. For Arrival a specific slot is allocated range of x to y block heights in every epoch for the next epoch production. Existing and new producers carry out same process, but new nodes tend to have a criteria to be fulfilled, whereas the existing nodes does infact proved passing the criteria for the previous epoch.
 
-## ✢ Vote of Confidence Result
+## Vote of Confidence Result
 
 
-## ✢ Selection of Bandwidth Proof
+## Selection of Bandwidth Proof
 
 > **Quick Info** 💡
 > 
@@ -94,7 +94,7 @@ Return Output_Json
 }
 ```
 
-## ✢ Node Weight & Total Packets Calculation
+## Node Weight & Total Packets Calculation
 
 - Whitepaper Section 3.2 - 3.2.1, Active, Level: Node
 - Node Weights represent, each node's current honesty weight. For every epoch along with the Bandwidth Proof, nodes are required to attach their updated weight which can be validated if true.
@@ -111,7 +111,7 @@ Return Output_Json
 algorithm here;
 ```
 
-## ✢ Allocation of Leaders
+## Allocation of Leaders
 
 - Whitepaper Section 3.2.2 - 3.2.3, Passive, Level: Node
 - Since each node's total packets production rate is achieve for the next epoch, each packet's height has to be determined for which node to produce in a determinable randomized structure. Thus, packet leaders are announced, or determined by each node on the network from only the randomized parameters
@@ -121,6 +121,7 @@ algorithm here;
 - $K=MD160(SHA256((SHA256(H))+Packet_n+Slot_n+Epoch_n))$
 - Any node's PublicKeyHash $(N_x)$ lesser than $K$, shall be selected as the Packet's Producer. $Leader = K_p > N_x$
 - $K$ is rehashed during same leader continuous producer assignment or if no lesser $N_x$ value than $K$ is found.
+- After the packets are allocated and confirmed, the delegators can verify and collateralize for their tokens for the specific packets
 - Challenges will be node's having a different $H$ value due to forks, but can be achieved if a confirmed block's merkle root is taken. If any one node fails to achive common consensus on packet leaders, its propagation/minting will not be accepted and it will get dishonesty weightage.
 
 *[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
@@ -129,12 +130,12 @@ algorithm here;
 algorithm here;
 ```
    
-## ✢ Block Size \& Time Fixing
+## Block Size \& Time Fixing
 
 - Whitepaper Section (2.3.1, 2.3.4, 2.3.5) , Passive, Level: Node
 - Bandwidth Proofs taken for next epoch shall provide the network's handling throughput bits per second. From these proofs, the block time and size is calculated and posted for the next epoch block production.
 - According to Whitepaper we have to take median bandwidth, but since Vote of confidence kicks un-fit nodes, it can improve requirements for new node arrival which will have increased bandwidth. Hence the median bandwidth is not taken.
-- Instead, taking the lowest bandwith shall provide the minimum propagation possibility per second. This process can be done right after the [✢ Selection of Bandwidth Proof](#-selection-of-bandwidth-proof)
+- Instead, taking the lowest bandwith shall provide the minimum propagation possibility per second. This process can be done right after the [Selection of Bandwidth Proof](#-selection-of-bandwidth-proof)
 - $Epoch_n(BlockMaxSize_{bits}/sec)=Min(B_1,B_2,....B_n)$
 - Per Block time is calculated from Median Time from previous epoch i.e., n-2 epoch for the newly produced epoch
 - $Epoch_n BlockTime (\tau) = Epoch_{n-2} Median BlockTime (\tau)$
@@ -148,31 +149,35 @@ algorithm here;
 algorithm here;
 ```
 
-# Vote of Confidence 
+## Vote of Confidence (Requirement)
 
 > **Quick Info** 💡
 > 
 > **Vote of Confidence** - To scale the blink-network and avoid latencies due to incompetance to propagate transactions faster, the network decides on a vote to kick un-fit nodes as per its requirement. Vote of Confidence involves selection, voting, and elimination by increasing requirements for kicked nodes to participate in the election as a contestant.
 
-## Selection of Un-fit Nodes (Node)
+- Whitepaper Section 3.1.2, Active, Level: Node
+- Vote of confidence can improve requirement therby increasing the difficulty rate to join the producer cluster. Thus way better and bandwidth stronger nodes capable for faster propagation can join.
+- To eliminate nodes, the mean value of all selected bandwidth of nodes shall be taken as a threshold to vote on elimination
+- Each node shall have a rate of elimination percentage for which it can vote. This is to offload decentralization ethics towards node-operators. Minimum the rate of elimination, maximum the decentralization of the network.
+- Each node can vote on un-fit nodes below its rate of elimination of the mean value, till the next selection of bandwidth-proofs. The VoC result will be published before the Selection of Bandwidth Proofs.
 
-- Whitepaper Section 3.1.2, Passive, Level : Node
-- Previous Epoch election's bandwidth proofs are taken to find their mean (average) value, from which the minimum requirement is passed/determined by the current producers. Voting can begin once, the minimum bandwidth value is calculated.
-1. How it can be achieved
-2. Existing Implementation reference
-3. Feasibility
-4. Technical/Nontechnical Challenges
-5. Alternatives
-## Participation by Voting (Script)
-1. Whitepaper Section + Passive/Active + Level
-2. Short Info
-3. How it can be achieved
-4. Existing Implementation reference
-5. Feasibility
-6. Technical/Nontechnical Challenges
-7. Alternatives
+*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
+```
+algorithm here;
+```
 
+## Escrow Rate (Requirement)
+
+> **Quick Info** 💡
+> 
+> **Escrow Rate** - To restrict spending of blinkcoins, blinkchain's native coin during recessions, bear markets similar to a central bank that icreases borrowing rates to reduce spending. Escrow rates are levied to delegators on their blinkcoins to retrict certain supply for a fixed amount of period i.e., 500 epochs (5,000,000 blocks) or approx 21 days. This rate is known as SERC (Staking Escrow Rates for Collateral) which will be hiked, lowered according to market conditions determined by the network per epoch.
+
+- Whitepaper 3.3.4, Passive, Level:Node
+
+## Per Token Collateral (Requirement)
+
+- Whitepaper 3.3.3, Passive, Level: Node
 
 # Mempool Active Validation
 ## Un-Confirmed Tx Propagation
@@ -191,6 +196,7 @@ algorithm here;
 #### Dust Purging Transaction
 #### Layered Tax Transaction
 #### Bandwidth Proof Tx Validation + Node Weight
+#### Vote of Confidence Vote Transaction
 ### Vanity \& Client-Witness Validation
 ### Fee Validation
 ### Tax Validation
@@ -278,6 +284,8 @@ algorithm here;
 
 # Oracles
 
+# Genesis Epochs
+
 
 
 - [Blinkchain - Proof of Concept for Development](#blinkchain---proof-of-concept-for-development)
@@ -286,14 +294,14 @@ algorithm here;
 - [Objectives](#objectives)
 - [Time Architecture](#time-architecture)
 - [Epoch Election](#epoch-election)
-  - [✢ Vote of Confidence Result](#-vote-of-confidence-result)
-  - [✢ Selection of Bandwidth Proof](#-selection-of-bandwidth-proof)
-  - [✢ Node Weight \& Total Packets Calculation](#-node-weight--total-packets-calculation)
-  - [✢ Allocation of Leaders](#-allocation-of-leaders)
-  - [✢ Block Size \& Time Fixing](#-block-size--time-fixing)
-- [Vote of Confidence](#vote-of-confidence)
-  - [Selection of Un-fit Nodes (Node)](#selection-of-un-fit-nodes-node)
-  - [Participation by Voting (Script)](#participation-by-voting-script)
+  - [Vote of Confidence Result](#vote-of-confidence-result)
+  - [Selection of Bandwidth Proof](#selection-of-bandwidth-proof)
+  - [Node Weight \& Total Packets Calculation](#node-weight--total-packets-calculation)
+  - [Allocation of Leaders](#allocation-of-leaders)
+  - [Block Size \& Time Fixing](#block-size--time-fixing)
+  - [Vote of Confidence (Requirement)](#vote-of-confidence-requirement)
+  - [Escrow Rate (Requirement)](#escrow-rate-requirement)
+  - [Per Token Collateral (Requirement)](#per-token-collateral-requirement)
 - [Mempool Active Validation](#mempool-active-validation)
   - [Un-Confirmed Tx Propagation](#un-confirmed-tx-propagation)
     - [Propagation to Leader's Global Mempool](#propagation-to-leaders-global-mempool)
@@ -311,6 +319,7 @@ algorithm here;
       - [Dust Purging Transaction](#dust-purging-transaction)
       - [Layered Tax Transaction](#layered-tax-transaction)
       - [Bandwidth Proof Tx Validation + Node Weight](#bandwidth-proof-tx-validation--node-weight)
+      - [Vote of Confidence Vote Transaction](#vote-of-confidence-vote-transaction)
     - [Vanity \& Client-Witness Validation](#vanity--client-witness-validation)
     - [Fee Validation](#fee-validation)
     - [Tax Validation](#tax-validation)
@@ -378,3 +387,4 @@ algorithm here;
   - [Age Proof](#age-proof)
     - [Pattern Identification](#pattern-identification)
 - [Oracles](#oracles)
+- [Genesis Epochs](#genesis-epochs)
