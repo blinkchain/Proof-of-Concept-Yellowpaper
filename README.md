@@ -46,10 +46,10 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 - Producer arrival represents new nodes arrival to contest in the Epoch election to produce new blocks. For Arrival a specific slot is allocated range of x to y block heights in every epoch for the next epoch production. 
 - Existing and new producers carry out same process, but new nodes tend to have a criteria to be fulfilled, whereas the existing nodes does infact proved passing the criteria for the previous epoch.
 
-### Vote of Confidence Result
+### **Vote of Confidence Result**
 
 
-### Selection of Bandwidth Proof
+### **Selection of Bandwidth Proof**
 
 *Bandwidth Proofs* - to be proposed in a new paper "Blink Proofs" will provide a zero knowledge proof to the verfiers (nodes) to calculate its authenticity and ability to contest in the new election to directly influencing to change the block size of the epoch.
 
@@ -60,33 +60,67 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 - The requirement will be published on after every epoch's Vote of Confidence motion.
 - The implementation can be done effectively with optimized language suitable.
 
-*[@I-Corinthian](https://github.com/I-Corinthian) Contributed Algorithm*
+*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
+
+Generate a Json file with  wallet_ID with verified bandwidth proofs
+
+1. *Input_Json is the json file with all the blocks*
+2. *Output_json is the json file with only the info of the verified bandwidth proofs*
+3. *Validate_proof is a function that validated the proof returns true or false*
+
 
 ```
-algorithm here;
+
+Function Bandwidth_proof_selection (range_begin,range_end,Input_Json) 
+
+{
+
+  In_Data<----Input_Json // only data within the given range
+
+  Out_Data<---- Output_Json 
+
+  For i = range_end, i>=range_begin , i --
+
+  {
+
+  If In_Data[i] position has bandwidth proof 
+
+      If Out_Data not have wallet_id && Validate_proof(wallet_id)
+
+        Write Out_Data with [UTXO index,Transaction ID,Block height,wallet ID]<----In_Data[i]
+
+      End if
+
+  End if
+
+  }
+
+Return Output_Json
+
+}
 ```
 
-### Node Weight Calculation 
+### **Node Weight & Total Packets Calculation** 
 
 - Whitepaper Section 3.2 - 3.2.1, Active, Level: Node
 - Node Weights represent, each node's current honesty weight. For every epoch along with the Bandwidth Proof, nodes are required to attach their updated weight which can be validated if true.
 - $NodeWeight(N_w)=\sum N(W_n) + Bandwidth (Bits/sec)$
 - All of selected bandwith proof's node's weights are summed up to find total packets each node can produce
-- $Total Packets (P) = \frac{10,000 \times N_w}{\sum_1^n (N_w)_n}$
+- $Total Packets (P) = \frac{10,000 \times N_w}{\sum_{1}^{n} (N_w)_n}$
 
 - If Total packets allocated < 10000, then the remaining packets are allocated to nodes with highest positive weight excluding the bandwidth proof.
 - Challenges will be script development for Node weight snapshot and validation of it, which also can be effectively achieved.
 
-*[@I-Corinthian](https://github.com/I-Corinthian) Contributed Algorithm*
+*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
 ```
 algorithm here;
 ```
 
-
 ### Allocation of Leaders
 
 - Whitepaper Section 3.2.2 - 3.2.3, Passive, Level: Node
+- 
 
    
 ## Block Size \& Time 
@@ -167,7 +201,7 @@ Short Intro
 #### Stable Token Transaction
 #### Dust Purging Transaction
 #### Layered Tax Transaction
-#### Node Weight Update Transaction
+#### Bandwidth Proof Tx Validation + Node Weight
 ### Vanity \& Client-Witness Validation
 ### Fee Validation
 ### Tax Validation
@@ -263,9 +297,9 @@ Short Intro
 - [Time Architecture](#time-architecture)
 - [Epoch Election](#epoch-election)
   - [Producer Arrival](#producer-arrival)
-    - [Vote of Confidence Result](#vote-of-confidence-result)
-    - [Selection of Bandwidth Proof](#selection-of-bandwidth-proof)
-    - [Node Weight Calculation](#node-weight-calculation)
+    - [**Vote of Confidence Result**](#vote-of-confidence-result)
+    - [**Selection of Bandwidth Proof**](#selection-of-bandwidth-proof)
+    - [**Node Weight \& Total Packets Calculation**](#node-weight--total-packets-calculation)
     - [Allocation of Leaders](#allocation-of-leaders)
   - [Block Size \& Time](#block-size--time)
     - [Block Size per sec Fixing (Chain)](#block-size-per-sec-fixing-chain)
@@ -291,7 +325,7 @@ Short Intro
       - [Stable Token Transaction](#stable-token-transaction)
       - [Dust Purging Transaction](#dust-purging-transaction)
       - [Layered Tax Transaction](#layered-tax-transaction)
-      - [Node Weight Update Transaction](#node-weight-update-transaction)
+      - [Bandwidth Proof Tx Validation + Node Weight](#bandwidth-proof-tx-validation--node-weight)
     - [Vanity \& Client-Witness Validation](#vanity--client-witness-validation)
     - [Fee Validation](#fee-validation)
     - [Tax Validation](#tax-validation)
