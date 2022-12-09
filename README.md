@@ -70,10 +70,9 @@ algorithm here;
 
 - Whitepaper Section 3.2 - 3.2.1, Active, Level: Node
 - Node Weights represent, each node's current honesty weight. For every epoch along with the Bandwidth Proof, nodes are required to attach their updated weight which can be validated if true.
-![nodeweightsum](https://github.com/blinkchain/Proof-of-Concept-for-Development/blob/main/equations/nodeweightsum.jpg)
-
+- $NodeWeight(N_w)=\sum N(W_n) + Bandwidth (Bits/sec)$
 - All of selected bandwith proof's node's weights are summed up to find total packets each node can produce
-![nodeweightsum](https://github.com/blinkchain/Proof-of-Concept-for-Development/blob/main/equations/totalpackets.jpg)
+- $Total Packets (P) = \frac{10,000 \times N_w}{\sum_1^n (N_w)_n}$
 
 - If Total packets allocated < 10000, then the remaining packets are allocated to nodes with highest positive weight excluding the bandwidth proof.
 - Challenges will be script development for Node weight snapshot and validation of it, which also can be effectively achieved.
