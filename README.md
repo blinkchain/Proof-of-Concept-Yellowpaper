@@ -10,10 +10,7 @@ Download PDF version [here](https://blinkchain.org/map.pdf)
 ## Contents
 
 1. **Node Level Concepts**
-     - [**✢ Vote of Confidence Result**](#-vote-of-confidence-result)
-     - [**✢ Selection of Bandwidth Proof**](#-selection-of-bandwidth-proof)
-     - [**✢ Node Weight \& Total Packets Calculation**](#-node-weight--total-packets-calculation)
-     - [**✢ Allocation of Leaders**](#-allocation-of-leaders)
+
 
 
 # Objectives
@@ -30,7 +27,6 @@ Download PDF version [here](https://blinkchain.org/map.pdf)
 5. Technical \& Non-Technical Challenges
 6.  Alternatives Offered \& Outcomes
 
- - Script 
 
 # Time Architecture
 *[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
@@ -51,17 +47,18 @@ Download PDF version [here](https://blinkchain.org/map.pdf)
 Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leaders who are eligible to produce their blocks. Block producers are announced before the epoch starts. The following steps starts from attesting proofs to participate in the election to getting selected to mint a block to commencing the epoch.
 
 
-## Producer Arrival
+> **Quick Info** 💡
+> 
+> **Producer Arrival** represents new nodes arrival to contest in the Epoch election to produce new blocks. For Arrival a specific slot is allocated range of x to y block heights in every epoch for the next epoch production. Existing and new producers carry out same process, but new nodes tend to have a criteria to be fulfilled, whereas the existing nodes does infact proved passing the criteria for the previous epoch.
 
-- Producer arrival represents new nodes arrival to contest in the Epoch election to produce new blocks. For Arrival a specific slot is allocated range of x to y block heights in every epoch for the next epoch production. 
-- Existing and new producers carry out same process, but new nodes tend to have a criteria to be fulfilled, whereas the existing nodes does infact proved passing the criteria for the previous epoch.
-
-### **✢ Vote of Confidence Result**
+## ✢ Vote of Confidence Result
 
 
-### **✢ Selection of Bandwidth Proof**
+## ✢ Selection of Bandwidth Proof
 
-*Bandwidth Proofs* - to be proposed in a new paper "Blink Proofs" will provide a zero knowledge proof to the verfiers (nodes) to calculate its authenticity and ability to contest in the new election to directly influencing to change the block size of the epoch.
+> **Quick Info** 💡
+> 
+> **Bandwidth Proofs** - to be proposed in a new paper "Blink Proofs" will provide a zero knowledge proof to the verfiers (nodes) to calculate its authenticity and ability to contest in the new election to directly influencing to change the block size of the epoch.
 
 *[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
 
@@ -72,7 +69,7 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 
 *[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
-Generate a Json file with  wallet_ID with verified bandwidth proofs
+Generate a Json file with  PublicKey with verified bandwidth proofs
 
 1. *Input_Json is the json file with all the blocks*
 2. *Output_json is the json file with only the info of the verified bandwidth proofs*
@@ -88,7 +85,7 @@ Function Bandwidth_proof_selection (range_begin,range_end,Input_Json)
   For i = range_end, i>=range_begin , i --
   {
   If In_Data[i] position has bandwidth proof 
-      If Out_Data not have wallet_id && Validate_proof(wallet_id)
+      If Out_Data not have PublicKey && Validate_proof(PublicKey)
         Write Out_Data with [UTXO index,Transaction ID,Block height,wallet ID]<----In_Data[i]
       End if
   End if
@@ -97,7 +94,7 @@ Return Output_Json
 }
 ```
 
-### **✢ Node Weight & Total Packets Calculation** 
+## ✢ Node Weight & Total Packets Calculation
 
 - Whitepaper Section 3.2 - 3.2.1, Active, Level: Node
 - Node Weights represent, each node's current honesty weight. For every epoch along with the Bandwidth Proof, nodes are required to attach their updated weight which can be validated if true.
@@ -114,7 +111,7 @@ Return Output_Json
 algorithm here;
 ```
 
-### **✢ Allocation of Leaders**
+## ✢ Allocation of Leaders
 
 - Whitepaper Section 3.2.2 - 3.2.3, Passive, Level: Node
 - Since each node's total packets production rate is achieve for the next epoch, each packet's height has to be determined for which node to produce in a determinable randomized structure. Thus, packet leaders are announced, or determined by each node on the network from only the randomized parameters
@@ -132,42 +129,32 @@ algorithm here;
 algorithm here;
 ```
    
-## Block Size \& Time 
+## ✢ Block Size \& Time Fixing
 
-Short Intro
+- Whitepaper Section (2.3.1, 2.3.4, 2.3.5) , Passive, Level: Node
+- Bandwidth Proofs taken for next epoch shall provide the network's handling throughput bits per second. From these proofs, the block time and size is calculated and posted for the next epoch block production.
+- According to Whitepaper we have to take median bandwidth, but since Vote of confidence kicks un-fit nodes, it can improve requirements for new node arrival which will have increased bandwidth. Hence the median bandwidth is not taken.
+- Instead, taking the lowest bandwith shall provide the minimum propagation possibility per second. This process can be done right after the [✢ Selection of Bandwidth Proof](#-selection-of-bandwidth-proof)
+- $Epoch_n(BlockMaxSize_{bits}/sec)=Min(B_1,B_2,....B_n)$
+- Per Block time is calculated from Median Time from previous epoch i.e., n-2 epoch for the newly produced epoch
+- $Epoch_n BlockTime (\tau) = Epoch_{n-2} Median BlockTime (\tau)$
+- From the per block time, we can calculate per block size as the Block size per second (1) is calculated previously.
+- $Epoch_n(BlockSize)=BlockMaxSize_{bits}/sec \times BlinkTime$ 
+-  Note : Per second in Blinkchain is 1 Legate = Legacy Hardware Single Thread H/s. Hence, Block Time in seconds denotes legates i.e., 1 sec = 1 legate. 
 
-### Block Size per sec Fixing (Chain)
+*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
-1. Whitepaper Section + Passive/Active + Level
-2. Short Info
-3. How it can be achieved
-4. Existing Implementation reference
-5. Feasibility
-6. Technical/Nontechnical Challenges
-7. Alternatives
-### Block Time Fixing (Chain)
-1. Whitepaper Section + Passive/Active + Level
-2. Short Info
-3. How it can be achieved
-4. Existing Implementation reference
-5. Feasibility
-6. Technical/Nontechnical Challenges
-7. Alternatives
-### Per Block Size Fixing (Node)
-1. Whitepaper Section + Passive/Active + Level
-2. Short Info
-3. How it can be achieved
-4. Existing Implementation reference
-5. Feasibility
-6. Technical/Nontechnical Challenges
-7. Alternatives
+```
+algorithm here;
+```
 
-## Vote of Confidence 
+# Vote of Confidence 
 
-- Whitepaper Section 3.1
-- To scale the blink-network and avoid latencies due to incompetance to propagate transactions faster, the network decides on a vote to kick un-fit nodes as per its requirement. Vote of Confidence involves selection, voting, and elimination by ignoring it's bandwidth proofs for becoming a contestant in the election.
+> **Quick Info** 💡
+> 
+> **Vote of Confidence** - To scale the blink-network and avoid latencies due to incompetance to propagate transactions faster, the network decides on a vote to kick un-fit nodes as per its requirement. Vote of Confidence involves selection, voting, and elimination by increasing requirements for kicked nodes to participate in the election as a contestant.
 
-### Selection of Un-fit Nodes (Node)
+## Selection of Un-fit Nodes (Node)
 
 - Whitepaper Section 3.1.2, Passive, Level : Node
 - Previous Epoch election's bandwidth proofs are taken to find their mean (average) value, from which the minimum requirement is passed/determined by the current producers. Voting can begin once, the minimum bandwidth value is calculated.
@@ -176,7 +163,7 @@ Short Intro
 3. Feasibility
 4. Technical/Nontechnical Challenges
 5. Alternatives
-### Participation by Voting (Script)
+## Participation by Voting (Script)
 1. Whitepaper Section + Passive/Active + Level
 2. Short Info
 3. How it can be achieved
@@ -184,14 +171,7 @@ Short Intro
 5. Feasibility
 6. Technical/Nontechnical Challenges
 7. Alternatives
-### Elimination \& Result (Chain)
-1. Whitepaper Section + Passive/Active + Level
-2. Short Info
-3. How it can be achieved
-4. Existing Implementation reference
-5. Feasibility
-6. Technical/Nontechnical Challenges
-7. Alternatives
+
 
 
 # Mempool Active Validation
@@ -306,19 +286,14 @@ Short Intro
 - [Objectives](#objectives)
 - [Time Architecture](#time-architecture)
 - [Epoch Election](#epoch-election)
-  - [Producer Arrival](#producer-arrival)
-    - [**✢ Vote of Confidence Result**](#-vote-of-confidence-result)
-    - [**✢ Selection of Bandwidth Proof**](#-selection-of-bandwidth-proof)
-    - [**✢ Node Weight \& Total Packets Calculation**](#-node-weight--total-packets-calculation)
-    - [**✢ Allocation of Leaders**](#-allocation-of-leaders)
-  - [Block Size \& Time](#block-size--time)
-    - [Block Size per sec Fixing (Chain)](#block-size-per-sec-fixing-chain)
-    - [Block Time Fixing (Chain)](#block-time-fixing-chain)
-    - [Per Block Size Fixing (Node)](#per-block-size-fixing-node)
-  - [Vote of Confidence](#vote-of-confidence)
-    - [Selection of Un-fit Nodes (Node)](#selection-of-un-fit-nodes-node)
-    - [Participation by Voting (Script)](#participation-by-voting-script)
-    - [Elimination \& Result (Chain)](#elimination--result-chain)
+  - [✢ Vote of Confidence Result](#-vote-of-confidence-result)
+  - [✢ Selection of Bandwidth Proof](#-selection-of-bandwidth-proof)
+  - [✢ Node Weight \& Total Packets Calculation](#-node-weight--total-packets-calculation)
+  - [✢ Allocation of Leaders](#-allocation-of-leaders)
+  - [✢ Block Size \& Time Fixing](#-block-size--time-fixing)
+- [Vote of Confidence](#vote-of-confidence)
+  - [Selection of Un-fit Nodes (Node)](#selection-of-un-fit-nodes-node)
+  - [Participation by Voting (Script)](#participation-by-voting-script)
 - [Mempool Active Validation](#mempool-active-validation)
   - [Un-Confirmed Tx Propagation](#un-confirmed-tx-propagation)
     - [Propagation to Leader's Global Mempool](#propagation-to-leaders-global-mempool)
