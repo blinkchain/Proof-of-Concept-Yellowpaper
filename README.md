@@ -48,6 +48,8 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 - Producer arrival represents new nodes arrival to contest in the Epoch election to produce new blocks. For Arrival a specific slot is allocated range of x to y block heights in every epoch for the next epoch production. 
 - Existing and new producers carry out same process, but new nodes tend to have a criteria to be fulfilled, whereas the existing nodes does infact proved passing the criteria for the previous epoch.
 
+### Vote of Confidence Result
+
 
 ### Selection of Bandwidth Proof
 
@@ -66,22 +68,31 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 algorithm here;
 ```
 
-### Node Weight & Production Rate Calculation
+### Node Weight Calculation 
 
-- Whitepaper Section 3.2 - 3.2.2, Passive, Level : Node
+- Whitepaper Section 3.2 - 3.2.1, Active, Level: Node
+- Node Weights represent, each node's current honesty weight. For every epoch along with the Bandwidth Proof, nodes are required to attach their updated weight which can be validated if true.
+![nodeweightsum](https://github.com/blinkchain/Proof-of-Concept-for-Development/blob/main/equations/nodeweightsum.jpg?raw=true)
+![nodeweightsum](equations/nodeweightsum.jpg)
+- All of selected bandwith proof's node's weights are summed up to find total packets each node can produce
+![nodeweightsum](https://github.com/blinkchain/Proof-of-Concept-for-Development/blob/main/equations/totalpackets.jpg?raw=true)
+![nodeweightsum](equations/totalpackets.jpg)
+- If Total packets allocated < 10000, then the remaining packets are allocated to nodes with highest positive weight excluding the bandwidth proof.
+- Challenges will be script development for Node weight snapshot and validation of it, which also can be effectively achieved.
+
+*[@I-Corinthian](https://github.com/I-Corinthian) Contributed Algorithm*
+
+```
+algorithm here;
+```
+
 
 ### Allocation of Leaders
 
-- Whitepaper Section 3.2.3, Passive, Level : Node
+- Whitepaper Section 3.2.2 - 3.2.3, Passive, Level: Node
 
-
-
-
-## Commencing Staking Period
-
-- Whitepaper Section , Active + Level: Script
    
-## Block Size \& Time
+## Block Size \& Time 
 
 Short Intro
 
@@ -111,7 +122,7 @@ Short Intro
 6. Technical/Nontechnical Challenges
 7. Alternatives
 
-## Vote of Confidence
+## Vote of Confidence 
 
 - Whitepaper Section 3.1
 - To scale the blink-network and avoid latencies due to incompetance to propagate transactions faster, the network decides on a vote to kick un-fit nodes as per its requirement. Vote of Confidence involves selection, voting, and elimination by ignoring it's bandwidth proofs for becoming a contestant in the election.
@@ -159,6 +170,7 @@ Short Intro
 #### Stable Token Transaction
 #### Dust Purging Transaction
 #### Layered Tax Transaction
+#### Node Weight Update Transaction
 ### Vanity \& Client-Witness Validation
 ### Fee Validation
 ### Tax Validation
@@ -223,6 +235,8 @@ Short Intro
 ## Oracle Fund UTXO
 ## Oracle Reputation UTXO
 ## Bandwidth Proofs
+### Bandwidth Proof
+### Node Weight Proof
 
 ### Arrival Nodes Bandwidth Proof
 
@@ -238,6 +252,7 @@ Short Intro
 --->
 ## IHR Proofs
 ## Kamikaze Proof
+## Age Proof
 ### Pattern Identification
 
 
@@ -251,10 +266,10 @@ Short Intro
 - [Time Architecture](#time-architecture)
 - [Epoch Election](#epoch-election)
   - [Producer Arrival](#producer-arrival)
+    - [Vote of Confidence Result](#vote-of-confidence-result)
     - [Selection of Bandwidth Proof](#selection-of-bandwidth-proof)
-    - [Node Weight \& Production Rate Calculation](#node-weight--production-rate-calculation)
+    - [Node Weight Calculation](#node-weight-calculation)
     - [Allocation of Leaders](#allocation-of-leaders)
-  - [Commencing Staking Period](#commencing-staking-period)
   - [Block Size \& Time](#block-size--time)
     - [Block Size per sec Fixing (Chain)](#block-size-per-sec-fixing-chain)
     - [Block Time Fixing (Chain)](#block-time-fixing-chain)
@@ -279,6 +294,7 @@ Short Intro
       - [Stable Token Transaction](#stable-token-transaction)
       - [Dust Purging Transaction](#dust-purging-transaction)
       - [Layered Tax Transaction](#layered-tax-transaction)
+      - [Node Weight Update Transaction](#node-weight-update-transaction)
     - [Vanity \& Client-Witness Validation](#vanity--client-witness-validation)
     - [Fee Validation](#fee-validation)
     - [Tax Validation](#tax-validation)
@@ -337,9 +353,12 @@ Short Intro
   - [Oracle Fund UTXO](#oracle-fund-utxo)
   - [Oracle Reputation UTXO](#oracle-reputation-utxo)
   - [Bandwidth Proofs](#bandwidth-proofs)
+    - [Bandwidth Proof](#bandwidth-proof)
+    - [Node Weight Proof](#node-weight-proof)
     - [Arrival Nodes Bandwidth Proof](#arrival-nodes-bandwidth-proof)
     - [Attesting Bandwidth Proof (Script)](#attesting-bandwidth-proof-script)
   - [IHR Proofs](#ihr-proofs)
   - [Kamikaze Proof](#kamikaze-proof)
+  - [Age Proof](#age-proof)
     - [Pattern Identification](#pattern-identification)
 - [Oracles](#oracles)
