@@ -2,104 +2,28 @@
 
 **Contributors**: [@jobyreuben](https://www.github.com/jobyreuben),  [@I-Corinthian](https://github.com/I-Corinthian)
 
-## Development Map
+## Resources
 
+- Find Blinkchain **Whitepaper** [here](https://blinkchain.org/blinkchain.pdf) and **Litepaper** [here](https://blinkchain.org/litepaper.pdf)
 
-[Not Updated] Download PDF version [here](https://blinkchain.org/map.pdf)
+- [Not Updated] Download **Development Map** [here](https://blinkchain.org/map.pdf)
+
+- Jump to **Table of Contents** of the Yellow Paper [here](#table-of-contents)
 
 
 # Objectives
 1. Whitepaper Section, Passive or Active Program \& Level
    - Active: Constantly running, looking for triggers
-   - Passive: Active per time-frame or triggered
-   - Chain - Ledger,Consensus and Core Implementations
-   - Script - UTXO scripts/proofs construction and attesting
-   - OffChain - Client Side construction/propagation
-   - Node - Validation, Ledger Outlook \& Parameter construction
+   - Passive: Active per time-frame or run upon triggered
+   - Chain - Ledger, Consensus and Core Implementations
+   - Script - UTXO scripts and zk-proofs construction
+   - OffChain - Client Side construction and propagation
+   - Node - Parameter construction and memory access for Validation
 2. Process, Algorithm and Mathmatical Data
 3. Existing Implementations and Documentation References
-4. Feasibility of Development \& Notes
-5. Technical \& Non-Technical Challenges
-6.  Alternatives Offered \& Outcomes
-
-
-# Table of Contents
-
-
-
-- [Blinkchain - Proof of Concept for Development (Yellow-paper)](#blinkchain---proof-of-concept-for-development-yellow-paper)
-  - [Development Map](#development-map)
-- [Objectives](#objectives)
-- [Table of Contents](#table-of-contents)
-- [Time Architecture](#time-architecture)
-- [Epoch Election](#epoch-election)
-  - [Terminology](#terminology)
-  - [Timeline](#timeline)
-  - [Selection of Bandwidth Proof](#selection-of-bandwidth-proof)
-  - [Node Weight \& Total Packets Calculation](#node-weight--total-packets-calculation)
-  - [Allocation of Leaders](#allocation-of-leaders)
-  - [Block Size \& Time Fixing](#block-size--time-fixing)
-  - [Vote of Confidence (Requirement)](#vote-of-confidence-requirement)
-  - [Vote of Confidence Result](#vote-of-confidence-result)
-  - [Escrow Rate (Requirement)](#escrow-rate-requirement)
-  - [Per Token Collateral (Requirement)](#per-token-collateral-requirement)
-- [Active Memory Updates](#active-memory-updates)
-  - [Gas Unit Fee \& Transfer Fee rate](#gas-unit-fee--transfer-fee-rate)
-  - [Oracle Rates of Tokens](#oracle-rates-of-tokens)
-  - [Nodes Weights](#nodes-weights)
-- [Active Mempool Tx Validation](#active-mempool-tx-validation)
-  - [Client-Witness \& Vanity Validation](#client-witness--vanity-validation)
-  - [Fee \& Tax Validation](#fee--tax-validation)
-  - [Finite Script Validation](#finite-script-validation)
-  - [Stable Tax Transaction](#stable-tax-transaction)
-  - [Normal Transaction](#normal-transaction)
-  - [Stable Tax Transaction](#stable-tax-transaction-1)
-  - [Dust Purging Transaction](#dust-purging-transaction)
-  - [Bandwidth Proof Validation](#bandwidth-proof-validation)
-  - [VoC Vote Transaction](#voc-vote-transaction)
-- [Common Snips Construction](#common-snips-construction)
-  - [Clock Hash-Concate](#clock-hash-concate)
-  - [Fee, Oracle Rate Assignment \& Update](#fee-oracle-rate-assignment--update)
-- [Collateral Snip Construction](#collateral-snip-construction)
-  - [Segregation of Stake UTXOs](#segregation-of-stake-utxos)
-  - [Construction of Collateral Tx](#construction-of-collateral-tx)
-  - [Noting Authorized Tokens](#noting-authorized-tokens)
-- [Transaction Snip Construction](#transaction-snip-construction)
-  - [Validated-authorized Tx from Local Mempool](#validated-authorized-tx-from-local-mempool)
-  - [Tax Assignment](#tax-assignment)
-  - [Tax Tx Construction](#tax-tx-construction)
-- [Coinbase Snip Construction](#coinbase-snip-construction)
-  - [Accepted Token Tx Construction](#accepted-token-tx-construction)
-  - [Non-Accepted Token Tx Construction](#non-accepted-token-tx-construction)
-- [Snips Validation](#snips-validation)
-  - [Genesis Clock Spaces](#genesis-clock-spaces)
-  - [Fee, Oracle Rate Assignment \& Update](#fee-oracle-rate-assignment--update-1)
-  - [Snip Pool Graphing](#snip-pool-graphing)
-  - [Authorized Token Verification](#authorized-token-verification)
-  - [Snip Tx Validation](#snip-tx-validation)
-  - [Fee, Input Output Hashreward Verification](#fee-input-output-hashreward-verification)
-  - [Kamikaze Proof](#kamikaze-proof)
-- [Pruning UTXOs](#pruning-utxos)
-  - [Expiration \& Fingerprint Replacement](#expiration--fingerprint-replacement)
-  - [Centralized Storage Boilerplate](#centralized-storage-boilerplate)
-- [Scripts \& Proofs](#scripts--proofs)
-  - [Stake UTXO](#stake-utxo)
-  - [Oracle Data UTXO](#oracle-data-utxo)
-  - [Oracle Fund UTXO](#oracle-fund-utxo)
-  - [Oracle Reputation UTXO](#oracle-reputation-utxo)
-  - [Bandwidth Proofs + Updated Node Weight](#bandwidth-proofs--updated-node-weight)
-  - [IHR Proofs](#ihr-proofs)
-  - [Kamikaze Proof](#kamikaze-proof-1)
-- [Opcode Gas Units](#opcode-gas-units)
-- [Leader Responsibilities](#leader-responsibilities)
-  - [Epoch Leader](#epoch-leader)
-  - [Slot Leader](#slot-leader)
-  - [Packet Leader](#packet-leader)
-- [Messaging Protocol](#messaging-protocol)
-  - [Priority Peer List](#priority-peer-list)
-  - [Direct-Messaging](#direct-messaging)
-  - [Distributed Rumouring](#distributed-rumouring)
-
+4. Feasibility of Development through Pseudocodes
+5. Technical & Non-Technical Challenges
+6.  Alternatives Offered & Outcomes if any
 
 
 # Time Architecture
@@ -541,3 +465,80 @@ Loop sum_packets != 10000
 ## Distributed Rumouring 
 
 
+
+# Table of Contents
+
+
+
+- [Blinkchain - Proof of Concept for Development (Yellow-paper)](#blinkchain---proof-of-concept-for-development-yellow-paper)
+  - [Resources](#resources)
+- [Objectives](#objectives)
+- [Time Architecture](#time-architecture)
+- [Epoch Election](#epoch-election)
+  - [Terminology](#terminology)
+  - [Timeline](#timeline)
+  - [Selection of Bandwidth Proof](#selection-of-bandwidth-proof)
+  - [Node Weight \& Total Packets Calculation](#node-weight--total-packets-calculation)
+  - [Allocation of Leaders](#allocation-of-leaders)
+  - [Block Size \& Time Fixing](#block-size--time-fixing)
+  - [Vote of Confidence (Requirement)](#vote-of-confidence-requirement)
+  - [Vote of Confidence Result](#vote-of-confidence-result)
+  - [Escrow Rate (Requirement)](#escrow-rate-requirement)
+  - [Per Token Collateral (Requirement)](#per-token-collateral-requirement)
+- [Active Memory Updates](#active-memory-updates)
+  - [Gas Unit Fee \& Transfer Fee rate](#gas-unit-fee--transfer-fee-rate)
+  - [Oracle Rates of Tokens](#oracle-rates-of-tokens)
+  - [Nodes Weights](#nodes-weights)
+- [Active Mempool Tx Validation](#active-mempool-tx-validation)
+  - [Client-Witness \& Vanity Validation](#client-witness--vanity-validation)
+  - [Fee \& Tax Validation](#fee--tax-validation)
+  - [Finite Script Validation](#finite-script-validation)
+  - [Stable Tax Transaction](#stable-tax-transaction)
+  - [Normal Transaction](#normal-transaction)
+  - [Stable Tax Transaction](#stable-tax-transaction-1)
+  - [Dust Purging Transaction](#dust-purging-transaction)
+  - [Bandwidth Proof Validation](#bandwidth-proof-validation)
+  - [VoC Vote Transaction](#voc-vote-transaction)
+- [Common Snips Construction](#common-snips-construction)
+  - [Clock Hash-Concate](#clock-hash-concate)
+  - [Fee, Oracle Rate Assignment \& Update](#fee-oracle-rate-assignment--update)
+- [Collateral Snip Construction](#collateral-snip-construction)
+  - [Segregation of Stake UTXOs](#segregation-of-stake-utxos)
+  - [Construction of Collateral Tx](#construction-of-collateral-tx)
+  - [Noting Authorized Tokens](#noting-authorized-tokens)
+- [Transaction Snip Construction](#transaction-snip-construction)
+  - [Validated-authorized Tx from Local Mempool](#validated-authorized-tx-from-local-mempool)
+  - [Tax Assignment](#tax-assignment)
+  - [Tax Tx Construction](#tax-tx-construction)
+- [Coinbase Snip Construction](#coinbase-snip-construction)
+  - [Accepted Token Tx Construction](#accepted-token-tx-construction)
+  - [Non-Accepted Token Tx Construction](#non-accepted-token-tx-construction)
+- [Snips Validation](#snips-validation)
+  - [Genesis Clock Spaces](#genesis-clock-spaces)
+  - [Fee, Oracle Rate Assignment \& Update](#fee-oracle-rate-assignment--update-1)
+  - [Snip Pool Graphing](#snip-pool-graphing)
+  - [Authorized Token Verification](#authorized-token-verification)
+  - [Snip Tx Validation](#snip-tx-validation)
+  - [Fee, Input Output Hashreward Verification](#fee-input-output-hashreward-verification)
+  - [Kamikaze Proof](#kamikaze-proof)
+- [Pruning UTXOs](#pruning-utxos)
+  - [Expiration \& Fingerprint Replacement](#expiration--fingerprint-replacement)
+  - [Centralized Storage Boilerplate](#centralized-storage-boilerplate)
+- [Scripts \& Proofs](#scripts--proofs)
+  - [Stake UTXO](#stake-utxo)
+  - [Oracle Data UTXO](#oracle-data-utxo)
+  - [Oracle Fund UTXO](#oracle-fund-utxo)
+  - [Oracle Reputation UTXO](#oracle-reputation-utxo)
+  - [Bandwidth Proofs + Updated Node Weight](#bandwidth-proofs--updated-node-weight)
+  - [IHR Proofs](#ihr-proofs)
+  - [Kamikaze Proof](#kamikaze-proof-1)
+- [Opcode Gas Units](#opcode-gas-units)
+- [Leader Responsibilities](#leader-responsibilities)
+  - [Epoch Leader](#epoch-leader)
+  - [Slot Leader](#slot-leader)
+  - [Packet Leader](#packet-leader)
+- [Messaging Protocol](#messaging-protocol)
+  - [Priority Peer List](#priority-peer-list)
+  - [Direct-Messaging](#direct-messaging)
+  - [Distributed Rumouring](#distributed-rumouring)
+- [Table of Contents](#table-of-contents)
