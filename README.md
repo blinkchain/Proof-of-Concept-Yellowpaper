@@ -26,6 +26,7 @@
 # Table of Contents
 
 
+
 - [Blinkchain - Proof of Concept for Development (Yellow-paper)](#blinkchain---proof-of-concept-for-development-yellow-paper)
   - [Development Map](#development-map)
 - [Objectives](#objectives)
