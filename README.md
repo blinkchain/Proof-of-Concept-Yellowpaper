@@ -54,12 +54,12 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 3. Vote of Confidence results are published along with requirement (criteria)
 4. Bandwidth Proofs are selected after validation from VoC criteria
    1. Block Size and Time is fixed
-   2. Next Vote of Confidence voting begins
-   3. Escrow rate for next epoch published
-   4. Next epoch's minimum collateral per token per block/packet is published
+   2. Escrow rate for next epoch published
+   3. Next epoch's minimum collateral per token per block/packet is published
 5. Node Weights are calculated from Bandwidth proofs for the public key 
 6. Total Packets allocation is found per public key
 7. Leaders are allocated
+8. Next Vote of Confidence voting begins
 
 
 > **Quick Info** 💡
@@ -82,35 +82,44 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 
 *[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
-Generate a Json file with  PublicKey with verified bandwidth proofs
-
-1. *Input_Json is the json file with all the blocks*
-2. *Output_json is the json file with only the info of the verified bandwidth proofs*
-3. *Validate_proof is a function that validated the proof returns true or false*
-
-
 ```
 **Algorithm**
 
-1. 
-
+1. Get  range 
+2. Create a object for Input_Json 
+3. Create a object for Output_Json
+4. Loop the range backwards for every element in Input_Json
+5. Check if the data in the ith positions public key does not exist in Output_json
+6. Check if the bandwidth proof is valid
+7. If true write the i th data in Output_json 
+8. Else ignore ith data
+9. Resulting Output_json will have list of all the public key and the bandwidth proof 
 
 
 **Pseudocode**
 
-Function Bandwidth_proof_selection (range_begin,range_end,Input_Json) 
+//This program will be used to generate a Json file with 
+//All PublicKey with verified bandwidth proofs 
+
+//RawData_Json is the json file with all the blocks
+//Bandwidthproofs_json is the json file with only the info of the verified bandwidth proofs
+//Validate_proof is a function that validated the proof returns true or false
+
+
+Function Bandwidth_proof_selection (range_begin,range_end) {
+
+Raw_Data<----RawaData_json only data within the given range
+Bandwidthproof_Data<---- Bandwidthproofs_Json 
+loop i = range_end, i>=range_begin , i - -
+
 {
-  In_Data<----Input_Json // only data within the given range
-  Out_Data<---- Output_Json 
-  For i = range_end, i>=range_begin , i --
-  {
-  If In_Data[i] position has bandwidth proof 
-      If Out_Data not have PublicKey && Validate_proof(PublicKey)
-        Write Out_Data with [UTXO index,Transaction ID,Block height,wallet ID]<----In_Data[i]
-      End if
-  End if
-  }
-Return Output_Json
+ If Raw_Data[i] position has bandwidth proof 
+    If Bandwidthproof_Data not have PublicKey && Validate_proof(PublicKey)
+      Write Bandwidthproof_Data with [UTXO index,Transaction ID,Block hight,PublicKey]<----Raw_Data[i]
+   End if
+End if
+
+}
 }
 ```
 
@@ -156,6 +165,58 @@ Return Output_Json
 
 
 **Pseudocode**
+
+//This program will be used to generate a Json file with 
+//packets allocated to the public_key according to their node weights
+
+Bandwidthproff_Json - Json file of all the Bandwidth Proof  and public key
+Allocation_Json - Json file with packets allocated to each public key
+
+
+Function nodeweight(bandwidth,total_weight){
+node_weight = bandwidth + total_weight 
+return node_weight
+}
+
+Function nodeweight_sum(){
+Data<----Bandwidthproff_Json
+
+Loop every element in Data
+{
+Allocation_Json[public_key]<---- Data[publickey]
+
+Allocation_Json[weight of each publickey] <---- nodeweight(Data[bandwidth],Data[total_weight])
+
+node_sum += nodeweight(Data[bandwidth],Data[total_weight])
+}
+
+Return node_sum
+}
+
+Function Allocate_packets(){
+
+sum = nodeweight_sum()
+Nodes<---- Allocation_Json
+
+Loop each element in Nodes
+{
+(int)packets_allocated = (10000 * Nodes[nodeweight]) / sum
+Write Nodes[packets] <--- packets_allocated 
+sum_packets += packets_allocated
+}
+
+Shot Nodes in descending order of weights 
+
+h = 10000 - sum_packets
+Loop sum_packets != 10000
+{
+  Loop from 1 to h for every element on Nodes
+{
+    Write Node[packets] + 1
+    
+ }
+}
+}
 
 ```
 
