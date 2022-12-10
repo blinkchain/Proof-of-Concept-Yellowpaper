@@ -208,7 +208,9 @@ End if
 **Algorithm**
 
 --- Algorithm here---
+```
 
+```
 
 **Pseudocode**
 
@@ -234,8 +236,9 @@ End if
 **Algorithm**
 
 --- Algorithm here---
+```
 
-
+```
 **Pseudocode**
 
 //This program will be used to generate a Json file with 
@@ -311,8 +314,9 @@ Loop sum_packets != 10000
 **Algorithm**
 
 --- Algorithm here---
+```
 
-
+```
 **Pseudocode**
 
 --- Psuedocode here---
@@ -338,8 +342,9 @@ Loop sum_packets != 10000
 **Algorithm**
 
 --- Algorithm here---
+```
 
-
+```
 **Pseudocode**
 
 --- Psuedocode here---
@@ -364,8 +369,9 @@ Loop sum_packets != 10000
 **Algorithm**
 
 --- Algorithm here---
+```
 
-
+```
 **Pseudocode**
 
 --- Psuedocode here---
@@ -385,8 +391,9 @@ Loop sum_packets != 10000
 **Algorithm**
 
 --- Algorithm here---
+```
 
-
+```
 **Pseudocode**
 
 --- Psuedocode here---
@@ -412,8 +419,9 @@ Loop sum_packets != 10000
 **Algorithm**
 
 --- Algorithm here---
+```
 
-
+```
 **Pseudocode**
 
 --- Psuedocode here---
@@ -438,13 +446,18 @@ Loop sum_packets != 10000
 **Algorithm**
 
 --- Algorithm here---
+```
 
-
+```
 **Pseudocode**
 
 --- Psuedocode here---
 
 ```
+
+> 📍 **Conclusion**
+> 
+> Thus, the packet leaders i.e., block producers are assigned randomly according to their weights and bandwidth. Block size and time for the upcoming epoch is published i.e., determined by the network itself on parameters. For the next election, from the VoC votes, requirement (difficulty rate) to join the network will increase thereby increasing the scalability and faster propagation proportionally with stronger nodes for high-throughput blinkchain. The collateral requirement with Staking interest rates are published for further validation with increasing value of each blinkcoin of holders, delegators and investors.
 
 # Active Memory Updates 
 ## Gas Unit Fee & Transfer Fee rate
