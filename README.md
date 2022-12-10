@@ -41,11 +41,30 @@ Download PDF version [here](https://blinkchain.org/map.pdf)
 
 Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leaders who are eligible to produce their blocks. Block producers are announced before the epoch starts. The following steps starts from attesting proofs to participate in the election to getting selected to mint a block to commencing the epoch.
 
+## Terminology 
+- n Epoch is the epoch conducting election for n+1 Epoch
+- n+1 Epoch is the new production epoch
+- n-1 Epoch is previous epoch to n epoch
+- n-2 epoch is previous epoch to n-1 epoch
+
+## Timeline 
+
+1. nth block of the epoch, when its confirmed (immutable), the epoch election commences
+2. nth Block is typically taken from 9,000 - 10,0000 it should be kept very close to next epoch's production due to influence attacks possible when time is given. Hence a confirmed block very near to next epoch at the same time allows computation.
+3. Vote of Confidence results are published along with requirement (criteria)
+4. Bandwidth Proofs are selected after validation from VoC criteria
+   1. Block Size and Time is fixed
+   2. Next Vote of Confidence voting begins
+   3. Escrow rate for next epoch published
+   4. Next epoch's minimum collateral per token per block/packet is published
+5. Node Weights are calculated from Bandwidth proofs for the public key 
+6. Total Packets allocation is found per public key
+7. Leaders are allocated
+
+
 > **Quick Info** 💡
 > 
 > **Producer Arrival** represents new nodes arrival to contest in the Epoch election to produce new blocks. For Arrival a specific slot is allocated range of x to y block heights in every epoch for the next epoch production. Existing and new producers carry out same process, but new nodes tend to have a criteria to be fulfilled, whereas the existing nodes does infact proved passing the criteria for the previous epoch.
-
-## Vote of Confidence Result
 
 
 ## Selection of Bandwidth Proof
@@ -95,6 +114,27 @@ Return Output_Json
 }
 ```
 
+*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+
+- For Validation of Proofs, it is found if a proof is valid, passes the criteria
+- The Criteria (Mean Value after VoC Result) is published
+- The VoC passed bandwidth proofs (Public Keys) can publish an increased proof or should be able to post bandwidth more than the criteria.
+- The criteria is mandatory for new nodes arrival (new Public Keys)
+
+*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
+
+```
+**Algorithm**
+
+1. 
+
+
+
+**Pseudocode**
+
+```
+
+
 ## Node Weight & Total Packets Calculation
 
 - Whitepaper Section 3.2 - 3.2.1, Active, Level: Node
@@ -125,12 +165,12 @@ Return Output_Json
 - Since each node's total packets production rate is achieve for the next epoch, each packet's height has to be determined for which node to produce in a determinable randomized structure. Thus, packet leaders are announced, or determined by each node on the network from only the randomized parameters
 - First Packet shall be produced by the highest number of packet allocated node i.e., the strongest & most honest node
 - Likewise, for every 400 blocks, the strongest of it shall be announced as slot leader, who does not have first packet slot privilleges, but assigned to propagate transactions properly.
-- Allocation works like Bitcoin's Difficulty rate and nonce. For each packet a $K$ Output is given in MD160 (Same as PKH address) produced from an assigned n Block's Merkle Root $(H)$ of all transactions which will be random.
-- $K=MD160(SHA256((SHA256(H))+Packet_n+Slot_n+Epoch_n))$
+- Allocation works like Bitcoin's Difficulty rate and nonce. For each packet a $K$ Output is given in MD160 (Same as PKH address) produced from a Merkle Root of 100 blocks $(R)$ taken in backwards starting from the epoch election commencing block which will be random.
+- $K=MD160(SHA256((SHA256(R))+Packet_n+Slot_n+Epoch_n))$
 - Any node's PublicKeyHash $(N_x)$ lesser than $K$, shall be selected as the Packet's Producer. $Leader = K_p > N_x$
 - $K$ is rehashed during same leader continuous producer assignment or if no lesser $N_x$ value than $K$ is found.
 - After the packets are allocated and confirmed, the delegators can verify and collateralize for their tokens for the specific packets
-- Challenges will be node's having a different $H$ value due to forks, but can be achieved if a confirmed block's merkle root is taken. If any one node fails to achive common consensus on packet leaders, its propagation/minting will not be accepted and it will get dishonesty weightage.
+- Challenges will be node's having a different $R$ value due to forks, but can be achieved if a confirmed block's merkle root is taken. If any one node fails to achive common consensus on packet leaders, its propagation/minting will not be accepted and it will get dishonesty weightage.
 
 *[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
@@ -151,9 +191,9 @@ Return Output_Json
 - Bandwidth Proofs taken for next epoch shall provide the network's handling throughput bits per second. From these proofs, the block time and size is calculated and posted for the next epoch block production.
 - According to Whitepaper we have to take median bandwidth, but since Vote of confidence kicks un-fit nodes, it can improve requirements for new node arrival which will have increased bandwidth. Hence the median bandwidth is not taken.
 - Instead, taking the lowest bandwith shall provide the minimum propagation possibility per second. This process can be done right after the [Selection of Bandwidth Proof](#-selection-of-bandwidth-proof)
-- $Epoch_n(BlockMaxSize_{bits}/sec)=Min(B_1,B_2,....B_n)$
+- $Epoch_{n+1}(BlockMaxSize_{bits}/sec)=Min(B_1,B_2,....B_n)$
 - Per Block time is calculated from Median Time from previous epoch i.e., n-2 epoch for the newly produced epoch
-- $Epoch_n BlockTime (\tau) = Epoch_{n-2} Median BlockTime (\tau)$
+- $Epoch_{n+1} BlockTime (\tau) = Epoch_{n-1} Median BlockTime (\tau)$
 - From the per block time, we can calculate per block size as the Block size per second (1) is calculated previously.
 - $Epoch_n(BlockSize)=BlockMaxSize_{bits}/sec \times BlinkTime$ 
 -  Note : Per second in Blinkchain is 1 Legate = Legacy Hardware Single Thread H/s. Hence, Block Time in seconds denotes legates i.e., 1 sec = 1 legate. 
@@ -184,6 +224,26 @@ Return Output_Json
 - Each node can vote on un-fit nodes below its rate of elimination of the mean value, till the next selection of bandwidth-proofs. The VoC result will be published before the Selection of Bandwidth Proofs.
 
 *[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
+
+```
+**Algorithm**
+
+1. 
+
+
+
+**Pseudocode**
+
+```
+
+## Vote of Confidence Result
+
+- Vote of Confidence result will be calulated at first before the selection of bandwidth proofs. From the Voting commences till the epoch election starts, the producers will be able to post their votes.
+- 51% of the majority as per each public key/ nodes weight of their proofs are taken in need to get eliminated
+- After the elimination of certain bandwidth proofs and their publickeys, the mean value is found and published for requirement for selection of proofs
+- The Result is found before the selection of proofs, where its mean value can alter actively, hence the node's bandwidth proofs selections are randomized and should be predicted actively
+
+[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
 ```
 **Algorithm**
@@ -227,8 +287,25 @@ Return Output_Json
 - Whitepaper 3.3.3, Passive, Level: Node
 - Every token will have different requirement in oracle rate that is to be collaterilzed per block
 - Its requirement can be dertermined by simple math, which every node has to find, before commencing the epoch to validate if the token in the specific block is collateralized in full
-- For n epoch, its n-2 epoch is taken to find its collateral requirement which is given in oracle rate.
-- $Token(k) Stake/packet= MedianVolume(\epsilon_{n-2}) + Escrow Rate \text{ in blinkcoins}$
+- For n+1 epoch, its n-1 epoch is taken to find its collateral requirement which is given in oracle rate.
+- $Token(k) Stake/packet= MedianVolume(\epsilon_{n-1}) + Escrow Rate \text{ in blinkcoins}$
+- Each block in n-1 epoch is taken from which each transaction's outputs are focussed and it's initial oracle value is found
+- $O_i = valueLocked \times oracleRate$
+- The total oracle value of all transaction's outputs are summed up for a block and every block's median is taken.
+- The Median value is the staking requirement, along with it the escrow rate is added. During validation, for a token to be authorized inside a block, it should have more than the minimum requirement, including the escrow utxos.
+
+*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
+
+```
+**Algorithm**
+
+1. 
+
+
+
+**Pseudocode**
+
+```
 
 # Mempool Active Validation
 ## Un-Confirmed Tx Propagation
@@ -344,12 +421,14 @@ Return Output_Json
 - [Objectives](#objectives)
 - [Time Architecture](#time-architecture)
 - [Epoch Election](#epoch-election)
-  - [Vote of Confidence Result](#vote-of-confidence-result)
+  - [Terminology](#terminology)
+  - [Timeline](#timeline)
   - [Selection of Bandwidth Proof](#selection-of-bandwidth-proof)
   - [Node Weight \& Total Packets Calculation](#node-weight--total-packets-calculation)
   - [Allocation of Leaders](#allocation-of-leaders)
   - [Block Size \& Time Fixing](#block-size--time-fixing)
   - [Vote of Confidence (Requirement)](#vote-of-confidence-requirement)
+  - [Vote of Confidence Result](#vote-of-confidence-result)
   - [Escrow Rate (Requirement)](#escrow-rate-requirement)
   - [Per Token Collateral (Requirement)](#per-token-collateral-requirement)
 - [Mempool Active Validation](#mempool-active-validation)
