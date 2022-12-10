@@ -7,20 +7,15 @@ Contributors: [@jobyreuben](https://www.github.com/jobyreuben),  [@I-Corinthian]
 
 Download PDF version [here](https://blinkchain.org/map.pdf)
 
-## Contents
-
-1. **Node Level Concepts**
-
-
 
 # Objectives
 1. Whitepaper Section, Passive or Active Program \& Level
    - Active: Constantly running, looking for triggers
    - Passive: Active per time-frame or triggered
-   - ❇ Chain - Ledger,Consensus and Core Implementations
-   - ★ Script - UTXO scripts/proofs construction and attesting
-   - ❁ OffChain - Client Side construction/propagation
-   - ✢ Node - Validation, Ledger Outlook \& Parameter construction
+   - Chain - Ledger,Consensus and Core Implementations
+   - Script - UTXO scripts/proofs construction and attesting
+   - OffChain - Client Side construction/propagation
+   - Node - Validation, Ledger Outlook \& Parameter construction
 2. Process, Algorithm and Mathmatical Data
 3. Existing Implementations and Documentation References
 4. Feasibility of Development \& Notes
@@ -76,6 +71,13 @@ Generate a Json file with  PublicKey with verified bandwidth proofs
 
 
 ```
+**Algorithm**
+
+1. 
+
+
+
+**Pseudocode**
 
 Function Bandwidth_proof_selection (range_begin,range_end,Input_Json) 
 {
@@ -107,7 +109,14 @@ Return Output_Json
 *[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
 ```
-algorithm here;
+**Algorithm**
+
+1. 
+
+
+
+**Pseudocode**
+
 ```
 
 ## Allocation of Leaders
@@ -126,7 +135,14 @@ algorithm here;
 *[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
 ```
-algorithm here;
+**Algorithm**
+
+1. 
+
+
+
+**Pseudocode**
+
 ```
    
 ## Block Size \& Time Fixing
@@ -145,7 +161,14 @@ algorithm here;
 *[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
 ```
-algorithm here;
+**Algorithm**
+
+1. 
+
+
+
+**Pseudocode**
+
 ```
 
 ## Vote of Confidence (Requirement)
@@ -163,7 +186,14 @@ algorithm here;
 *[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
 ```
-algorithm here;
+**Algorithm**
+
+1. 
+
+
+
+**Pseudocode**
+
 ```
 
 ## Escrow Rate (Requirement)
@@ -173,15 +203,32 @@ algorithm here;
 > **Escrow Rate** - To restrict spending of blinkcoins, blinkchain's native coin during recessions, bear markets similar to a central bank that icreases borrowing rates to reduce spending. Escrow rates are levied to delegators on their blinkcoins every epoch to retrict certain supply for a fixed amount of period i.e., 500 epochs (5,000,000 blocks) or approx 21 days. This rate is known as SERC (Staking Escrow Rates for Collateral) which will be hiked, lowered according to market conditions determined by the network per epoch.
 
 - Whitepaper 3.3.4, Passive, Level:Node
-- Minimum SERC set at 1%
-- Each pulse is 0.1% so 1% = 10 pulses
-- Done on every epoch, changes every epoch start
-- At first pulse change is found and the new serc rate is calculated
-- 
+- At Gensis Epochs, the minimum SERC is set at 1%, which is equal to 10 pulses. SERC hikes are expressed in pulses where each pulse denotes 0.1%.
+- First 3 (n-2,n-1,n) epochs are known as Genesis epochs, after which the SERC rate is calcualated variably. For 4th Epoch (n+1), the first 2 epoch's (n-2,n-1) closing oracle rate (400th slot oracle rate - for every slot the oracle rate is updated) is taken to find the change or number of pulses
+- $Pulse Change_{\epsilon_{(n+1)}}=\frac{\epsilon_{(n-2)O_{cr}}- \epsilon_{(n-1)O_{cr}}}{\epsilon_{(n-1)O_{cr}}} \times 100$
+- After the pulse is found, it changes the SERC rate for the new epoch
+- $New_{SERC rate} = Current_{SERC rate} + (Pulse Change \times 0.1) \geq 1\%$
+
+*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
+
+```
+**Algorithm**
+
+1. 
+
+
+
+**Pseudocode**
+
+```
 
 ## Per Token Collateral (Requirement)
 
 - Whitepaper 3.3.3, Passive, Level: Node
+- Every token will have different requirement in oracle rate that is to be collaterilzed per block
+- Its requirement can be dertermined by simple math, which every node has to find, before commencing the epoch to validate if the token in the specific block is collateralized in full
+- For n epoch, its n-2 epoch is taken to find its collateral requirement which is given in oracle rate.
+- $Token(k) Stake/packet= MedianVolume(\epsilon_{n-2}) + Escrow Rate \text{ in blinkcoins}$
 
 # Mempool Active Validation
 ## Un-Confirmed Tx Propagation
@@ -294,7 +341,6 @@ algorithm here;
 
 - [Blinkchain - Proof of Concept for Development](#blinkchain---proof-of-concept-for-development)
   - [Development Map](#development-map)
-  - [Contents](#contents)
 - [Objectives](#objectives)
 - [Time Architecture](#time-architecture)
 - [Epoch Election](#epoch-election)
