@@ -1,4 +1,4 @@
-# Blinkchain - Proof of Concept for Development (Yellow-paper)
+# Blinkchain - Proof of Concept (Yellow-paper)
 
 **Contributors**: [@jobyreuben](https://www.github.com/jobyreuben),  [@I-Corinthian](https://github.com/I-Corinthian)
 
@@ -65,14 +65,14 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 8. Next Vote of Confidence voting begins
 
 
-> **Quick Info** 💡
+> **💡 Quick Info** 
 > 
 > **Producer Arrival** represents new nodes arrival to contest in the Epoch election to produce new blocks. For Arrival a specific slot is allocated range of x to y block heights in every epoch for the next epoch production. Existing and new producers carry out same process, but new nodes tend to have a criteria to be fulfilled, whereas the existing nodes does infact proved passing the criteria for the previous epoch.
 
 
 ## Selection of Bandwidth Proof
 
-> **Quick Info** 💡
+> **💡 Quick Info** 
 > 
 > **Bandwidth Proofs** - to be proposed in a new paper "Blink Proofs" will provide a zero knowledge proof to the verfiers (nodes) to calculate its authenticity and ability to contest in the new election to directly influencing to change the block size of the epoch.
 
@@ -275,14 +275,14 @@ Loop sum_packets != 10000
 
 ```
 
-## Vote of Confidence (Requirement)
+## Vote of Confidence
 
-> **Quick Info** 💡
+> **💡 Quick Info** 
 > 
 > **Vote of Confidence** - To scale the blink-network and avoid latencies due to incompetance to propagate transactions faster, the network decides on a vote to kick un-fit nodes as per its requirement. Vote of Confidence involves selection, voting, and elimination by increasing requirements for kicked nodes to participate in the election as a contestant.
 
 - Whitepaper Section 3.1.2, Active, Level: Node
-- Vote of confidence can improve requirement therby increasing the difficulty rate to join the producer cluster. Thus way better and bandwidth stronger nodes capable for faster propagation can join.
+- Vote of confidence (VoC) can improve requirement therby increasing the difficulty rate to join the producer cluster. Thus way better and bandwidth stronger nodes capable for faster propagation can join.
 - To eliminate nodes, the mean value of all selected bandwidth of nodes shall be taken as a threshold to vote on elimination
 - Each node shall have a rate of elimination percentage for which it can vote. This is to offload decentralization ethics towards node-operators. Minimum the rate of elimination, maximum the decentralization of the network.
 - Each node can vote on un-fit nodes below its rate of elimination of the mean value, till the next selection of bandwidth-proofs. The VoC result will be published before the Selection of Bandwidth Proofs.
@@ -302,7 +302,7 @@ Loop sum_packets != 10000
 
 ```
 
-## Vote of Confidence Result
+## VoC Result
 
 - Vote of Confidence result will be calulated at first before the selection of bandwidth proofs. From the Voting commences till the epoch election starts, the producers will be able to post their votes.
 - 51% of the majority as per each public key/ nodes weight of their proofs are taken in need to get eliminated
@@ -324,9 +324,9 @@ Loop sum_packets != 10000
 
 ```
 
-## Escrow Rate (Requirement)
+## Escrow Rate
 
-> **Quick Info** 💡
+> **💡 Quick Info** 
 > 
 > **Escrow Rate** - To restrict spending of blinkcoins, blinkchain's native coin during recessions, bear markets similar to a central bank that icreases borrowing rates to reduce spending. Escrow rates are levied to delegators on their blinkcoins every epoch to retrict certain supply for a fixed amount of period i.e., 500 epochs (5,000,000 blocks) or approx 21 days. This rate is known as SERC (Staking Escrow Rates for Collateral) which will be hiked, lowered according to market conditions determined by the network per epoch.
 
@@ -352,7 +352,7 @@ Loop sum_packets != 10000
 
 ```
 
-## Per Token Collateral (Requirement)
+## Token Collateral Requirement
 
 - Whitepaper 3.3.3, Passive, Level: Node
 - Every token will have different requirement in oracle rate that is to be collaterilzed per block
@@ -470,7 +470,7 @@ Loop sum_packets != 10000
 
 
 
-- [Blinkchain - Proof of Concept for Development (Yellow-paper)](#blinkchain---proof-of-concept-for-development-yellow-paper)
+- [Blinkchain - Proof of Concept (Yellow-paper)](#blinkchain---proof-of-concept-yellow-paper)
   - [Resources](#resources)
 - [Objectives](#objectives)
 - [Time Architecture](#time-architecture)
@@ -481,10 +481,10 @@ Loop sum_packets != 10000
   - [Node Weight \& Total Packets Calculation](#node-weight--total-packets-calculation)
   - [Allocation of Leaders](#allocation-of-leaders)
   - [Block Size \& Time Fixing](#block-size--time-fixing)
-  - [Vote of Confidence (Requirement)](#vote-of-confidence-requirement)
-  - [Vote of Confidence Result](#vote-of-confidence-result)
-  - [Escrow Rate (Requirement)](#escrow-rate-requirement)
-  - [Per Token Collateral (Requirement)](#per-token-collateral-requirement)
+  - [Vote of Confidence](#vote-of-confidence)
+  - [VoC Result](#voc-result)
+  - [Escrow Rate](#escrow-rate)
+  - [Token Collateral Requirement](#token-collateral-requirement)
 - [Active Memory Updates](#active-memory-updates)
   - [Gas Unit Fee \& Transfer Fee rate](#gas-unit-fee--transfer-fee-rate)
   - [Oracle Rates of Tokens](#oracle-rates-of-tokens)
