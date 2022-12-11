@@ -412,7 +412,7 @@ Loop sum_packets != 10000
 --->
 
 
-## Transaction Fees
+## Transaction Fee Rates
 
 **💡 Blink Fees** - In Blinkchain transaction Fees consists of a base gas fee and a transfer fee. Transfer fee is only applied when the UTXO has value. Gas fee is applied on all the UTXO scripts as every script should execute to validate the transaction. Gas Fees are given in per unit fee in oracle rate due to non-native transaction fee model and it is fixed per 8500 epochs (1 year) and can be increased by conducting a vote from producers. Transfer fee is variable percentage fee levied on individual UTXOs, changes per epoch based on volume of outputs - Higher the volume lower the fee and vice versa.
 
@@ -452,39 +452,75 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 ## Oracle Rate of Tokens
 
 
-# Active Mempool Tx Validation
+# Local Mempool Tx Validation
 ## Client-Witness & Vanity Validation
 <!----- [Draft]
 - Check if witness signature is attested for every transaction. Witness would be a public key signing the signed transaction of the owners
 - Vanity would be checking list of vanity address approved by the node - in consensus
 - --->
+
 ## Fee & Tax Validation
 
-**💡 Quick Info** 
- 
-**Blink Taxes** - In Blinkchain taxes are imposed in a transaction level to assist governments to regulate decentralized currency payments. There are three types of taxes as per now, 1. Gains 2. Stable 3. Layered. Gains tax is taken during appreciation of asset upon spending. Here taxes are only taken during spending of UTXOs. Stable Taxes are taken as a seperate transaction for holding stable fiat-backed tokens for a period of time. Layered Taxes are Sales taxes during a merchant purchase which directly pays the government, the Sales tax and ease audits onchain immutably.  
+**💡 Blink Taxes** - In Blinkchain taxes are imposed in a transaction level to assist governments to regulate decentralized currency payments. The types of taxes as per now, 1. Gains 2. Layered. Gains tax is taken during appreciation of asset upon spending. Here taxes are only taken during spending of UTXOs. Layered Taxes are Sales taxes during a merchant purchase which directly pays the government, the Sales tax and ease audits onchain immutably.  
 
+- Since, oracle rates and fee rates changes actively, the transactions initial propagated time's slot or block height is taken to validate fees and taxes
+- From the initial propagated time oracle rates of the token, transfer fee & gas unit fee is found, as the ledger stores everything on script level.
 - In a client created transaction of inputs and outputs, the outputs will have a difference without adding fees and taxes in utxos
-   > $Input-Output = Difference$
-   > $Diff=\sum_0^n UTXO(Gas Fee + Transfer Fee+ Gains Tax+Layered Tax)$
    > $GasFee=Epoch_n(UnitFee) \times UTXO_n(\sum OpcodeUnits)$
+- Gas fee and transfer fee is found for every UTXO output of the transaction
    > $Transfer Fee=Epoch_n(X)\% \times UTXO_n(TotalValue)$
-   > $GainsTax=$
-   > $LayeredTax=Input - (Output + \sum (GasFee + Transfer Fee + Gains Tax))$
+- In Inputs of the transaction, addition to UTXO's index, script, every UTXO will have a tax-slab & an exchange rate attested to it found in the inputs. 
+  
+```
+" asset - id " : 0
+{
+" value " : 8000000 ,         // 0.08 Blinkcoins
+" script " : " OP_DUP .... 76 a9148c7e252 ... OP_CHECKSIG " ,
+" exchange_rate " : 10 ,     // if 1 BLINK wink = 10 USD wink
+" tax_slab " : 1525 ,       // if 15.25 percent is tax cut
+},
+]}
+```
+- From the exchange rate & tax slab, the total value to be taxed for gains is found
 
-## Finite Script Validation
-<!----- [Draft]
-- Running the script pseudonymously and finding if it ends in either true or false. If infinite it is rejected
-- --->
-## Stable Tax Transaction
+   > $GainsTax=$
+- All of UTXOs as output values and its fees specific to it along with the gains taxes calculated from the inputs of the tx is summed up and the difference is found with Total input value. The difference that is unallocated, unaudited is Layered Tax.
+- Since Layered taxes has different slabs/categories/models it is best to avoid it onchain and offload to client applications to construct layered taxes in difference outputs.
+   > $LayeredTax=Input - (Output + \sum (GasFee + Transfer Fee + Gains Tax))$
+- If the provided Gas Fee + Transfer Fee + Gains Tax < Difference, it is passed for next validation.
+- Additionally to verify the tax slabs attested in putput UTXOs of the tx for further gains tax, in the ledger during updation of tax slabs, the goverment wallets sign and attest the proof which can provide the tax slab percent. And thus after that is validated along with fees, taxes, the tx is validated as true.
+- During Tx Snip construction, the producer will create new utxos for gains and layered taxes in the last tx of the snip. In the coinbase snip - fee utxos will be created.
+
+<!--- [TBF]
+*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
+
+```
+**Algorithm**
+
+--- Algorithm here---
+```
+
+```
+
+**Pseudocode**
+
+--- Psuedocode here---
+
+```
+--->
+
+
+## Tax Slab Update
 ## Dust Purging Transaction
 <!----- [Draft]
 - Transaction that contains 2 or more inputs and only one output with the difference of gains taxes only shall be found as dust purging transactions.
 - It is fee-free
 - --->
 ## Bandwidth Proof Validation
-## VoC Vote Transaction
-## Gas Base fee increase vote
+### Bandwidth in Bits
+### Node Weight Snapshot
+### VoC Votes
+### Gas Vote
 
 
 # Common Snips Construction
@@ -603,6 +639,7 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 
 ## Epoch Leader
 <!----- [Draft]
+
 - Client-Witness & Vanity Validation
 - Segregation of Un-confirmed Tokens
 - Allocation per Packet Leader
@@ -621,3 +658,19 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 ## Priority Peer List
 ## Direct-Messaging
 ## Distributed Rumouring 
+## Block of Propagation Validation
+<!---
+- For direct messaging, lightning hop is used
+- until the message is received on the end, it is encrypted
+- The invoice will be generated by the details each node provides in bandwidth proof
+- Each hop is pre-determined and used for gossiping the tx point to point
+- For every forward, backward propagation, specific snips are sent to specific nodes
+- To connect faster if known, the sender will have to give a direct peer connection for faster propagation.
+- Snips propagation should be faster hence connection requests should be made and approved, as per election results
+- For un-confirmed propagation, these hops should attest a confirmed blocks as a proof to know when a transaction is arrived to the network to tax and collect fees based on it. Due to changing fees and txs are constructed full and propagated to the network for parallel validation.
+- Since taxes and fees changes every slot - 400 blocks some transactions may get attested to a  block later due to tps per token basis.
+- Each epoch leader will have a set of images, which can be used by the client to construct a question which can get the answer in a zero knowledge proof with its first propagating time from first propagating node towards the epoch leader
+- same can be done for sending to packet leader also, the packet leader makes a question, for which the answer is found during hops of propagation
+- It is similar to lightning network propagation
+- It provides the slot which the transaction is propagated, and it takes the fees and oracle rates from it for tax and fee validation.
+- -->
