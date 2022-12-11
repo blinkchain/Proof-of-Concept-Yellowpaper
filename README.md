@@ -62,16 +62,12 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 8. Next Vote of Confidence voting begins
 
 
-> **💡 Quick Info** 
-> 
-> **Producer Arrival** represents new nodes arrival to contest in the Epoch election to produce new blocks. For Arrival a specific slot is allocated range of x to y block heights in every epoch for the next epoch production. Existing and new producers carry out same process, but new nodes tend to have a criteria to be fulfilled, whereas the existing nodes does infact proved passing the criteria for the previous epoch.
+**💡 Producer Arrival** represents new nodes arrival to contest in the Epoch election to produce new blocks. For Arrival a specific slot is allocated range of x to y block heights in every epoch for the next epoch production. Existing and new producers carry out same process, but new nodes tend to have a criteria to be fulfilled, whereas the existing nodes does infact proved passing the criteria for the previous epoch.
 
 
 ## Selection of Bandwidth Proof
 
-> **💡 Quick Info** 
-> 
-> **Bandwidth Proofs** - to be proposed in a new paper "Blink Proofs" will provide a zero knowledge proof to the verfiers (nodes) to calculate its authenticity and ability to contest in the new election to directly influencing to change the block size of the epoch.
+**💡 Bandwidth Proofs** - to be proposed in a new paper "Blink Proofs" will provide a zero knowledge proof to the verfiers (nodes) to calculate its authenticity and ability to contest in the new election to directly influencing to change the block size of the epoch.
 
 *[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
 
@@ -148,9 +144,9 @@ End if
 
 - Whitepaper Section 3.2 - 3.2.1, Active, Level: Node
 - Node Weights represent, each node's current honesty weight. For every epoch along with the Bandwidth Proof, nodes are required to attach their updated weight which can be validated if true.
-- $NodeWeight(N_w)=\sum N(W_n) + Bandwidth (Bits/sec)$
+   > $NodeWeight(N_w)=\sum N(W_n) + Bandwidth (Bits/sec)$
 - All of selected bandwith proof's node's weights are summed up to find total packets each node can produce
-- $Total Packets (P) = \frac{10,000 \times N_w}{\sum_{1}^{n} (N_w)_n}$
+   > $Total Packets (P) = \frac{10,000 \times N_w}{\sum_{1}^{n} (N_w)_n}$
 
 - If Total packets allocated < 10000, then the remaining packets are allocated to nodes with highest positive weight excluding the bandwidth proof.
 - Challenges will be script development for Node weight snapshot and validation of it, which also can be effectively achieved.
@@ -232,8 +228,10 @@ Loop sum_packets != 10000
 - First Packet shall be produced by the highest number of packet allocated node i.e., the strongest & most honest node
 - Likewise, for every 400 blocks, the strongest of it shall be announced as slot leader, who does not have first packet slot privilleges, but assigned to propagate transactions properly.
 - Allocation works like Bitcoin's Difficulty rate and nonce. For each packet a $K$ Output is given in MD160 (Same as PKH address) produced from a Merkle Root of 100 blocks $(R)$ taken in backwards starting from the epoch election commencing block which will be random.
-- $K=MD160(SHA256((SHA256(R))+Packet_n+Slot_n+Epoch_n))$
-- Any node's PublicKeyHash $(N_x)$ lesser than $K$, shall be selected as the Packet's Producer. $Leader = K_p > N_x$
+   > $K=MD160(SHA256((SHA256(R))+Packet_n+Slot_n+Epoch_n))$
+   > $R=MerkleRoot(Block_{h-100} : Block_h)$
+- Any node's PublicKeyHash $(N_x)$ lesser than $K$, shall be selected as the Packet's Producer. 
+   > $Leader = K_p > N_x$
 - $K$ is rehashed during same leader continuous producer assignment or if no lesser $N_x$ value than $K$ is found.
 - After the packets are allocated and confirmed, the delegators can verify and collateralize for their tokens for the specific packets
 - Challenges will be node's having a different $R$ value due to forks, but can be achieved if a confirmed block's merkle root is taken. If any one node fails to achive common consensus on packet leaders, its propagation/minting will not be accepted and it will get dishonesty weightage.
@@ -265,11 +263,11 @@ Loop sum_packets != 10000
 - Bandwidth Proofs taken for next epoch shall provide the network's handling throughput bits per second. From these proofs, the block time and size is calculated and posted for the next epoch block production.
 - According to Whitepaper we have to take median bandwidth, but since Vote of confidence kicks un-fit nodes, it can improve requirements for new node arrival which will have increased bandwidth. Hence the median bandwidth is not taken.
 - Instead, taking the lowest bandwith shall provide the minimum propagation possibility per second. This process can be done right after the [Selection of Bandwidth Proof](#-selection-of-bandwidth-proof)
-- $Epoch_{n+1}(BlockMaxSize_{bits}/sec)=Min(B_1,B_2,....B_n)$
+   > $Epoch_{n+1}(BlockMaxSize_{bits}/sec)=Min(B_1,B_2,....B_n)$
 - Per Block time is calculated from Median Time from previous epoch i.e., n-2 epoch for the newly produced epoch
-- $Epoch_{n+1} BlockTime (\tau) = Epoch_{n-1} Median BlockTime (\tau)$
+   > $Epoch_{n+1} BlockTime (\tau) = Epoch_{n-1} Median BlockTime (\tau)$
 - From the per block time, we can calculate per block size as the Block size per second (1) is calculated previously.
-- $Epoch_n(BlockSize)=BlockMaxSize_{bits}/sec \times BlinkTime$ 
+   > $Epoch_n(BlockSize)=BlockMaxSize_{bits}/sec \times BlinkTime$ 
 -  Note : Per second in Blinkchain is 1 Legate = Legacy Hardware Single Thread H/s. Hence, Block Time in seconds denotes legates i.e., 1 sec = 1 legate. 
 
 <!--- [TBF]
@@ -292,11 +290,9 @@ Loop sum_packets != 10000
 
 ## Vote of Confidence
 
-> **💡 Quick Info** 
-> 
-> **Vote of Confidence** - To scale the blink-network and avoid latencies due to incompetance to propagate transactions faster, the network decides on a vote to kick un-fit nodes as per its requirement. Vote of Confidence involves selection, voting, and elimination by increasing requirements for kicked nodes to participate in the election as a contestant.
->
-> *[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+**💡 Vote of Confidence** - To scale the blink-network and avoid latencies due to incompetance to propagate transactions faster, the network decides on a vote to kick un-fit nodes as per its requirement. Vote of Confidence involves selection, voting, and elimination by increasing requirements for kicked nodes to participate in the election as a contestant.
+
+*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
 
 
 - Whitepaper Section 3.1.2, Active, Level: Node
@@ -353,9 +349,7 @@ Loop sum_packets != 10000
 
 ## Escrow Rate
 
-> **💡 Quick Info** 
-> 
-> **Escrow Rate** - To restrict spending of blinkcoins, blinkchain's native coin during recessions, bear markets similar to a central bank that icreases borrowing rates to reduce spending. Escrow rates are levied to delegators on their blinkcoins every epoch to retrict certain supply for a fixed amount of period i.e., 500 epochs (5,000,000 blocks) or approx 21 days. This rate is known as SERC (Staking Escrow Rates for Collateral) which will be hiked, lowered according to market conditions determined by the network per epoch.
+**💡 Escrow Rate** - To restrict spending of blinkcoins, blinkchain's native coin during recessions, bear markets similar to a central bank that icreases borrowing rates to reduce spending. Escrow rates are levied to delegators on their blinkcoins every epoch to retrict certain supply for a fixed amount of period i.e., 500 epochs (5,000,000 blocks) or approx 21 days. This rate is known as SERC (Staking Escrow Rates for Collateral) which will be hiked, lowered according to market conditions determined by the network per epoch.
 
 *[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
 
@@ -363,9 +357,9 @@ Loop sum_packets != 10000
 - Whitepaper 3.3.4, Passive, Level:Node
 - At Gensis Epochs, the minimum SERC is set at 1%, which is equal to 10 pulses. SERC hikes are expressed in pulses where each pulse denotes 0.1%.
 - First 3 (n-2,n-1,n) epochs are known as Genesis epochs, after which the SERC rate is calcualated variably. For 4th Epoch (n+1), the first 2 epoch's (n-2,n-1) closing oracle rate (400th slot oracle rate - for every slot the oracle rate is updated) is taken to find the change or number of pulses
-- $Pulse Change_{\epsilon_{(n+1)}}=\frac{\epsilon_{(n-2)O_{cr}}- \epsilon_{(n-1)O_{cr}}}{\epsilon_{(n-1)O_{cr}}} \times 100$
+   > $Pulse Change_{\epsilon_{(n+1)}}=\frac{\epsilon_{(n-2)O_{cr}}- \epsilon_{(n-1)O_{cr}}}{\epsilon_{(n-1)O_{cr}}} \times 100$
 - After the pulse is found, it changes the SERC rate for the new epoch
-- $New_{SERC rate} = Current_{SERC rate} + (Pulse Change \times 0.1) \geq 1\%$
+   > $New_{SERC rate} = Current_{SERC rate} + (Pulse Change \times 0.1) \geq 1\%$
 
 <!--- [TBF]
 *[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
@@ -393,9 +387,9 @@ Loop sum_packets != 10000
 - Every token will have different requirement in oracle rate that is to be collaterilzed per block
 - Its requirement can be dertermined by simple math, which every node has to find, before commencing the epoch to validate if the token in the specific block is collateralized in full
 - For n+1 epoch, its n-1 epoch is taken to find its collateral requirement which is given in oracle rate.
-- $Token(k) Stake/packet= MedianVolume(\epsilon_{n-1}) + Escrow Rate \text{ in blinkcoins}$
+   > $Token(k) Stake/packet= MedianVolume(\epsilon_{n-1}) + Escrow Rate \text{ in blinkcoins}$
 - Each block in n-1 epoch is taken from which each transaction's outputs are focussed and it's initial oracle value is found
-- $O_i = valueLocked \times oracleRate$
+  > $O_i = valueLocked \times oracleRate$
 - The total oracle value of all transaction's outputs are summed up for a block and every block's median is taken.
 - The Median value is the staking requirement, along with it the escrow rate is added. During validation, for a token to be authorized inside a block, it should have more than the minimum requirement, including the escrow utxos.
 
@@ -420,9 +414,7 @@ Loop sum_packets != 10000
 
 ## Transaction Fees
 
-> **💡 Quick Info** 
-> 
-> **Blink Fees** - In Blinkchain transaction Fees consists of a base gas fee and a transfer fee. Transfer fee is only applied when the UTXO has value. Gas fee is applied on all the UTXO scripts as every script should execute to validate the transaction. Gas Fees are given in per unit fee in oracle rate due to non-native transaction fee model and it is fixed per 8500 epochs (1 year) and can be increased by conducting a vote from producers. Transfer fee is variable percentage fee levied on individual UTXOs, changes per epoch based on volume of outputs - Higher the volume lower the fee and vice versa.
+**💡 Blink Fees** - In Blinkchain transaction Fees consists of a base gas fee and a transfer fee. Transfer fee is only applied when the UTXO has value. Gas fee is applied on all the UTXO scripts as every script should execute to validate the transaction. Gas Fees are given in per unit fee in oracle rate due to non-native transaction fee model and it is fixed per 8500 epochs (1 year) and can be increased by conducting a vote from producers. Transfer fee is variable percentage fee levied on individual UTXOs, changes per epoch based on volume of outputs - Higher the volume lower the fee and vice versa.
 
 *[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
 
@@ -451,13 +443,13 @@ Loop sum_packets != 10000
 ```
 --->
 
-> 📍 **Conclusion**
-> 
-> Thus, the packet leaders i.e., block producers are assigned randomly according to their weights and bandwidth. Block size and time for the upcoming epoch is published i.e., determined by the network itself on parameters. For the next election, from the VoC votes, requirement (difficulty rate) to join the network will increase thereby increasing the scalability and faster propagation proportionally with stronger nodes for high-throughput blinkchain. The collateral requirement with Staking interest rates are published for further validation with increasing value of each blinkcoin of holders, delegators and investors. Each epoch's Transfer fee and Gas fee per unit is assigned and for every 8500 epochs the gas fee is put on to vote to increase as per CPI.
+📍 **Conclusion**
+ 
+Thus, the packet leaders i.e., block producers are assigned randomly according to their weights and bandwidth. Block size and time for the upcoming epoch is published i.e., determined by the network itself on parameters. For the next election, from the VoC votes, requirement (difficulty rate) to join the network will increase thereby increasing the scalability and faster propagation proportionally with stronger nodes for high-throughput blinkchain. The collateral requirement with Staking interest rates are published for further validation with increasing value of each blinkcoin of holders, delegators and investors. Each epoch's Transfer fee and Gas fee per unit is assigned and for every 8500 epochs the gas fee is put on to vote to increase as per CPI.
 
 
 # Slot Update
-## Oracle Rate of Tokens, Fee update
+## Oracle Rate of Tokens
 
 
 # Active Mempool Tx Validation
@@ -467,13 +459,19 @@ Loop sum_packets != 10000
 - Vanity would be checking list of vanity address approved by the node - in consensus
 - --->
 ## Fee & Tax Validation
-<!----- [Draft]
-- Fee would be Gas fee and transfer fee both are detreminable
-- Tax would be gains tax and layer tax
-- Assets are found either to be normal tokens or stable tokens. If stable it is not taxed gains, rest difference shall be taken as layered tax
-- Gains tax can be analyzed by taking the current slot's epoch rate of the token
-- Outputs should have a difference in fees and gains tax, any other extra will be given as layered tax during snip creation
-- --->
+
+**💡 Quick Info** 
+ 
+**Blink Taxes** - In Blinkchain taxes are imposed in a transaction level to assist governments to regulate decentralized currency payments. There are three types of taxes as per now, 1. Gains 2. Stable 3. Layered. Gains tax is taken during appreciation of asset upon spending. Here taxes are only taken during spending of UTXOs. Stable Taxes are taken as a seperate transaction for holding stable fiat-backed tokens for a period of time. Layered Taxes are Sales taxes during a merchant purchase which directly pays the government, the Sales tax and ease audits onchain immutably.  
+
+- In a client created transaction of inputs and outputs, the outputs will have a difference without adding fees and taxes in utxos
+   > $Input-Output = Difference$
+   > $Diff=\sum_0^n UTXO(Gas Fee + Transfer Fee+ Gains Tax+Layered Tax)$
+   > $GasFee=Epoch_n(UnitFee) \times UTXO_n(\sum OpcodeUnits)$
+   > $Transfer Fee=Epoch_n(X)\% \times UTXO_n(TotalValue)$
+   > $GainsTax=$
+   > $LayeredTax=Input - (Output + \sum (GasFee + Transfer Fee + Gains Tax))$
+
 ## Finite Script Validation
 <!----- [Draft]
 - Running the script pseudonymously and finding if it ends in either true or false. If infinite it is rejected
