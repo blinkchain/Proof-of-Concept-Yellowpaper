@@ -209,16 +209,15 @@ h = 10000 - sum_packets
 Loop sum_packets != 10000
 {
   Loop from 1 to h for every element on Nodes
-{
+ {
     Write Node[packets] + 1
     
  }
 }
 }
-
 ```
 
-## Allocation of Leaders
+## Leaders Announcement
 
 *[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
 
@@ -416,9 +415,11 @@ Loop sum_packets != 10000
 
 **💡 Blink Fees** - In Blinkchain transaction Fees consists of a base gas fee and a transfer fee. Transfer fee is only applied when the UTXO has value. Gas fee is applied on all the UTXO scripts as every script should execute to validate the transaction. Gas Fees are given in per unit fee in oracle rate due to non-native transaction fee model and it is fixed per 8500 epochs (1 year) and can be increased by conducting a vote from producers. Transfer fee is variable percentage fee levied on individual UTXOs, changes per epoch based on volume of outputs - Higher the volume lower the fee and vice versa.
 
+**💡 Wink** - The smallest denomination of a token, similar to sats in Bitcoin to avoid decimal places and carry on with integer values. 1 wink = $10^{-8}$ Token ; 1 Token = $10^8$ Token winks. For e.g., 1 ETH = 100000000 ETH winks in Blinkchain. Every asset value, oracle rate, fees will be given in winks all over blinkchain's constraints.
+
 *[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
 
-- In the first year the gas fee per unit is set at $0.0001. Transfer fee ranges from min 0.005% and max at 0.05%
+- In the first year the gas fee per unit is set at $0.0001 = 10000 winks. Transfer fee ranges from min 0.005% and max at 0.05% 
 - For every 8500 epoch all the votes are submitted along with bandwidth proof and its average value is taken as the increase in gas fee per unit.
 - During genesis epochs (n-2),(n-1),(n), the transfer fee is set at 0.05%, from n+1 epoch the transfer fee is calculated
 - Transfer Fee is based on total volume per epoch in oracle rate, where each epoch's utxo output's initial oracle value is summed. Such that n-2 & n-1 epoch's total volume in oracle rate taken to decide to change transfer fee for the n+1 epoch.
@@ -463,12 +464,14 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 
 **💡 Blink Taxes** - In Blinkchain taxes are imposed in a transaction level to assist governments to regulate decentralized currency payments. The types of taxes as per now, 1. Gains 2. Layered. Gains tax is taken during appreciation of asset upon spending. Here taxes are only taken during spending of UTXOs. Layered Taxes are Sales taxes during a merchant purchase which directly pays the government, the Sales tax and ease audits onchain immutably.  
 
-- Since, oracle rates and fee rates changes actively, the transactions initial propagated time's slot or block height is taken to validate fees and taxes
+*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+
+- Since, oracle rates and fee rates changes actively, the transactions initial propagated time's (IPT) slot or block height is taken to validate fees and taxes
 - From the initial propagated time oracle rates of the token, transfer fee & gas unit fee is found, as the ledger stores everything on script level.
 - In a client created transaction of inputs and outputs, the outputs will have a difference without adding fees and taxes in utxos
    > $GasFee=Epoch_n(UnitFee) \times UTXO_n(\sum OpcodeUnits)$
 - Gas fee and transfer fee is found for every UTXO output of the transaction
-   > $Transfer Fee=Epoch_n(X)\% \times UTXO_n(TotalValue)$
+   > $Transfer Fee=Epoch_n(Transfer Fee \% \times 10^{-2}) \times UTXO_n(TotalValue)$
 - In Inputs of the transaction, addition to UTXO's index, script, every UTXO will have a tax-slab & an exchange rate attested to it found in the inputs. 
   
 ```
@@ -477,17 +480,19 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 " value " : 8000000 ,         // 0.08 Blinkcoins
 " script " : " OP_DUP .... 76 a9148c7e252 ... OP_CHECKSIG " ,
 " exchange_rate " : 10 ,     // if 1 BLINK wink = 10 USD wink
-" tax_slab " : 1525 ,       // if 15.25 percent is tax cut
+" tax_slab " : 1525 ,       // if 15.25 percent is tax cut (10^2)
 },
 ]}
 ```
-- From the exchange rate & tax slab, the total value to be taxed for gains is found
-
-   > $GainsTax=$
+- From the exchange rate & tax slab, the total value to be taxed for gains is found and only imposed if the profit is positive
+   > $ (currentExchangeRate * total Value)- (exchangeRate * total Value) = Profit > 0$
+- The current exchange rate denotes the initial propagated time's (IPT) of the transaction's asset.
+- Tax is levied on the profits and the value is found in asset denomination.
+   > $GainsTax= (Profit \times (taxSlab \times10^{-4} )) \times currentExchangeRate$
 - All of UTXOs as output values and its fees specific to it along with the gains taxes calculated from the inputs of the tx is summed up and the difference is found with Total input value. The difference that is unallocated, unaudited is Layered Tax.
 - Since Layered taxes has different slabs/categories/models it is best to avoid it onchain and offload to client applications to construct layered taxes in difference outputs.
    > $LayeredTax=Input - (Output + \sum (GasFee + Transfer Fee + Gains Tax))$
-- If the provided Gas Fee + Transfer Fee + Gains Tax < Difference, it is passed for next validation.
+- If the provided Tx Difference > (Gas Fee + Transfer Fee + Gains Tax), it is passed for next validation.
 - Additionally to verify the tax slabs attested in putput UTXOs of the tx for further gains tax, in the ledger during updation of tax slabs, the goverment wallets sign and attest the proof which can provide the tax slab percent. And thus after that is validated along with fees, taxes, the tx is validated as true.
 - During Tx Snip construction, the producer will create new utxos for gains and layered taxes in the last tx of the snip. In the coinbase snip - fee utxos will be created.
 
@@ -509,13 +514,6 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 ```
 --->
 
-
-## Tax Slab Update
-## Dust Purging Transaction
-<!----- [Draft]
-- Transaction that contains 2 or more inputs and only one output with the difference of gains taxes only shall be found as dust purging transactions.
-- It is fee-free
-- --->
 ## Bandwidth Proof Validation
 ### Bandwidth in Bits
 ### Node Weight Snapshot
@@ -525,6 +523,7 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 
 # Common Snips Construction
 ## Clock Hash-Concate
+CBD
 <!----- [Draft]
 - Running a single thread-hash clock that runs a sha256 hash function repetedly constraint in single thread
 - Any external data or un-confirmed transaction's serialized data will be hashed and concated and again hashed with the pre-images
@@ -532,8 +531,15 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 - First snip's header will be by a random VRF function's Hash. from next snips it will be rehashed to graph the following snips.
 --->
 
+## Snip Pre-creation
+
+CBD
+
 # Collateral Snip Construction
 ## Segregation of Stake UTXOs
+
+CBD
+
 <!----- [Draft]
 - Find stake utxos staked for the public key of the node
 - Add total value of all UTXOs based on token id
@@ -568,6 +574,7 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 
 # Snips Validation
 ## Snips Graphing & Spacing
+CBD
 <!----- [Draft]
 - Actively each snips are graphed and looks for next snip to be graphed, if its delayed by x hashes, the snip is rejected and the kamikaze snip should be added
 - --->
@@ -588,6 +595,7 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 
 # Pruning UTXOs
 ## Expiration \& Fingerprint Replacement
+CBD
 <!----- [Draft]
 - Recent 2 epochs should not be pruned
 - Before epochs spent utxos, expired utxos are searched
@@ -597,6 +605,7 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 - Thus whole of epochs can be pruned.
 - --->
 ## Centralized Storage Boilerplate
+CBD
 <!----- [Draft]
 - Download from a Node whole history
 - Create additional fingerprints for every utxo, every transaction, to construct proofs
@@ -608,7 +617,20 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 - --->
 
 # Scripts \& Proofs
+## Basic Parent-Child
+CBD
+<!---
+
+- Parent contract can have another parent, multiple parent
+- Child only have a single parent
+- When child executed, its parent is called
+- When parent has another parent it is called
+- And if the child can be spent or not is validated
+
+--->
+
 ## Stake UTXO
+CBD
 <!----- [Draft]
 - Have positions and each position have conditions locked and unlocked
 - Each stake utxo will only accept blinkcoins from public
@@ -628,11 +650,20 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 ## Bandwidth Proofs + Updated Node Weight
 ## IHR Proofs
 ## Kamikaze Proof
+## Wallet-Reg-Rep
+
+# Client-Witness
+CBD
+
 
 
 # Opcode Gas Units
 
+## Testing
 
+## Beta
+
+## Alpha
 
 
 # Leader Responsibilities
@@ -674,3 +705,19 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 - It is similar to lightning network propagation
 - It provides the slot which the transaction is propagated, and it takes the fees and oracle rates from it for tax and fee validation.
 - -->
+
+
+# Client Wallet
+
+## Apply for Wallet-Reputation
+
+## Updating Balances
+CBD
+
+## Constructing Transactions
+
+## Cleint-Witness Signature
+
+## Propagation to Network
+
+## Delegators Wallet
