@@ -379,61 +379,117 @@ Loop sum_packets != 10000
 
 ```
 
+## Transfer Fee 
+
+## Gas Base Fee (8500 epoch)
+
 > 📍 **Conclusion**
 > 
 > Thus, the packet leaders i.e., block producers are assigned randomly according to their weights and bandwidth. Block size and time for the upcoming epoch is published i.e., determined by the network itself on parameters. For the next election, from the VoC votes, requirement (difficulty rate) to join the network will increase thereby increasing the scalability and faster propagation proportionally with stronger nodes for high-throughput blinkchain. The collateral requirement with Staking interest rates are published for further validation with increasing value of each blinkcoin of holders, delegators and investors.
 
-# Active Memory Updates 
-## Gas Unit Fee & Transfer Fee rate
-## Oracle Rates of Tokens
-## Nodes Weights
+
+# Slot Update
+## Oracle Rate of Tokens, Fee update
+
 
 # Active Mempool Tx Validation
 ## Client-Witness & Vanity Validation
+- Check if witness signature is attested for every transaction. Witness would be a public key signing the signed transaction of the owners
+- Vanity would be checking list of vanity address approved by the node - in consensus
 ## Fee & Tax Validation
+- Fee would be Gas fee and transfer fee both are detreminable
+- Tax would be gains tax and layer tax
+- Assets are found either to be normal tokens or stable tokens. If stable it is not taxed gains, rest difference shall be taken as layered tax
+- Gains tax can be analyzed by taking the current slot's epoch rate of the token
+- Outputs should have a difference in fees and gains tax, any other extra will be given as layered tax during snip creation
 ## Finite Script Validation
-## Stable Tax Transaction
-## Normal Transaction
+- Running the script pseudonymously and finding if it ends in either true or false. If infinite it is rejected
 ## Stable Tax Transaction
 ## Dust Purging Transaction
+- Transaction that contains 2 or more inputs and only one output with the difference of gains taxes only shall be found as dust purging transactions.
+- It is fee-free
 ## Bandwidth Proof Validation
 ## VoC Vote Transaction
+## Gas Base fee increase vote
+
 
 # Common Snips Construction
 ## Clock Hash-Concate
-## Fee, Oracle Rate Assignment \& Update
+- Running a single thread-hash clock that runs a sha256 hash function repetedly constraint in single thread
+- Any external data or un-confirmed transaction's serialized data will be hashed and concated and again hashed with the pre-images
+- Each hash will be a snip, at minimum
+- First snip's header will be by a random VRF function's Hash. from next snips it will be rehashed to graph the following snips.
+
 
 # Collateral Snip Construction
 ## Segregation of Stake UTXOs
+- Find stake utxos staked for the public key of the node
+- Add total value of all UTXOs based on token id
+- If Requirement in oracle value < Token ID sum in oracle value
+- then take select stake utxos that will be near to requirement
+- It notes authorized tokens
 ## Construction of Collateral Tx
-## Noting Authorized Tokens
+- Position Update of Stake UTXOs
 
 # Transaction Snip Construction
-## Validated-authorized Tx from Local Mempool
-## Tax Assignment
-## Tax Tx Construction
+## Validated Tx with Tax
+- Txs from local mempool, that are pre-validated are taken and attested to the snip
+- Txs are prevalidated and each transaction snip is pre created, with only header hash to add for graphing
+- In each snip, it should end with the tax outputs leaving only fee differnece for each snip.
+- If a snip doesn't contain taxes on it, then it will be rejected
+- Differences will include Gains Tax, Fee, Layered Tax
+- Fees will be determined and it is neglected
+- Gains tax can be determined and it is created for the authorized government's wallet identified from its vanity address
+- Layered Taxes are done for merchants point of sale taxes which is alos determined by the rest of difference other than the gains and fees. It is send to the payee's government wallet.
+- With validated txs, the last of txs in a snip will have outputs of gains and layered taxes
 
 # Coinbase Snip Construction
 ## Accepted Token Tx Construction
+- All fee outputs are segregated by accepted and non-accepted tokens
 ## Non-Accepted Token Tx Construction
 
 
 # Snips Validation
-## Genesis Clock Spaces
-## Fee, Oracle Rate Assignment \& Update
-## Snip Pool Graphing
-## Authorized Token Verification
-## Snip Tx Validation
-## Fee, Input Output Hashreward Verification
+## Snips Graphing & Spacing
+- Actively each snips are graphed and looks for next snip to be graphed, if its delayed by x hashes, the snip is rejected and the kamikaze snip should be added
+## Colalteral Snip
+- after each poistion update is executed, nodes should identify the collaterilzed tokens. If any other tokens are added to further snips, it is rejected immediately
+## Tx & Tax Validation
+- Find if Difference is only leaved in fees, and the tax outputs are given in last transactions - gains and layered taxes
+## Coinbase Verification
+- Fee outputs are calculated, poistion update, etc
 ## Kamikaze Proof
 
 
 # Pruning UTXOs
 ## Expiration \& Fingerprint Replacement
+- Recent 2 epochs should not be pruned
+- Before epochs spent utxos, expired utxos are searched
+- UTXOs are replaced by a single fingerprint  of the hex's hash
+- If every UTXO is pruned by fingerprint in a transaction, then whole transaction is replaced by a fingerprint hash
+- When 16 transactions are pruned completely it is replaced by a node hash
+- Thus whole of epochs can be pruned.
 ## Centralized Storage Boilerplate
+- Download from a Node whole history
+- Create additional fingerprints for every utxo, every transaction, to construct proofs
+- Have third party verifiers for verification of proof for fact checking
+## Recovery Proof
+- Proof construction from centralized storage with pre-image script to execute and verify and create a new utxo with updated renting time
 
 # Scripts \& Proofs
 ## Stake UTXO
+- Have positions and each position have conditions locked and unlocked
+- Each stake utxo will only accept blinkcoins from public
+- Each stake utxo will have a moderator i.e., the node's public key
+- Each stake utxo will have the asset id for which its staking for
+- Moderator can add blinkcoins in Stake UTXO. and deposit asset-id only in Collateral UTXO only if the stake utxo is not created by the moderator i.e., non-accepted token
+- Deposit condition available in Stake for public, In collateral UTXO for moderator
+- During deposit, the contract gives us LP tokens of the specific stake utxo
+- Withdraw can be poosible in all positions - Stake, Payback immediately but in collateral utxo if its created only after certain blocks from which it is created
+- Position update can be only done by moderator confined by snips rules on node level only to accepted position update at ceratin time-frame. Moderator's public key hash is given when creating the stake UTXO
+- If moderator and creator == same, then it is an accepetd token, but if its not same it is a un-accepted token.
+- For un-accpeted token, the moderator can create lp tokens without deposit, but with constraints on how much he can create.
+
 ## Oracle Data UTXO
 ## Oracle Fund UTXO
 ## Oracle Reputation UTXO
@@ -463,82 +519,3 @@ Loop sum_packets != 10000
 ## Priority Peer List
 ## Direct-Messaging
 ## Distributed Rumouring 
-
-
-
-# Table of Contents
-
-
-
-- [Blinkchain - Proof of Concept (Yellow-paper)](#blinkchain---proof-of-concept-yellow-paper)
-  - [Resources](#resources)
-- [Objectives](#objectives)
-- [Time Architecture](#time-architecture)
-- [Epoch Election](#epoch-election)
-  - [Terminology](#terminology)
-  - [Timeline](#timeline)
-  - [Selection of Bandwidth Proof](#selection-of-bandwidth-proof)
-  - [Node Weight \& Total Packets Calculation](#node-weight--total-packets-calculation)
-  - [Allocation of Leaders](#allocation-of-leaders)
-  - [Block Size \& Time Fixing](#block-size--time-fixing)
-  - [Vote of Confidence](#vote-of-confidence)
-  - [VoC Result](#voc-result)
-  - [Escrow Rate](#escrow-rate)
-  - [Token Collateral Requirement](#token-collateral-requirement)
-- [Active Memory Updates](#active-memory-updates)
-  - [Gas Unit Fee \& Transfer Fee rate](#gas-unit-fee--transfer-fee-rate)
-  - [Oracle Rates of Tokens](#oracle-rates-of-tokens)
-  - [Nodes Weights](#nodes-weights)
-- [Active Mempool Tx Validation](#active-mempool-tx-validation)
-  - [Client-Witness \& Vanity Validation](#client-witness--vanity-validation)
-  - [Fee \& Tax Validation](#fee--tax-validation)
-  - [Finite Script Validation](#finite-script-validation)
-  - [Stable Tax Transaction](#stable-tax-transaction)
-  - [Normal Transaction](#normal-transaction)
-  - [Stable Tax Transaction](#stable-tax-transaction-1)
-  - [Dust Purging Transaction](#dust-purging-transaction)
-  - [Bandwidth Proof Validation](#bandwidth-proof-validation)
-  - [VoC Vote Transaction](#voc-vote-transaction)
-- [Common Snips Construction](#common-snips-construction)
-  - [Clock Hash-Concate](#clock-hash-concate)
-  - [Fee, Oracle Rate Assignment \& Update](#fee-oracle-rate-assignment--update)
-- [Collateral Snip Construction](#collateral-snip-construction)
-  - [Segregation of Stake UTXOs](#segregation-of-stake-utxos)
-  - [Construction of Collateral Tx](#construction-of-collateral-tx)
-  - [Noting Authorized Tokens](#noting-authorized-tokens)
-- [Transaction Snip Construction](#transaction-snip-construction)
-  - [Validated-authorized Tx from Local Mempool](#validated-authorized-tx-from-local-mempool)
-  - [Tax Assignment](#tax-assignment)
-  - [Tax Tx Construction](#tax-tx-construction)
-- [Coinbase Snip Construction](#coinbase-snip-construction)
-  - [Accepted Token Tx Construction](#accepted-token-tx-construction)
-  - [Non-Accepted Token Tx Construction](#non-accepted-token-tx-construction)
-- [Snips Validation](#snips-validation)
-  - [Genesis Clock Spaces](#genesis-clock-spaces)
-  - [Fee, Oracle Rate Assignment \& Update](#fee-oracle-rate-assignment--update-1)
-  - [Snip Pool Graphing](#snip-pool-graphing)
-  - [Authorized Token Verification](#authorized-token-verification)
-  - [Snip Tx Validation](#snip-tx-validation)
-  - [Fee, Input Output Hashreward Verification](#fee-input-output-hashreward-verification)
-  - [Kamikaze Proof](#kamikaze-proof)
-- [Pruning UTXOs](#pruning-utxos)
-  - [Expiration \& Fingerprint Replacement](#expiration--fingerprint-replacement)
-  - [Centralized Storage Boilerplate](#centralized-storage-boilerplate)
-- [Scripts \& Proofs](#scripts--proofs)
-  - [Stake UTXO](#stake-utxo)
-  - [Oracle Data UTXO](#oracle-data-utxo)
-  - [Oracle Fund UTXO](#oracle-fund-utxo)
-  - [Oracle Reputation UTXO](#oracle-reputation-utxo)
-  - [Bandwidth Proofs + Updated Node Weight](#bandwidth-proofs--updated-node-weight)
-  - [IHR Proofs](#ihr-proofs)
-  - [Kamikaze Proof](#kamikaze-proof-1)
-- [Opcode Gas Units](#opcode-gas-units)
-- [Leader Responsibilities](#leader-responsibilities)
-  - [Epoch Leader](#epoch-leader)
-  - [Slot Leader](#slot-leader)
-  - [Packet Leader](#packet-leader)
-- [Messaging Protocol](#messaging-protocol)
-  - [Priority Peer List](#priority-peer-list)
-  - [Direct-Messaging](#direct-messaging)
-  - [Distributed Rumouring](#distributed-rumouring)
-- [Table of Contents](#table-of-contents)
