@@ -80,7 +80,6 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 
 
 ```
-**Pseudocode**
 
 ///This program will be used to generate a Json file with 
 //All PublicKey with verified bandwidth proofs 
@@ -132,7 +131,6 @@ Function Bandwidth_proof_selection (range_begin,range_end) {
 
 
 ```
-**Pseudocode**
 
 //This program will be used to generate a Json file with 
 //packets allocated to the public_key according to their node weights
@@ -246,20 +244,6 @@ End-WHILE
 - After the elimination of certain bandwidth proofs and their publickeys, the mean value is found and published for requirement for selection of proofs
 - The Result is found before the selection of proofs, where its mean value can alter actively, hence the node's bandwidth proofs selections are randomized and should be predicted actively
 
-<!--- [TBF]
-*[@I-Corinthian](https://github.com/I-Corinthian)*
-
-```
-**Algorithm**
-
---- Algorithm here---
-```
-
-```
-**Pseudocode**
-
-```
---->
 
 ## Escrow Rate
 
@@ -280,7 +264,6 @@ End-WHILE
 
 
 ```
-**Pseudocode**
 
 //This program will be use update the Escrow rate of the next Epoch 
 
@@ -329,8 +312,6 @@ function Set_EscrowRate()
 
 
 ```
-**Pseudocode**
-
 //This program will be help to generate a Json file of all the token and their required collatral to stake
 
 //For the understaning of the Devlopers the nameing of the Epoch Json file is done by 
@@ -397,8 +378,6 @@ function Set_CollateralRequirement()
 - Standard Deviation of n-2, n-1 epoch's total volume in oracle rate taken, if SD < 0.75 transfer fee doesn't change, if SD > 0.75 then it is decided to calculate change percentage.
 - Each change only either +0.0005 or -0.0005, if If Volume of n-2 < Volume of n-1 then there is higher volume of transactions requiring to lower the transfer fee. If vice versa ,it should increase the transfer fee
 
-
-
 📍 **Conclusion**
  
 Thus, the packet leaders i.e., block producers are assigned randomly according to their weights and bandwidth. Block size and time for the upcoming epoch is published i.e., determined by the network itself on parameters. For the next election, from the VoC votes, requirement (difficulty rate) to join the network will increase thereby increasing the scalability and faster propagation proportionally with stronger nodes for high-throughput blinkchain. The collateral requirement with Staking interest rates are published for further validation with increasing value of each blinkcoin of holders, delegators and investors. Each epoch's Transfer fee and Gas fee per unit is assigned and for every 8500 epochs the gas fee is put on to vote to increase as per CPI.
@@ -408,7 +387,7 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 ## Oracle Rate of Tokens
 
 
-# Local Mempool Tx Validation
+# Transaction Validation
 ## Client-Witness & Vanity Validation
 <!----- [Draft]
 - Check if witness signature is attested for every transaction. Witness would be a public key signing the signed transaction of the owners
@@ -453,14 +432,7 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 
 
 
-## Bandwidth Proof Validation
-### Bandwidth in Bits
-### Node Weight Snapshot
-### VoC Votes
-### Gas Vote
-
-
-# Common Snips Construction
+# Snips Construction
 ## Clock Hash-Concate
 
 **💡 Hash-Clocks** - In every producer node client, in every block, hashes are concated with transactions to cryptographically prove a timestamp. A single threaded hash-clock typically SHA256 function is run continously to attach pre-images, external transactions within the snips.
@@ -472,8 +444,8 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 - Bind Pre-image and transactions and propagate as a snip
 - If VRF number is not the first snip's pre-image of concated txs, then add first-preimage with the first snip.
 
-# Collateral Snip Construction
-## Segregation of Stake UTXOs
+## Collateral Snip
+
 <!----- [Draft]
 - Find stake utxos staked for the public key of the node
 - Add total value of all UTXOs based on token id
@@ -481,12 +453,11 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 - then take select stake utxos that will be near to requirement
 - It notes authorized tokens
 - --->
-## Construction of Collateral Tx
 <!----- [Draft]
 - Position Update of Stake UTXOs
 --->
-# Transaction Snip Construction
-## Validated Tx with Tax
+## Transaction Snip Construction
+
 <!----- [Draft]
 - Txs from local mempool, that are pre-validated are taken and attested to the snip
 - Txs are prevalidated and each transaction snip is pre created, with only header hash to add for graphing
@@ -499,12 +470,11 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 - With validated txs, the last of txs in a snip will have outputs of gains and layered taxes
 --->
 
-# Coinbase Snip Construction
-## Accepted Token Tx Construction
+## Coinbase Snip Construction
+
 <!----- [Draft]
 - All fee outputs are segregated by accepted and non-accepted tokens
 - --->
-## Non-Accepted Token Tx Construction
 
 
 # Snips Validation
@@ -592,14 +562,13 @@ UTXO 4 - Child  - Value
 ## Oracle Data UTXO
 ## Oracle Fund UTXO
 ## Oracle Reputation UTXO
-## Bandwidth Proofs + Updated Node Weight
-## IHR Proofs
+## Bandwidth Proof
+- Node Weight Snapshot
+- Gas Vote
+- VoC Vote
+## IHR Proof
 ## Kamikaze Proof
-## Wallet-Reg-Rep
-
-# Client-Witness
-
-
+## Wallet-Reputation Proof
 
 
 # Opcode Gas Units
@@ -609,30 +578,8 @@ UTXO 4 - Child  - Value
 ## Alpha
 
 
-# Leader Responsibilities
-
-## Epoch Leader
-<!----- [Draft]
-
-- Client-Witness & Vanity Validation
-- Segregation of Un-confirmed Tokens
-- Allocation per Packet Leader
-- Direct Messaging
-- --->
-## Slot Leader
-<!----- [Draft]
-- Unconfirmed new transaction to Epoch Leader
-- --->
-## Packet Leader
-<!----- [Draft]
-- Unconfirmed new transaction to Epoch Leader
-- --->
-
 # Messaging Protocol
-## Priority Peer List
-## Direct-Messaging
-## Distributed Rumouring 
-## Block of Propagation Validation
+## Fresh Tx Propagation
 <!---
 - For direct messaging, lightning hop is used
 - until the message is received on the end, it is encrypted
@@ -648,23 +595,17 @@ UTXO 4 - Child  - Value
 - It is similar to lightning network propagation
 - It provides the slot which the transaction is propagated, and it takes the fees and oracle rates from it for tax and fee validation.
 - -->
+## Leader Segregation & Propagation
+## Distributed Rumouring 
 
 
 # Client Wallet
-
 ## Apply for Wallet-Reputation
-
 ## Updating Balances
-
-
 ## Constructing Transactions
-
 ## Client-Witness Signature
-
 ## Propagation to Network
-
 ## Delegators Wallet 
-
 ## Oracle Wallet
 
-## 
+
