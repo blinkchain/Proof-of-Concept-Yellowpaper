@@ -26,7 +26,7 @@ Welcoming contributions from the Core-Team Project Blink
 
 
 # Time Architecture
-*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+*[@jobyreuben](https://www.github.com/jobyreuben)*
 - Whitepaper Section [2.1], Level : Node
 - The Time Architecture in Blinkchain is segregated into Epoch = 10,000 blocks; Slot = 400 blocks ; Packet = 1 block.
 - These time frames are not correlated to the ledger, as it only knows block heights. It is only taken in the following area
@@ -69,26 +69,20 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 
 **💡 Bandwidth Proofs** - to be proposed in a new paper "Blink Proofs" will provide a zero knowledge proof to the verfiers (nodes) to calculate its authenticity and ability to contest in the new election to directly influencing to change the block size of the epoch.
 
-*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+*[@jobyreuben](https://www.github.com/jobyreuben)*
 
 - Whitepaper Section - Nil, Passive Program, Level : Node
 - Bandwidth Proofs in the ledger in a range of block height X to Y (Denoting Slot opening and ending for Arrival of New nodes) are selected and validated to carry on further steps. Since proofs are available directly in the ledger, it is easier to select the proofs. Only recent proofs are taken and the requirement should be fulfilled.
 - The requirement will be published on after every epoch's Vote of Confidence motion.
 - The implementation can be done effectively with optimized language suitable.
 
-*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
-<!--- [TBF]
-```
-**Algorithm**
+*[@I-Corinthian](https://github.com/I-Corinthian)*
 
---- Algorithm here---
-```
---->
 
 ```
 **Pseudocode**
 
-//This program will be used to generate a Json file with 
+///This program will be used to generate a Json file with 
 //All PublicKey with verified bandwidth proofs 
 
 //RawData_Json is the json file with all the blocks
@@ -98,68 +92,44 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 
 Function Bandwidth_proof_selection (range_begin,range_end) {
 
-Raw_Data<----RawaData_json only data within the given range
-Bandwidthproof_Data<---- Bandwidthproofs_Json 
-loop i = range_end, i>=range_begin , i - -
-
-{
- If Raw_Data[i] position has bandwidth proof 
-    If Bandwidthproof_Data not have PublicKey && Validate_proof(PublicKey)
-      Write Bandwidthproof_Data with [UTXO index,Transaction ID,Block hight,PublicKey]<----Raw_Data[i]
-   End if
-End if
-}
+   Raw_Data<----RawaData_json only data within the given range
+   Bandwidthproof_Data<---- Bandwidthproofs_Json 
+   FOR i = range_end, i>=range_begin , i - -
+   IF Raw_Data[i] position has bandwidth proof 
+      IF Bandwidthproof_Data not have PublicKey && Validate_proof(PublicKey)
+         Write Bandwidthproof_Data with [UTXO index,Transaction ID,Block height,PublicKey]<----Raw_Data[i]
+      End IF
+   End IF
+   End-FOR
 }
 ```
 
-*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+*[@jobyreuben](https://www.github.com/jobyreuben)*
 
 - For Validation of Proofs, it is found if a proof is valid, passes the criteria
 - The Criteria (Mean Value after VoC Result) is published
 - The VoC passed bandwidth proofs (Public Keys) can publish an increased proof or should be able to post bandwidth more than the criteria.
 - The criteria is mandatory for new nodes arrival (new Public Keys)
 
-<!--- [TBF]
-*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
-```
-**Algorithm**
-
---- Algorithm here---
-```
-
-```
-
-**Pseudocode**
-
---- Psuedocode here---
-
-```
---->
 
 ## Node Weight & Total Packets Calculation
 
-*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+*[@jobyreuben](https://www.github.com/jobyreuben)*
 
 
 - Whitepaper Section 3.2 - 3.2.1, Active, Level: Node
 - Node Weights represent, each node's current honesty weight. For every epoch along with the Bandwidth Proof, nodes are required to attach their updated weight which can be validated if true.
    > $NodeWeight(N_w)=\sum N(W_n) + Bandwidth (Bits/sec)$
-- All of selected bandwith proof's node's weights are summed up to find total packets each node can produce
+- All of selected bandwidth proof's node's weights are summed up to find total packets each node can produce
    > $Total Packets (P) = \frac{10,000 \times N_w}{\sum_{1}^{n} (N_w)_n}$
 
 - If Total packets allocated < 10000, then the remaining packets are allocated to nodes with highest positive weight excluding the bandwidth proof.
 - Challenges will be script development for Node weight snapshot and validation of it, which also can be effectively achieved.
 
-*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
+*[@I-Corinthian](https://github.com/I-Corinthian)*
 
-<!--- [TBF]
-```
-**Algorithm**
 
---- Algorithm here---
-```
---->
 
 ```
 **Pseudocode**
@@ -168,64 +138,60 @@ End if
 //packets allocated to the public_key according to their node weights
 
 Bandwidthproof_Json - Json file of all the Bandwidth Proof  and public key
-Allocation_Json - Json file with packets allocated to each public key
+Allocation_Json - Json filPsuedocodee with packets allocated to each public key
 
 
-Function nodeweight(bandwidth,total_weight){
-node_weight = bandwidth + total_weight 
-return node_weight
+Function nodeweight(bandwidth,total_weight)
+{
+    node_weight = bandwidth + total_weight 
+    return node_weight
 }
 
 Function nodeweight_sum(){
-Data<----Bandwidthproof_Json
+    Data<----Bandwidthproof_Json
 
-Loop every element in Data
-{
-Allocation_Json[public_key]<---- Data[publickey]
+WHILE every element in Data
+    Allocation_Json[public_key]<---- Data[publickey]
 
-Allocation_Json[weight of each publickey] <---- nodeweight(Data[bandwidth],Data[total_weight])
+    Allocation_Json[weight of each publickey] <---- nodeweight(Data[bandwidth],Data[total_weight])
 
-node_sum += nodeweight(Data[bandwidth],Data[total_weight])
-}
+    node_sum += nodeweight(Data[bandwidth],Data[total_weight])
+End-WHILE
 
-Return node_sum
+    RETURN node_sum
 }
 
 Function Allocate_packets(){
 
-sum = nodeweight_sum()
-Nodes<---- Allocation_Json
+    sum = nodeweight_sum()
+    Nodes<---- Allocation_Json
 
-Loop each element in Nodes
-{
-(int)packets_allocated = (10000 * Nodes[nodeweight]) / sum
-Write Nodes[packets] <--- packets_allocated 
-sum_packets += packets_allocated
-}
+WHILE each element in Nodes
+    (int)packets_allocated = (10000 * Nodes[nodeweight]) / sum
+    Write Nodes[packets] <--- packets_allocated 
+    sum_packets += packets_allocated
+End-WHILE
 
-Shot Nodes in descending order of weights 
+    sorted(Nodes[weight],reverse=TRUE ) //Sort Nodes in descending order of weights 
 
-h = 10000 - sum_packets
-Loop sum_packets != 10000
-{
-  Loop from 1 to h for every element on Nodes
- {
-    Write Node[packets] + 1
-    
- }
-}
+    h = 10000 - sum_packets
+    WHILE sum_packets != 10000
+          FOR i = 0 to h do
+             Write Node[packets] + 1
+          End-FOR
+    End-WHILE
 }
 ```
 
 ## Leaders Announcement
 
-*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+*[@jobyreuben](https://www.github.com/jobyreuben)*
 
 
 - Whitepaper Section 3.2.2 - 3.2.3, Passive, Level: Node
 - Since each node's total packets production rate is achieve for the next epoch, each packet's height has to be determined for which node to produce in a determinable randomized structure. Thus, packet leaders are announced, or determined by each node on the network from only the randomized parameters
 - First Packet shall be produced by the highest number of packet allocated node i.e., the strongest & most honest node
-- Likewise, for every 400 blocks, the strongest of it shall be announced as slot leader, who does not have first packet slot privilleges, but assigned to propagate transactions properly.
+- Likewise, for every 400 blocks, the strongest of it shall be announced as slot leader, who does not have first packet slot privileges, but assigned to propagate transactions properly.
 - Allocation works like Bitcoin's Difficulty rate and nonce. For each packet a $K$ Output is given in MD160 (Same as PKH address) produced from a Merkle Root of 100 blocks $(R)$ taken in backwards starting from the epoch election commencing block which will be random.
    > $K=MD160(SHA256((SHA256(R))+Packet_n+Slot_n+Epoch_n))$
    > $R=MerkleRoot(Block_{h-100} : Block_h)$
@@ -233,35 +199,19 @@ Loop sum_packets != 10000
    > $Leader = K_p > N_x$
 - $K$ is rehashed during same leader continuous producer assignment or if no lesser $N_x$ value than $K$ is found.
 - After the packets are allocated and confirmed, the delegators can verify and collateralize for their tokens for the specific packets
-- Challenges will be node's having a different $R$ value due to forks, but can be achieved if a confirmed block's merkle root is taken. If any one node fails to achive common consensus on packet leaders, its propagation/minting will not be accepted and it will get dishonesty weightage.
+- Challenges will be node's having a different $R$ value due to forks, but can be achieved if a confirmed block's merkle root is taken. If any one node fails to achieve common consensus on packet leaders, its propagation/minting will not be accepted and it will get dishonesty weightage.
 
-<!--- [TBF]
-*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
-```
-**Algorithm**
-
---- Algorithm here---
-```
-
-```
-
-**Pseudocode**
-
---- Psuedocode here---
-
-```
---->
    
 ## Block Size \& Time Fixing
 
-*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+*[@jobyreuben](https://www.github.com/jobyreuben)*
 
 
 - Whitepaper Section (2.3.1, 2.3.4, 2.3.5) , Passive, Level: Node
 - Bandwidth Proofs taken for next epoch shall provide the network's handling throughput bits per second. From these proofs, the block time and size is calculated and posted for the next epoch block production.
 - According to Whitepaper we have to take median bandwidth, but since Vote of confidence kicks un-fit nodes, it can improve requirements for new node arrival which will have increased bandwidth. Hence the median bandwidth is not taken.
-- Instead, taking the lowest bandwith shall provide the minimum propagation possibility per second. This process can be done right after the [Selection of Bandwidth Proof](#-selection-of-bandwidth-proof)
+- Instead, taking the lowest bandwidth shall provide the minimum propagation possibility per second. This process can be done right after the [Selection of Bandwidth Proof](#-selection-of-bandwidth-proof)
    > $Epoch_{n+1}(BlockMaxSize_{bits}/sec)=Min(B_1,B_2,....B_n)$
 - Per Block time is calculated from Median Time from previous epoch i.e., n-2 epoch for the newly produced epoch
    > $Epoch_{n+1} BlockTime (\tau) = Epoch_{n-1} Median BlockTime (\tau)$
@@ -269,29 +219,13 @@ Loop sum_packets != 10000
    > $Epoch_n(BlockSize)=BlockMaxSize_{bits}/sec \times BlinkTime$ 
 -  Note : Per second in Blinkchain is 1 Legate = Legacy Hardware Single Thread H/s. Hence, Block Time in seconds denotes legates i.e., 1 sec = 1 legate. 
 
-<!--- [TBF]
-*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
-```
-**Algorithm**
-
---- Algorithm here---
-```
-
-```
-
-**Pseudocode**
-
---- Psuedocode here---
-
-```
---->
 
 ## Vote of Confidence
 
 **💡 Vote of Confidence** - To scale the blink-network and avoid latencies due to incompetance to propagate transactions faster, the network decides on a vote to kick un-fit nodes as per its requirement. Vote of Confidence involves selection, voting, and elimination by increasing requirements for kicked nodes to participate in the election as a contestant.
 
-*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+*[@jobyreuben](https://www.github.com/jobyreuben)*
 
 
 - Whitepaper Section 3.1.2, Active, Level: Node
@@ -300,27 +234,11 @@ Loop sum_packets != 10000
 - Each node shall have a rate of elimination percentage for which it can vote. This is to offload decentralization ethics towards node-operators. Minimum the rate of elimination, maximum the decentralization of the network.
 - Each node can vote on un-fit nodes below its rate of elimination of the mean value, till the next selection of bandwidth-proofs. The VoC result will be published before the Selection of Bandwidth Proofs.
 
-<!--- [TBF]
-*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
-```
-**Algorithm**
-
---- Algorithm here---
-```
-
-```
-
-**Pseudocode**
-
---- Psuedocode here---
-
-```
---->
 
 ## VoC Result
 
-*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+*[@jobyreuben](https://www.github.com/jobyreuben)*
 
 
 - Vote of Confidence result will be calulated at first before the selection of bandwidth proofs. From the Voting commences till the epoch election starts, the producers will be able to post their votes.
@@ -329,7 +247,7 @@ Loop sum_packets != 10000
 - The Result is found before the selection of proofs, where its mean value can alter actively, hence the node's bandwidth proofs selections are randomized and should be predicted actively
 
 <!--- [TBF]
-*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
+*[@I-Corinthian](https://github.com/I-Corinthian)*
 
 ```
 **Algorithm**
@@ -338,10 +256,7 @@ Loop sum_packets != 10000
 ```
 
 ```
-
 **Pseudocode**
-
---- Psuedocode here---
 
 ```
 --->
@@ -350,7 +265,7 @@ Loop sum_packets != 10000
 
 **💡 Escrow Rate** - To restrict spending of blinkcoins, blinkchain's native coin during recessions, bear markets similar to a central bank that icreases borrowing rates to reduce spending. Escrow rates are levied to delegators on their blinkcoins every epoch to retrict certain supply for a fixed amount of period i.e., 500 epochs (5,000,000 blocks) or approx 21 days. This rate is known as SERC (Staking Escrow Rates for Collateral) which will be hiked, lowered according to market conditions determined by the network per epoch.
 
-*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+*[@jobyreuben](https://www.github.com/jobyreuben)*
 
 
 - Whitepaper 3.3.4, Passive, Level:Node
@@ -360,27 +275,45 @@ Loop sum_packets != 10000
 - After the pulse is found, it changes the SERC rate for the new epoch
    > $New_{SERC rate} = Current_{SERC rate} + (Pulse Change \times 0.1) \geq 1\%$
 
-<!--- [TBF]
-*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
+
+*[@I-Corinthian](https://github.com/I-Corinthian)*
+
 
 ```
-**Algorithm**
-
---- Algorithm here---
-```
-
-```
-
 **Pseudocode**
 
---- Psuedocode here---
+//This program will be use update the Escrow rate of the next Epoch 
+
+//For the understanding of the Developers the naming of the Epoch Json file is done by 
+     n  - represents the current Epoch 
+     n1 - represents the next Epoch to be produced
+     pn - represents the previous Epoch
+     pn2- represents teh n-2th Epoch
+
+//Epochreq_Json is the json file with all the epoch req For each epoch
+//pn_epoch is the previous epoch
+//pn2_epoch is the n-2 th epoch
+
+
+
+function Set_EscrowRate()
+{
+ Epochreq<---Epochreq_Json
+ (int) pulsechange = (Oracle_rate(pn2_epoch)-Oracle_rate(pn1_epoch))/Oracle_rate(pn1_epoch)
+ escrowRate = current_escrowRate + (pulsechange*0.1)
+ IF escrowRate >= 1 
+   return escrowRate
+ ELSE 
+   return 1
+ End IF
+ Write escrowRate in Epochreq[escrowRate]
+}
 
 ```
---->
 
 ## Token Collateral Requirement
 
-*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+*[@jobyreuben](https://www.github.com/jobyreuben)*
 
 - Whitepaper 3.3.3, Passive, Level: Node
 - Every token will have different requirement in oracle rate that is to be collaterilzed per block
@@ -392,24 +325,62 @@ Loop sum_packets != 10000
 - The total oracle value of all transaction's outputs are summed up for a block and every block's median is taken.
 - The Median value is the staking requirement, along with it the escrow rate is added. During validation, for a token to be authorized inside a block, it should have more than the minimum requirement, including the escrow utxos.
 
-<!--- [TBF]
-*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
+*[@I-Corinthian](https://github.com/I-Corinthian)*
+
 
 ```
-**Algorithm**
-
---- Algorithm here---
-```
-
-```
-
 **Pseudocode**
 
---- Psuedocode here---
+//This program will be help to generate a Json file of all the token and their required collatral to stake
+
+//For the understaning of the Devlopers the nameing of the Epoch Json file is done by 
+     n  - represents the current Epoch 
+     n1 - represents the next Epoch to be produced
+     pn - represents the previous Epoch
+     pn2- represents teh n-2th Epoch
+
+//TokenRequirement_Json is the json file with the list of tokens and the collatral needed to stake
+//Epoch is the previous epoch
+//Oracle_Volume_Json is a helper file with the list of volume of each token in a block
+
+
+function generate_volume_list(epoch)
+{
+    Oracle_Volume<--- Oracle_Volume_Json to write the output
+    Epoch = epoch
+
+    FOR each slot in a epoch:
+        FOR every block in a slot:
+            FOR every transacation in a block:
+                IF transacation is output AND Oracle_Volume has Epoch[slot][block][transacation][tokenID]:
+                    Oracle_value = Epoch[slot][block][transacation][locked_value]*Epoch[slot][block][transacation][exchange_rate]
+                    Oracle_Volume[tokenID][Epoch[slot][block][transacation][tokenID]][ith block][volumes] + volume 
+                ELSEIF  transacation is output AND NOT(Oracle_Volume has Epoch[slot][block][transacation][tokenID]):
+                    volume = Epoch[slot][block][transacation][amount]*Epoch[slot][block][transacation][oracle value]
+                    Oracle_Volume[tokenID] add Epoch[slot][block][transacation][tokenID] to the key json file  
+                    Oracle_Volume[tokenID][Epoch[slot][block][transacation][tokenID]][ith block][volumes] + volume 
+                ENDIF
+            ENDFOR
+        ENDFOR
+    ENDFOR
+}
+
+
+
+function Set_CollateralRequirement()
+{
+    Oracle_Volume<--- Oracle_Volume_Json
+    Epoch<---read(pn+"epoch_Json") read pervious epoch json
+    Tokenreq<---TokenRequirement_Json
+    generate_volume_list(Epoch)
+    FOR every tokenID in Oracle_Volume:
+        Tokenreq[tokenID] = Oracle_Volume[tokenID]
+        Tokenreq[requirement] = Median(Oracle_Volume[tokenID][block_number][volumes])
+    ENDFOR
+    Delete Oracle_Volume
+}
 
 ```
---->
-
 
 ## Transaction Fee Rates
 
@@ -417,7 +388,7 @@ Loop sum_packets != 10000
 
 **💡 Wink** - The smallest denomination of a token, similar to sats in Bitcoin to avoid decimal places and carry on with integer values. 1 wink = $10^{-8}$ Token ; 1 Token = $10^8$ Token winks. For e.g., 1 ETH = 100000000 ETH winks in Blinkchain. Every asset value, oracle rate, fees will be given in winks all over blinkchain's constraints.
 
-*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+*[@jobyreuben](https://www.github.com/jobyreuben)*
 
 - In the first year the gas fee per unit is set at $0.0001 = 10000 winks. Transfer fee ranges from min 0.005% and max at 0.05% 
 - For every 8500 epoch all the votes are submitted along with bandwidth proof and its average value is taken as the increase in gas fee per unit.
@@ -426,23 +397,7 @@ Loop sum_packets != 10000
 - Standard Deviation of n-2, n-1 epoch's total volume in oracle rate taken, if SD < 0.75 transfer fee doesn't change, if SD > 0.75 then it is decided to calculate change percentage.
 - Each change only either +0.0005 or -0.0005, if If Volume of n-2 < Volume of n-1 then there is higher volume of transactions requiring to lower the transfer fee. If vice versa ,it should increase the transfer fee
 
-<!--- [TBF]
-*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
-```
-**Algorithm**
-
---- Algorithm here---
-```
-
-```
-
-**Pseudocode**
-
---- Psuedocode here---
-
-```
---->
 
 📍 **Conclusion**
  
@@ -464,7 +419,7 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 
 **💡 Blink Taxes** - In Blinkchain taxes are imposed in a transaction level to assist governments to regulate decentralized currency payments. The types of taxes as per now, 1. Gains 2. Layered. Gains tax is taken during appreciation of asset upon spending. Here taxes are only taken during spending of UTXOs. Layered Taxes are Sales taxes during a merchant purchase which directly pays the government, the Sales tax and ease audits onchain immutably.  
 
-*[@jobyreuben](https://www.github.com/jobyreuben) Author Comment*
+*[@jobyreuben](https://www.github.com/jobyreuben)*
 
 - Since, oracle rates and fee rates changes actively, the transactions initial propagated time's (IPT) slot or block height is taken to validate fees and taxes
 - From the initial propagated time oracle rates of the token, transfer fee & gas unit fee is found, as the ledger stores everything on script level.
@@ -496,23 +451,7 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 - Additionally to verify the tax slabs attested in putput UTXOs of the tx for further gains tax, in the ledger during updation of tax slabs, the goverment wallets sign and attest the proof which can provide the tax slab percent. And thus after that is validated along with fees, taxes, the tx is validated as true.
 - During Tx Snip construction, the producer will create new utxos for gains and layered taxes in the last tx of the snip. In the coinbase snip - fee utxos will be created.
 
-<!--- [TBF]
-*[@I-Corinthian](https://github.com/I-Corinthian) Pseudocode Contribution*
 
-```
-**Algorithm**
-
---- Algorithm here---
-```
-
-```
-
-**Pseudocode**
-
---- Psuedocode here---
-
-```
---->
 
 ## Bandwidth Proof Validation
 ### Bandwidth in Bits
@@ -523,23 +462,18 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 
 # Common Snips Construction
 ## Clock Hash-Concate
-CBD
-<!----- [Draft]
-- Running a single thread-hash clock that runs a sha256 hash function repetedly constraint in single thread
-- Any external data or un-confirmed transaction's serialized data will be hashed and concated and again hashed with the pre-images
-- Each hash will be a snip, at minimum
-- First snip's header will be by a random VRF function's Hash. from next snips it will be rehashed to graph the following snips.
---->
 
-## Snip Pre-creation
+**💡 Hash-Clocks** - In every producer node client, in every block, hashes are concated with transactions to cryptographically prove a timestamp. A single threaded hash-clock typically SHA256 function is run continously to attach pre-images, external transactions within the snips.
 
-CBD
+*[@jobyreuben](https://www.github.com/jobyreuben)*
+
+- Continuous SAH256 Hashing from a random VRF number limited to single thread
+- Concate Pre-created Serialized transactions with a pre-image and run hash-clock
+- Bind Pre-image and transactions and propagate as a snip
+- If VRF number is not the first snip's pre-image of concated txs, then add first-preimage with the first snip.
 
 # Collateral Snip Construction
 ## Segregation of Stake UTXOs
-
-CBD
-
 <!----- [Draft]
 - Find stake utxos staked for the public key of the node
 - Add total value of all UTXOs based on token id
@@ -564,6 +498,7 @@ CBD
 - Layered Taxes are done for merchants point of sale taxes which is alos determined by the rest of difference other than the gains and fees. It is send to the payee's government wallet.
 - With validated txs, the last of txs in a snip will have outputs of gains and layered taxes
 --->
+
 # Coinbase Snip Construction
 ## Accepted Token Tx Construction
 <!----- [Draft]
@@ -574,7 +509,7 @@ CBD
 
 # Snips Validation
 ## Snips Graphing & Spacing
-CBD
+
 <!----- [Draft]
 - Actively each snips are graphed and looks for next snip to be graphed, if its delayed by x hashes, the snip is rejected and the kamikaze snip should be added
 - --->
@@ -595,7 +530,7 @@ CBD
 
 # Pruning UTXOs
 ## Expiration \& Fingerprint Replacement
-CBD
+
 <!----- [Draft]
 - Recent 2 epochs should not be pruned
 - Before epochs spent utxos, expired utxos are searched
@@ -605,7 +540,7 @@ CBD
 - Thus whole of epochs can be pruned.
 - --->
 ## Centralized Storage Boilerplate
-CBD
+
 <!----- [Draft]
 - Download from a Node whole history
 - Create additional fingerprints for every utxo, every transaction, to construct proofs
@@ -618,7 +553,7 @@ CBD
 
 # Scripts \& Proofs
 ## Basic Parent-Child
-CBD
+
 <!---
 
 - Parent contract can have another parent, multiple parent
@@ -630,8 +565,18 @@ CBD
 --->
 
 ## Stake UTXO
-CBD
+
 <!----- [Draft]
+
+UTXO 1 - Parent - Conditions and Positions
+
+UTXO 2 - Parent - Moderator
+
+UTXO 3 - Parent - Creator, Asset-id, Limits
+
+UTXO 4 - Child  - Value
+
+
 - Have positions and each position have conditions locked and unlocked
 - Each stake utxo will only accept blinkcoins from public
 - Each stake utxo will have a moderator i.e., the node's public key
@@ -653,13 +598,11 @@ CBD
 ## Wallet-Reg-Rep
 
 # Client-Witness
-CBD
+
 
 
 
 # Opcode Gas Units
-
-## Testing
 
 ## Beta
 
@@ -712,12 +655,16 @@ CBD
 ## Apply for Wallet-Reputation
 
 ## Updating Balances
-CBD
+
 
 ## Constructing Transactions
 
-## Cleint-Witness Signature
+## Client-Witness Signature
 
 ## Propagation to Network
 
-## Delegators Wallet
+## Delegators Wallet 
+
+## Oracle Wallet
+
+## 
