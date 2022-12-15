@@ -1,5 +1,5 @@
 # Blinkchain - Proof of Concept (Yellow-paper)
-**Contributors**: [@jobyreuben](https://www.github.com/jobyreuben),  [@I-Corinthian](https://github.com/I-Corinthian)
+**Contributors**: [Joby Reuben](mailto:joby@blinkchain.org),  [Ajay Joshua](https://github.com/I-Corinthian)
 
 Welcoming contributions from the Core-Team Project Blink
 
@@ -26,12 +26,12 @@ Welcoming contributions from the Core-Team Project Blink
 
 
 # Time Architecture
-*[@jobyreuben](https://www.github.com/jobyreuben)*
+*[Joby Reuben](https://www.github.com/jobyreuben)*
 - Whitepaper Section [2.1], Level : Node
 - The Time Architecture in Blinkchain is segregated into Epoch = 10,000 blocks; Slot = 400 blocks ; Packet = 1 block.
 - These time frames are not correlated to the ledger, as it only knows block heights. It is only taken in the following area
 - Election conducted every epoch (10,000 blocks)
-- Announcing Leaders for every Epochs, Slots and Packets
+- Announcing Leaders for every Packets
 - Taking Variable Data to form constraints in the consensus e.g., Total Volume in an Epoch, Each individual block time in an epoch/slot, etc
 - Cardano, a UTXO based blockchain uses these timeframes, thus it is implemented and running https://developers.cardano.org/docs/stake-pool-course/introduction-to-cardano/#slots-and-epochs
 - Its feasibility is proved with previous implementations and it does not affects or changes consensus protocols. As block heights are only taken for constraints, these time frames - Epoch, Slots and Packets are quasi and can be much more human readable. The alternatives would be reciting all constraints in block heights which cannot be developer friendly. The outcome can be achieved seamlessly.
@@ -69,14 +69,14 @@ Epoch Election conducted every 10,000 blocks (1 Epoch) to announce packet leader
 
 **💡 Bandwidth Proofs** - to be proposed in a new paper "Blink Proofs" will provide a zero knowledge proof to the verfiers (nodes) to calculate its authenticity and ability to contest in the new election to directly influencing to change the block size of the epoch.
 
-*[@jobyreuben](https://www.github.com/jobyreuben)*
+*[Joby Reuben](https://www.github.com/jobyreuben)*
 
 - Whitepaper Section - Nil, Passive Program, Level : Node
 - Bandwidth Proofs in the ledger in a range of block height X to Y (Denoting Slot opening and ending for Arrival of New nodes) are selected and validated to carry on further steps. Since proofs are available directly in the ledger, it is easier to select the proofs. Only recent proofs are taken and the requirement should be fulfilled.
 - The requirement will be published on after every epoch's Vote of Confidence motion.
 - The implementation can be done effectively with optimized language suitable.
 
-*[@I-Corinthian](https://github.com/I-Corinthian)*
+*[Ajay Joshua](https://github.com/I-Corinthian)*
 
 
 ```
@@ -103,7 +103,7 @@ Function Bandwidth_proof_selection (range_begin,range_end) {
 }
 ```
 
-*[@jobyreuben](https://www.github.com/jobyreuben)*
+*[Joby Reuben](https://www.github.com/jobyreuben)*
 
 - For Validation of Proofs, it is found if a proof is valid, passes the criteria
 - The Criteria (Mean Value after VoC Result) is published
@@ -114,7 +114,7 @@ Function Bandwidth_proof_selection (range_begin,range_end) {
 
 ## Node Weight & Total Packets Calculation
 
-*[@jobyreuben](https://www.github.com/jobyreuben)*
+*[Joby Reuben](https://www.github.com/jobyreuben)*
 
 
 - Whitepaper Section 3.2 - 3.2.1, Active, Level: Node
@@ -126,7 +126,7 @@ Function Bandwidth_proof_selection (range_begin,range_end) {
 - If Total packets allocated < 10000, then the remaining packets are allocated to nodes with highest positive weight excluding the bandwidth proof.
 - Challenges will be script development for Node weight snapshot and validation of it, which also can be effectively achieved.
 
-*[@I-Corinthian](https://github.com/I-Corinthian)*
+*[Ajay Joshua](https://github.com/I-Corinthian)*
 
 
 
@@ -183,13 +183,11 @@ End-WHILE
 
 ## Leaders Announcement
 
-*[@jobyreuben](https://www.github.com/jobyreuben)*
+*[Joby Reuben](https://www.github.com/jobyreuben)*
 
 
 - Whitepaper Section 3.2.2 - 3.2.3, Passive, Level: Node
 - Since each node's total packets production rate is achieve for the next epoch, each packet's height has to be determined for which node to produce in a determinable randomized structure. Thus, packet leaders are announced, or determined by each node on the network from only the randomized parameters
-- First Packet shall be produced by the highest number of packet allocated node i.e., the strongest & most honest node
-- Likewise, for every 400 blocks, the strongest of it shall be announced as slot leader, who does not have first packet slot privileges, but assigned to propagate transactions properly.
 - Allocation works like Bitcoin's Difficulty rate and nonce. For each packet a $K$ Output is given in MD160 (Same as PKH address) produced from a Merkle Root of 100 blocks $(R)$ taken in backwards starting from the epoch election commencing block which will be random.
    > $K=MD160(SHA256((SHA256(R))+Packet_n+Slot_n+Epoch_n))$
    > $R=MerkleRoot(Block_{h-100} : Block_h)$
@@ -203,7 +201,7 @@ End-WHILE
    
 ## Block Size \& Time Fixing
 
-*[@jobyreuben](https://www.github.com/jobyreuben)*
+*[Joby Reuben](https://www.github.com/jobyreuben)*
 
 
 - Whitepaper Section (2.3.1, 2.3.4, 2.3.5) , Passive, Level: Node
@@ -223,7 +221,7 @@ End-WHILE
 
 **💡 Vote of Confidence** - To scale the blink-network and avoid latencies due to incompetance to propagate transactions faster, the network decides on a vote to kick un-fit nodes as per its requirement. Vote of Confidence involves selection, voting, and elimination by increasing requirements for kicked nodes to participate in the election as a contestant.
 
-*[@jobyreuben](https://www.github.com/jobyreuben)*
+*[Joby Reuben](https://www.github.com/jobyreuben)*
 
 
 - Whitepaper Section 3.1.2, Active, Level: Node
@@ -236,8 +234,7 @@ End-WHILE
 
 ## VoC Result
 
-*[@jobyreuben](https://www.github.com/jobyreuben)*
-
+*[Joby Reuben](https://www.github.com/jobyreuben)*
 
 - Vote of Confidence result will be calulated at first before the selection of bandwidth proofs. From the Voting commences till the epoch election starts, the producers will be able to post their votes.
 - 51% of the majority as per each public key/ nodes weight of their proofs are taken in need to get eliminated
@@ -249,7 +246,7 @@ End-WHILE
 
 **💡 Escrow Rate** - To restrict spending of blinkcoins, blinkchain's native coin during recessions, bear markets similar to a central bank that icreases borrowing rates to reduce spending. Escrow rates are levied to delegators on their blinkcoins every epoch to retrict certain supply for a fixed amount of period i.e., 500 epochs (5,000,000 blocks) or approx 21 days. This rate is known as SERC (Staking Escrow Rates for Collateral) which will be hiked, lowered according to market conditions determined by the network per epoch.
 
-*[@jobyreuben](https://www.github.com/jobyreuben)*
+*[Joby Reuben](https://www.github.com/jobyreuben)*
 
 
 - Whitepaper 3.3.4, Passive, Level:Node
@@ -260,7 +257,7 @@ End-WHILE
    > $New_{SERC rate} = Current_{SERC rate} + (Pulse Change \times 0.1) \geq 1\%$
 
 
-*[@I-Corinthian](https://github.com/I-Corinthian)*
+*[Ajay Joshua](https://github.com/I-Corinthian)*
 
 
 ```
@@ -296,7 +293,7 @@ function Set_EscrowRate()
 
 ## Token Collateral Requirement
 
-*[@jobyreuben](https://www.github.com/jobyreuben)*
+*[Joby Reuben](https://www.github.com/jobyreuben)*
 
 - Whitepaper 3.3.3, Passive, Level: Node
 - Every token will have different requirement in oracle rate that is to be collaterilzed per block
@@ -308,7 +305,7 @@ function Set_EscrowRate()
 - The total oracle value of all transaction's outputs are summed up for a block and every block's median is taken.
 - The Median value is the staking requirement, along with it the escrow rate is added. During validation, for a token to be authorized inside a block, it should have more than the minimum requirement, including the escrow utxos.
 
-*[@I-Corinthian](https://github.com/I-Corinthian)*
+*[Ajay Joshua](https://github.com/I-Corinthian)*
 
 
 ```
@@ -369,13 +366,13 @@ function Set_CollateralRequirement()
 
 **💡 Wink** - The smallest denomination of a token, similar to sats in Bitcoin to avoid decimal places and carry on with integer values. 1 wink = $10^{-8}$ Token ; 1 Token = $10^8$ Token winks. For e.g., 1 ETH = 100000000 ETH winks in Blinkchain. Every asset value, oracle rate, fees will be given in winks all over blinkchain's constraints.
 
-*[@jobyreuben](https://www.github.com/jobyreuben)*
+*[Joby Reuben](https://www.github.com/jobyreuben)*
 
 - In the first year the gas fee per unit is set at $0.0001 = 10000 winks. Transfer fee ranges from min 0.005% and max at 0.05% 
 - For every 8500 epoch all the votes are submitted along with bandwidth proof and its average value is taken as the increase in gas fee per unit.
 - During genesis epochs (n-2),(n-1),(n), the transfer fee is set at 0.05%, from n+1 epoch the transfer fee is calculated
 - Transfer Fee is based on total volume per epoch in oracle rate, where each epoch's utxo output's initial oracle value is summed. Such that n-2 & n-1 epoch's total volume in oracle rate taken to decide to change transfer fee for the n+1 epoch.
-- Standard Deviation of n-2, n-1 epoch's total volume in oracle rate taken, if SD < 0.75 transfer fee doesn't change, if SD > 0.75 then it is decided to calculate change percentage.
+- Standard Deviation of n-2, n-1 epoch's total volume in oracle rate taken, if Current Resarch (CR) < 0.75 transfer fee doesn't change, if Current Resarch (CR) > 0.75 then it is decided to calculate change percentage.
 - Each change only either +0.0005 or -0.0005, if If Volume of n-2 < Volume of n-1 then there is higher volume of transactions requiring to lower the transfer fee. If vice versa ,it should increase the transfer fee
 
 📍 **Conclusion**
@@ -383,22 +380,40 @@ function Set_CollateralRequirement()
 Thus, the packet leaders i.e., block producers are assigned randomly according to their weights and bandwidth. Block size and time for the upcoming epoch is published i.e., determined by the network itself on parameters. For the next election, from the VoC votes, requirement (difficulty rate) to join the network will increase thereby increasing the scalability and faster propagation proportionally with stronger nodes for high-throughput blinkchain. The collateral requirement with Staking interest rates are published for further validation with increasing value of each blinkcoin of holders, delegators and investors. Each epoch's Transfer fee and Gas fee per unit is assigned and for every 8500 epochs the gas fee is put on to vote to increase as per CPI.
 
 
-# Slot Update
+# Active Updates
 ## Oracle Rate of Tokens
+## Client Reputations
+## Oracle Reputations
+## Epoch Transfer Fees
+## Gas Unit Fee
+## Node Weight
+## Global & Local Mempool
+## Tax Slab Change
+## Vanity Addition/Change
 
 
 # Transaction Validation
+These validations are done when transactions arrive in Local-Mempool waiting to be binded in the next block the producer mints.
 ## Client-Witness & Vanity Validation
-<!----- [Draft]
-- Check if witness signature is attested for every transaction. Witness would be a public key signing the signed transaction of the owners
-- Vanity would be checking list of vanity address approved by the node - in consensus
-- --->
+**💡 Blink Clients** In Blinkchain, to enforce decentralized regulation and proper taxation, in chain level, it will not be advised to store regional verification, tax slabs, etc. To avoid various scalability issues, Blinkchain offloads verification to Client Wallets. Each wallet client have to sign their users transactions to identify themselves. Clients are responsible for fact-checking regionality, type, etc whereas Blinkchain only approves on Client's reputation. There'll be dishonesty approaches on data, tax evasion, these clients reputations are maintained similar to a Oracle Reputation discussed in Oracle section of Whitepaper. Thus when a client looses it's reputation it looses its authority to its user transactions. Users can move to different platforms with their private keys which are reputable. Hence, only reputable client wallet's transactions only will be accepted on chain. These wallets can add tax_slab (gains tax only) validated by producers for every transaction, while the government can look for client's malpractice in the public ledger. Thus, Blinkchain acts as a settlement layer and provides flexibility to governments to regulate client wallet applications.
+
+**💡 Vanity Addresses** In Blinkchain, to identify a regional and type of wallet, the nodes require vanity prefixes that will be predefined and whitelisted denoting each country. Each country will be added upon a proposal that will require selected bandwidth proof owners of the running epoch to sign and publish the transaction which will add new vanity representing its government's wallet address and tax slab (gains tax only) for the prefix. This sign shall include the government wallet id and the DAO's signature.
+
+*[Joby Reuben](https://www.github.com/jobyreuben)*
+
+- Check if witness signature is attested for the transaction. Witness would be a public key signing the signed transaction of the owners
+- Validate from the reputation approved Client's Public Keys 
+- Reconstruct the Public Key Hash - Base58 Hash
+- Identify the Vanity Pattern
+- Vanity would be checking list of approved vanity addresses
+- Check for the Vanity's Tax slab
+
 
 ## Fee & Tax Validation
 
 **💡 Blink Taxes** - In Blinkchain taxes are imposed in a transaction level to assist governments to regulate decentralized currency payments. The types of taxes as per now, 1. Gains 2. Layered. Gains tax is taken during appreciation of asset upon spending. Here taxes are only taken during spending of UTXOs. Layered Taxes are Sales taxes during a merchant purchase which directly pays the government, the Sales tax and ease audits onchain immutably.  
 
-*[@jobyreuben](https://www.github.com/jobyreuben)*
+*[Joby Reuben](https://www.github.com/jobyreuben)*
 
 - Since, oracle rates and fee rates changes actively, the transactions initial propagated time's (IPT) slot or block height is taken to validate fees and taxes
 - From the initial propagated time oracle rates of the token, transfer fee & gas unit fee is found, as the ledger stores everything on script level.
@@ -409,12 +424,13 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 - In Inputs of the transaction, addition to UTXO's index, script, every UTXO will have a tax-slab & an exchange rate attested to it found in the inputs. 
   
 ```
-" asset - id " : 0
+" asset - id " : xxxxxx
 {
-" value " : 8000000 ,         // 0.08 Blinkcoins
-" script " : " OP_DUP .... 76 a9148c7e252 ... OP_CHECKSIG " ,
-" exchange_rate " : 10 ,     // if 1 BLINK wink = 10 USD wink
-" tax_slab " : 1525 ,       // if 15.25 percent is tax cut (10^2)
+"value" : 8000000 ,         // 0.08 Blinkcoins
+"script" : " OP_DUP .... 76 a9148c7e252 ... OP_CHECKSIG " ,
+"exchange_rate" : 10 ,     // if 1 BLINK wink = 10 UCurrent Resarch (CR) wink
+"tax_slab" : 1525 ,        // if 15.25 percent is tax cut (10^2)
+"expiry" : 45000000
 },
 ]}
 ```
@@ -426,18 +442,26 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 - All of UTXOs as output values and its fees specific to it along with the gains taxes calculated from the inputs of the tx is summed up and the difference is found with Total input value. The difference that is unallocated, unaudited is Layered Tax.
 - Since Layered taxes has different slabs/categories/models it is best to avoid it onchain and offload to client applications to construct layered taxes in difference outputs.
    > $LayeredTax=Input - (Output + \sum (GasFee + Transfer Fee + Gains Tax))$
-- If the provided Tx Difference > (Gas Fee + Transfer Fee + Gains Tax), it is passed for next validation.
-- Additionally to verify the tax slabs attested in putput UTXOs of the tx for further gains tax, in the ledger during updation of tax slabs, the goverment wallets sign and attest the proof which can provide the tax slab percent. And thus after that is validated along with fees, taxes, the tx is validated as true.
-- During Tx Snip construction, the producer will create new utxos for gains and layered taxes in the last tx of the snip. In the coinbase snip - fee utxos will be created.
+- If the provided Tx Difference > (Gas Fee + Transfer Fee + Gains Tax), it is verified.
 
+## Exchange Rate Validation
+To be written (TBW)
+## Expiry Validation
+- Minimum should be 10000000 blocks
+## Pre-snip Creation
 
 
 # Snips Construction
+## Snip Headers
+- Each snip will have a header hash, which will be hepful in identifying, graphing other snips as a block
+- First snip should be SHA256 hash of a random number (VRF)
+- Following snips header hashes should continuous hashes of the first hash
+
 ## Clock Hash-Concate
 
 **💡 Hash-Clocks** - In every producer node client, in every block, hashes are concated with transactions to cryptographically prove a timestamp. A single threaded hash-clock typically SHA256 function is run continously to attach pre-images, external transactions within the snips.
 
-*[@jobyreuben](https://www.github.com/jobyreuben)*
+*[Joby Reuben](https://www.github.com/jobyreuben)*
 
 - Continuous SAH256 Hashing from a random VRF number limited to single thread
 - Concate Pre-created Serialized transactions with a pre-image and run hash-clock
@@ -445,7 +469,7 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 - If VRF number is not the first snip's pre-image of concated txs, then add first-preimage with the first snip.
 
 ## Collateral Snip
-
+To be written (TBW)
 <!----- [Draft]
 - Find stake utxos staked for the public key of the node
 - Add total value of all UTXOs based on token id
@@ -479,28 +503,33 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 
 # Snips Validation
 ## Snips Graphing & Spacing
-
+To be written (TBW)
 <!----- [Draft]
 - Actively each snips are graphed and looks for next snip to be graphed, if its delayed by x hashes, the snip is rejected and the kamikaze snip should be added
 - --->
-## Colalteral Snip
-<!----- [Draft]
-- after each poistion update is executed, nodes should identify the collaterilzed tokens. If any other tokens are added to further snips, it is rejected immediately
-- --->
-## Tx & Tax Validation
-<!----- [Draft]
-- Find if Difference is only leaved in fees, and the tax outputs are given in last transactions - gains and layered taxes
-- --->
-## Coinbase Verification
-<!----- [Draft]
-- Fee outputs are calculated, poistion update, etc
-- --->
-## Kamikaze Proof
+## Snip Order
+- Snips should be ordered in the exact way
+  1. Collateral Snip (Stake UTXO to Collateral UTXO only)
+  2. Transaction Snips 
+  3. Coinbase Snip (Collateral UTXO to Payback UTXO only)
+## Tax Verification
+To be written (TBW)
+## Fee Verification
+To be written (TBW)
 
 
 # Pruning UTXOs
-## Expiration \& Fingerprint Replacement
+## Rent Rates Fixing 
+**💡 Blink Rent** - In Blinkchain UTXOs are rented and not permenantly stored, when it is expired, it is replaced by its fingerprint for which to recover the owner needs to pay a penalty fee along with a proof-of-ownership. Rent time is decided by the transaction fee paid to the network for the specific UTXO since blinkchain imposes fees on individual new output UTXOs created. For each epoch producers vote on their fee per byte per 1000 epochs (approx 41 days), and the maximum fee would be the gas fee paid for P2PKH script in per byte. Every votes are taken and its median is found per epoch and the Rent rate is decided. For users benefits, rates should be cheaper for maximum adoption. As per current centralized storage rate it is $0.0000000002 per byte per year, from this a suitable rent should be fixed in UCurrent Resarch (CR) winks e.g., 1 UCurrent Resarch (CR) wink per byte per 1000 epochs.
 
+To be written (TBW)
+
+- Byte Fee per 1000 epochs - 10,000,000 blocks
+- From bandwidth proof calculate
+- If rate > maximum then set maximum, else set what median
+- 
+## Expiration \& Fingerprint Replacement
+To be written (TBW)
 <!----- [Draft]
 - Recent 2 epochs should not be pruned
 - Before epochs spent utxos, expired utxos are searched
@@ -515,10 +544,6 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 - Download from a Node whole history
 - Create additional fingerprints for every utxo, every transaction, to construct proofs
 - Have third party verifiers for verification of proof for fact checking
-- --->
-## Recovery Proof
-<!----- [Draft]
-- Proof construction from centralized storage with pre-image script to execute and verify and create a new utxo with updated renting time
 - --->
 
 # Scripts \& Proofs
@@ -560,26 +585,35 @@ UTXO 4 - Child  - Value
 - For un-accpeted token, the moderator can create lp tokens without deposit, but with constraints on how much he can create.
 --->
 ## Oracle Data UTXO
+
 ## Oracle Fund UTXO
+
 ## Oracle Reputation UTXO
+
 ## Bandwidth Proof
-- Node Weight Snapshot
-- Gas Vote
-- VoC Vote
+- Node Weight Snapshot (Epoch)
+- Gas Vote (8500 Epoch)
+- VoC Vote (Epoch)
+- Rent Rate (Epoch)
 ## IHR Proof
 ## Kamikaze Proof
+- Null Packet
+- Timeout
+- Denial of Transaction Attack
+- Queue Cutting Attack
 ## Wallet-Reputation Proof
+## Expiry Recovery Proof
+## Vanity Addition/Change
 
+# Opcodes & Gas Units
 
-# Opcode Gas Units
-
-## Beta
-
-## Alpha
 
 
 # Messaging Protocol
+## Basic Origin - Destination
 ## Fresh Tx Propagation
+- Tx Routing
+- 
 <!---
 - For direct messaging, lightning hop is used
 - until the message is received on the end, it is encrypted
@@ -595,17 +629,19 @@ UTXO 4 - Child  - Value
 - It is similar to lightning network propagation
 - It provides the slot which the transaction is propagated, and it takes the fees and oracle rates from it for tax and fee validation.
 - -->
-## Leader Segregation & Propagation
-## Distributed Rumouring 
-
+## Snip Propagation
 
 # Client Wallet
-## Apply for Wallet-Reputation
+
 ## Updating Balances
 ## Constructing Transactions
+- Layered TX
+- Basic Tx (Gains+fee difference)
 ## Client-Witness Signature
 ## Propagation to Network
-## Delegators Wallet 
-## Oracle Wallet
+
+# Delegator's Wallet
+
+# Oracle Wallet
 
 
