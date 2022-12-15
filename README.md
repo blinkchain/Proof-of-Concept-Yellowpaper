@@ -375,9 +375,18 @@ function Set_CollateralRequirement()
 - Standard Deviation of n-2, n-1 epoch's total volume in oracle rate taken, if Current Resarch (CR) < 0.75 transfer fee doesn't change, if Current Resarch (CR) > 0.75 then it is decided to calculate change percentage.
 - Each change only either +0.0005 or -0.0005, if If Volume of n-2 < Volume of n-1 then there is higher volume of transactions requiring to lower the transfer fee. If vice versa ,it should increase the transfer fee
 
+## Rent Rates Fixing 
+**💡 Blink Rent** - In Blinkchain UTXOs are rented and not permenantly stored, when it is expired, it is replaced by its fingerprint for which to recover the owner needs to pay a penalty fee along with a proof-of-ownership. Rent time is decided by the transaction fee paid to the network for the specific UTXO since blinkchain imposes fees on individual new output UTXOs created. For each epoch producers vote on their fee per byte per 1000 epochs (approx 41 days), and the maximum fee would be the gas fee paid for P2PKH script in per byte. Every votes are taken and its median is found per epoch and the Rent rate is decided. For users benefits, rates should be cheaper for maximum adoption. As per current centralized storage rate it is $0.0000000002 per byte per year, from this a suitable rent should be fixed in UCurrent Resarch (CR) winks e.g., 1 UCurrent Resarch (CR) wink per byte per 1000 epochs.
+
+*[Joby Reuben](https://www.github.com/jobyreuben)*
+
+- From Selected Bandwidth Proofs take Rent rates in USD winks (Oracle rate)
+- Find median and set as the rate per byte per 1000 epochs. 
+- For the given byte of script, the total blocks lifetime will be find out for every UTXO script. 
+
 📍 **Conclusion**
  
-Thus, the packet leaders i.e., block producers are assigned randomly according to their weights and bandwidth. Block size and time for the upcoming epoch is published i.e., determined by the network itself on parameters. For the next election, from the VoC votes, requirement (difficulty rate) to join the network will increase thereby increasing the scalability and faster propagation proportionally with stronger nodes for high-throughput blinkchain. The collateral requirement with Staking interest rates are published for further validation with increasing value of each blinkcoin of holders, delegators and investors. Each epoch's Transfer fee and Gas fee per unit is assigned and for every 8500 epochs the gas fee is put on to vote to increase as per CPI.
+Thus, the packet leaders i.e., block producers are assigned randomly according to their weights and bandwidth. Block size and time for the upcoming epoch is published i.e., determined by the network itself on parameters. For the next election, from the VoC votes, requirement (difficulty rate) to join the network will increase thereby increasing the scalability and faster propagation proportionally with stronger nodes for high-throughput blinkchain. The collateral requirement with Staking interest rates are published for further validation with increasing value of each blinkcoin of holders, delegators and investors. Each epoch's Transfer fee and Gas fee per unit is assigned and for every 8500 epochs the gas fee is put on to vote to increase as per CPI. The Rent rates are also fixed for the epoch taking rent positions from the producers.
 
 
 # Active Updates
@@ -395,7 +404,7 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 # Transaction Validation
 These validations are done when transactions arrive in Local-Mempool waiting to be binded in the next block the producer mints.
 ## Client-Witness & Vanity Validation
-**💡 Blink Clients** In Blinkchain, to enforce decentralized regulation and proper taxation, in chain level, it will not be advised to store regional verification, tax slabs, etc. To avoid various scalability issues, Blinkchain offloads verification to Client Wallets. Each wallet client have to sign their users transactions to identify themselves. Clients are responsible for fact-checking regionality, type, etc whereas Blinkchain only approves on Client's reputation. There'll be dishonesty approaches on data, tax evasion, these clients reputations are maintained similar to a Oracle Reputation discussed in Oracle section of Whitepaper. Thus when a client looses it's reputation it looses its authority to its user transactions. Users can move to different platforms with their private keys which are reputable. Hence, only reputable client wallet's transactions only will be accepted on chain. These wallets can add tax_slab (gains tax only) validated by producers for every transaction, while the government can look for client's malpractice in the public ledger. Thus, Blinkchain acts as a settlement layer and provides flexibility to governments to regulate client wallet applications.
+**💡 Blink Clients** In Blinkchain, to enforce decentralized regulation and proper taxation, in chain level, it will not be advised to store regional verification etc. To avoid various scalability issues, Blinkchain offloads verification to Client Wallets. Each wallet client have to sign their users transactions to identify themselves. Clients are responsible for fact-checking regionality, type, etc whereas Blinkchain only approves on Client's reputation. There'll be dishonesty approaches on data, tax evasion, these clients reputations are maintained similar to a Oracle Reputation discussed in Oracle section of Whitepaper. Thus when a client looses it's reputation it looses its authority to its user transactions. Users can move to different platforms with their private keys which are reputable. Hence, only reputable client wallet's transactions only will be accepted on chain. These wallets can add tax_slab (gains tax only) validated by producers for every transaction, while the government can look for client's malpractice in the public ledger. Thus, Blinkchain acts as a settlement layer and provides flexibility to governments to regulate client wallet applications.
 
 **💡 Vanity Addresses** In Blinkchain, to identify a regional and type of wallet, the nodes require vanity prefixes that will be predefined and whitelisted denoting each country. Each country will be added upon a proposal that will require selected bandwidth proof owners of the running epoch to sign and publish the transaction which will add new vanity representing its government's wallet address and tax slab (gains tax only) for the prefix. This sign shall include the government wallet id and the DAO's signature.
 
@@ -445,14 +454,33 @@ These validations are done when transactions arrive in Local-Mempool waiting to 
 - If the provided Tx Difference > (Gas Fee + Transfer Fee + Gains Tax), it is verified.
 
 ## Exchange Rate Validation
-To be written (TBW)
+
+*[Joby Reuben](https://www.github.com/jobyreuben)*
+
+- Exchange rate is a variable written to every UTXO in transaction level (not embedded in script). Hence it is validated by nodes and rejected upon.
+- Each transaction will have a point of propagation - time of creation of transaction by a producer node.
+- Since oracle rates differ for every slots, it is not static and bitcoin UTXO model doesn't updates similar to Ethereum.
+- Hence the block's height of point of propagation or initial propagation block height is taken, compared with it's slot's exchange rate for the token.
+- Each node will save history of exchange rate which can be computed by the data available in the ledger.
+- If its exactly the same it is validated as true
+  > $UTXO_n(ExchangeRate) = Slot(ExchangeRate(BlockHeight_{PoP}))$
 ## Expiry Validation
-- Minimum should be 10000000 blocks
+
+*[Joby Reuben](https://www.github.com/jobyreuben)*
+
+- Each UTXOs minimum expiry should be 10000000 represented in block height
+  > $Expiry=Block_n(Tx)+expiry= n +K \geq 10000000$
+- The total byte of a UTXO calculated from its sum of opcodes or bytecodes
+- Each Bytes rate per 10000000 blocks are set per epoch, and are taken to find per UTXO expiry
+
 ## Pre-snip Creation
 
 
 # Snips Construction
 ## Snip Headers
+
+*[Joby Reuben](https://www.github.com/jobyreuben)*
+
 - Each snip will have a header hash, which will be hepful in identifying, graphing other snips as a block
 - First snip should be SHA256 hash of a random number (VRF)
 - Following snips header hashes should continuous hashes of the first hash
@@ -469,14 +497,14 @@ To be written (TBW)
 - If VRF number is not the first snip's pre-image of concated txs, then add first-preimage with the first snip.
 
 ## Collateral Snip
-To be written (TBW)
-<!----- [Draft]
-- Find stake utxos staked for the public key of the node
-- Add total value of all UTXOs based on token id
-- If Requirement in oracle value < Token ID sum in oracle value
-- then take select stake utxos that will be near to requirement
-- It notes authorized tokens
-- --->
+
+*[Joby Reuben](https://www.github.com/jobyreuben)*
+
+- Find State UTXOs with Values staked for the producer node of the epoch
+- Segregate Stake UTXOs based on asset-ids and find if it satisfies the requirement in oracle rate of current slot.
+- If requirement is passed, only take Stake UTXOs near to the requirement.
+- If requirement is not passed, ignore the Stake UTXOs of the asset-ids
+
 <!----- [Draft]
 - Position Update of Stake UTXOs
 --->
@@ -503,10 +531,14 @@ To be written (TBW)
 
 # Snips Validation
 ## Snips Graphing & Spacing
-To be written (TBW)
-<!----- [Draft]
-- Actively each snips are graphed and looks for next snip to be graphed, if its delayed by x hashes, the snip is rejected and the kamikaze snip should be added
-- --->
+
+*[Joby Reuben](https://www.github.com/jobyreuben)*
+
+- From the first snip (collateral snip), find the header hash and produce continuos hashes
+- Find if any snips contain the images of hashes produced and graph it
+- From the first snip begin the time-clock and reject further snips if the published per epoch block-time is over
+- Add Produced Kamikaze proof for the block and attest to the chain
+
 ## Snip Order
 - Snips should be ordered in the exact way
   1. Collateral Snip (Stake UTXO to Collateral UTXO only)
@@ -519,16 +551,8 @@ To be written (TBW)
 
 
 # Pruning UTXOs
-## Rent Rates Fixing 
-**💡 Blink Rent** - In Blinkchain UTXOs are rented and not permenantly stored, when it is expired, it is replaced by its fingerprint for which to recover the owner needs to pay a penalty fee along with a proof-of-ownership. Rent time is decided by the transaction fee paid to the network for the specific UTXO since blinkchain imposes fees on individual new output UTXOs created. For each epoch producers vote on their fee per byte per 1000 epochs (approx 41 days), and the maximum fee would be the gas fee paid for P2PKH script in per byte. Every votes are taken and its median is found per epoch and the Rent rate is decided. For users benefits, rates should be cheaper for maximum adoption. As per current centralized storage rate it is $0.0000000002 per byte per year, from this a suitable rent should be fixed in UCurrent Resarch (CR) winks e.g., 1 UCurrent Resarch (CR) wink per byte per 1000 epochs.
-
-To be written (TBW)
-
-- Byte Fee per 1000 epochs - 10,000,000 blocks
-- From bandwidth proof calculate
-- If rate > maximum then set maximum, else set what median
 - 
-## Expiration \& Fingerprint Replacement
+## Fingerprint Replacement
 To be written (TBW)
 <!----- [Draft]
 - Recent 2 epochs should not be pruned
@@ -538,13 +562,8 @@ To be written (TBW)
 - When 16 transactions are pruned completely it is replaced by a node hash
 - Thus whole of epochs can be pruned.
 - --->
-## Centralized Storage Boilerplate
 
-<!----- [Draft]
-- Download from a Node whole history
-- Create additional fingerprints for every utxo, every transaction, to construct proofs
-- Have third party verifiers for verification of proof for fact checking
-- --->
+
 
 # Scripts \& Proofs
 ## Basic Parent-Child
@@ -605,7 +624,12 @@ UTXO 4 - Child  - Value
 ## Expiry Recovery Proof
 ## Vanity Addition/Change
 
-# Opcodes & Gas Units
+# Opcodes
+
+## Gas Units Mapping
+
+## DELEGATECALL OP_CODE
+
 
 
 
@@ -639,6 +663,8 @@ UTXO 4 - Child  - Value
 - Basic Tx (Gains+fee difference)
 ## Client-Witness Signature
 ## Propagation to Network
+
+# Centralized Immutable Storage
 
 # Delegator's Wallet
 
