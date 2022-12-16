@@ -9,6 +9,66 @@ Welcoming contributions from the Core-Team Project Blink
 - For visual learning find YouTube *Short Explanation Series* [here](https://www.youtube.com/playlist?list=PL5herZ3QXwNPYSsYDXTTTMao0LtyJj-2R)
 - [Not Updated] Download *Development Map* PDF [here](https://blinkchain.org/map.pdf)
 
+## Development
+
+1. **Node Level**
+   1. Epoch Election
+      - Removing Proof of Work
+      - Announcing Specific Block Height Producers
+   2. Transaction Validation
+      - Pre-Validation upon arrival on Mempool
+      - Grouping Transactions into Bundles as Pre-snips
+   3. Snips Construction
+      - Hash-clocks Running & concatenating
+      - Active construction of collateral snip
+      - Attaching Pre-snips bundles as per snip rules and order
+      - Construction of Coinbase snip
+   4. Other Active Programs
+      - Per Token Oracle Rate
+      - Client Reputations
+      - Oracle Reputations
+      - Node Weights
+      - Vanity Additions and Change
+   5. Snips Validation
+      - Snip Pool graphing, Validation of Tx, Tax, Fees.
+      - Snip Consensus rules validation
+      - Approval/Rejection of Snips based on Block-time
+      - Attesting Kamikaze Proof
+   6. Pruning
+      - Creation of Local Chain Branches
+      - Updating Expired, Spent UTXOs with Fingerprints
+      - Merkle Chain construction
+   7. Messaging Protocol 
+      - Removing current Gossip Protocol
+      - Beeline-Gossip Protocol Update 
+      - Origin-Destination Path with Onion Proofs for Type of Data e.g., Snip, Un-confirmed Tx, etc
+   8.  OP_CODES
+       - Mapping Bitcoin Script OP_CODES with Units
+       - Creating new opcodes 1. DELEGATE CALL  
+2. **Script Level**
+   1. UTXO Scripts
+      1. Stake UTXO
+      2. Oracle UTXOs - Data, Fund, Reputation
+      3. Client-Reputation UTXO
+      4. Vanity Add/Change UTXO
+   2. UTXO Proofs
+      1. Bandwidth Proof
+         - Includes Bandwidth, Node weight,  Gas vote, VoC vote, Rent Rate 
+      2. IHR Proof
+      3. Kamikaze Proof
+         - Null Packet, Timeout, Denial of Transaction Attack, Queue Cutting Attack, Un-Authorized Token, Bad Tx, etc. 
+3. **Client Level**
+   1. Wallet Client
+      - Updating Balances actively subtracting taxes
+      - Construction with Fees, Taxes difference per output
+      - Fetch Layered Tax, Target Region and transaction construction
+      - Client Witness, Target Block, Fall-back Block Heights, Path construction from Node.
+   2. Delegation Client
+   3. Oracle Client
+   4. Archive Client
+      - Centralized Node Storage with built in APIs to read Blinkchain History with verification from producer nodes 
+
+
 
 # Objectives
 1. Whitepaper Section, Passive or Active Program \& Level
@@ -393,20 +453,16 @@ Thus, the packet leaders i.e., block producers are assigned randomly according t
 ## Oracle Rate of Tokens
 ## Client Reputations
 ## Oracle Reputations
-## Epoch Transfer Fees
-## Gas Unit Fee
 ## Node Weight
-## Global & Local Mempool
-## Tax Slab Change
 ## Vanity Addition/Change
 
 
-# Transaction Validation
+# Transaction Validation (Local Mempool)
 These validations are done when transactions arrive in Local-Mempool waiting to be binded in the next block the producer mints.
 ## Client-Witness & Vanity Validation
-**💡 Blink Clients** In Blinkchain, to enforce decentralized regulation and proper taxation, in chain level, it will not be advised to store regional verification etc. To avoid various scalability issues, Blinkchain offloads verification to Client Wallets. Each wallet client have to sign their users transactions to identify themselves. Clients are responsible for fact-checking regionality, type, etc whereas Blinkchain only approves on Client's reputation. There'll be dishonesty approaches on data, tax evasion, these clients reputations are maintained similar to a Oracle Reputation discussed in Oracle section of Whitepaper. Thus when a client looses it's reputation it looses its authority to its user transactions. Users can move to different platforms with their private keys which are reputable. Hence, only reputable client wallet's transactions only will be accepted on chain. These wallets can add tax_slab (gains tax only) validated by producers for every transaction, while the government can look for client's malpractice in the public ledger. Thus, Blinkchain acts as a settlement layer and provides flexibility to governments to regulate client wallet applications.
+**💡 Blink Clients** In Blinkchain, to enforce decentralized regulation and proper taxation, in chain level, it will not be advised to store regional verification, tax_slabs etc. To avoid various scalability issues, Blinkchain offloads verification to Client Wallets. Each wallet client have to sign their users transactions to identify themselves. Clients are responsible for fact-checking regionality, type, etc whereas Blinkchain only approves on Client's reputation. There'll be dishonesty approaches on data, tax evasion, these clients reputations are maintained similar to a Oracle Reputation discussed in Oracle section of Whitepaper. Thus when a client looses it's reputation it looses its authority to its user transactions. Users can move to different platforms with their private keys which are reputable. Hence, only reputable client wallet's transactions only will be accepted on chain. These wallets can add tax_slab (gains tax only) for every transaction, while the government can look for client's malpractice in the public ledger when adding faulty tax-slabs. Thus, Blinkchain acts as a settlement layer and provides flexibility to governments to regulate client wallet applications.
 
-**💡 Vanity Addresses** In Blinkchain, to identify a regional and type of wallet, the nodes require vanity prefixes that will be predefined and whitelisted denoting each country. Each country will be added upon a proposal that will require selected bandwidth proof owners of the running epoch to sign and publish the transaction which will add new vanity representing its government's wallet address and tax slab (gains tax only) for the prefix. This sign shall include the government wallet id and the DAO's signature.
+**💡 Vanity Addresses** In Blinkchain, to identify a regional and type of wallet, the nodes require vanity prefixes that will be predefined and whitelisted denoting each country. Each country will be added upon a proposal that will require selected bandwidth proof owners of the running epoch to sign and publish the transaction which will add new vanity representing its government's wallet address on the prefix. This sign shall include the government wallet id and the DAO's signature.
 
 *[Joby Reuben](https://www.github.com/jobyreuben)*
 
@@ -415,7 +471,6 @@ These validations are done when transactions arrive in Local-Mempool waiting to 
 - Reconstruct the Public Key Hash - Base58 Hash
 - Identify the Vanity Pattern
 - Vanity would be checking list of approved vanity addresses
-- Check for the Vanity's Tax slab
 
 
 ## Fee & Tax Validation
@@ -453,6 +508,7 @@ These validations are done when transactions arrive in Local-Mempool waiting to 
    > $LayeredTax=Input - (Output + \sum (GasFee + Transfer Fee + Gains Tax))$
 - If the provided Tx Difference > (Gas Fee + Transfer Fee + Gains Tax), it is verified.
 
+
 ## Exchange Rate Validation
 
 *[Joby Reuben](https://www.github.com/jobyreuben)*
@@ -474,6 +530,11 @@ These validations are done when transactions arrive in Local-Mempool waiting to 
 - Each Bytes rate per 10000000 blocks are set per epoch, and are taken to find per UTXO expiry
 
 ## Pre-snip Creation
+- Based on next epoch's block size and time actively from VOC result
+- Find next epoch's requirement actively alculating requirement per tokena and by maintaing each token's funded stake UTXOs
+- Bundling Transactions Based on FIFO
+- Transactions removal of specific tokens from bundles if requirement is not met before target block
+- Keeping all bundles less than the block size max.
 
 
 # Snips Construction
@@ -603,6 +664,7 @@ UTXO 4 - Child  - Value
 - If moderator and creator == same, then it is an accepetd token, but if its not same it is a un-accepted token.
 - For un-accpeted token, the moderator can create lp tokens without deposit, but with constraints on how much he can create.
 --->
+
 ## Oracle Data UTXO
 
 ## Oracle Fund UTXO
@@ -655,19 +717,19 @@ UTXO 4 - Child  - Value
 - -->
 ## Snip Propagation
 
-# Client Wallet
+# Clients
 
-## Updating Balances
-## Constructing Transactions
+## Wallet Client
+
+### Updating Balances
+### Constructing Transactions
 - Layered TX
 - Basic Tx (Gains+fee difference)
-## Client-Witness Signature
-## Propagation to Network
+### Client-Witness Signature
+### Propagation to Network
 
-# Centralized Immutable Storage
-
-# Delegator's Wallet
-
-# Oracle Wallet
+## Delegator Client
+## Oracle Client
+## Archive Client
 
 
