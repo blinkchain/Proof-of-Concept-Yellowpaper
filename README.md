@@ -275,6 +275,48 @@ End-WHILE
    > $Epoch_n(BlockSize)=BlockMaxSize_{bits}/sec \times BlinkTime$ 
 -  Note : Per second in Blinkchain is 1 Legate = Legacy Hardware Single Thread H/s. Hence, Block Time in seconds denotes legates i.e., 1 sec = 1 legate. 
 
+*[Ajay Joshua](https://github.com/I-Corinthian)*
+
+
+```
+//This program will be used to generate a Json file with next Epochs Block size
+//Find the next Epochs per block size
+
+
+//For the understaning of the Devlopers the nameing of the Epoch Json file is done by 
+     n  - represents the current Epoch 
+     n1 - represents the next Epoch to be produced
+     pn - represents the previous Epoch
+     pn2- represents teh n-2th Epoch
+
+//Blockreq_Json is the json file with all the block req For every epoch
+//Bandwidthproofs_json is the json file with only the info of the verified bandwidth proofs
+//n epoch_Json is the json file of the current Epoch or the lastly produced Epoch
+//pn epoch_Json is the json file of the previous epoch
+
+
+function Median(epoch)
+{
+    Epoch<---epoch
+    sorted(Epoch[blocktime]) sorting Epoch in assending order of blocktime
+    return Epoch[blocktime] in position  position len(Epoch)/2
+}
+
+
+function Set_BlockSize(n,pn)
+{
+    Data<---Bandwidthproff_Json
+    Epoch_n<---read(n+"epoch_Json")
+    Epoch_pn<---read(pn+"epoch_Json")
+    Blockreq<---Blockreq_Json
+    max_size = min(Data[bandwidth]) min of bandwidth
+    Epoch_blocktime = Median(Epoch_pn)
+    block_size = max_size * Epoch_blocktime
+    Write block_size in Blockreq[block_size]
+    Write Epoch_blocktime in Blockreq[Epoch_blocktime]
+}
+```
+
 
 
 ## Vote of Confidence
